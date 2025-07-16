@@ -1,0 +1,18 @@
+{
+  "channel": "#NebulaLounge",
+  "server": "irc.simosnap.org",
+  "registeredNicks": [
+    "Nebula",
+    "Valerio",
+    "Luna",
+    "Stella"
+  ],
+  "blacklist": [
+    "razzismo",
+    "offesa",
+    "spam",
+    "volgarità",
+    "troll"
+  ],
+  "welcomeMessage": "🚀 Benvenuto nella NebulaLounge! Lasciati ispirare."
+}
