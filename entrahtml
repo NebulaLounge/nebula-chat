@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entra nella NebulaLounge</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #003374, #001f4d);
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      color: #003374;
+    }
+
+    .header {
+      background-color: #003374;
+      color: #ffffff;
+      padding: 12px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .header-title {
+      font-size: 1.5em;
+      color: #ea5906;
+    }
+
+    .header-subtitle {
+      font-size: 0.75em;
+      color: #ffffff;
+    }
+
+    .menu-links a {
+      color: #ffffff;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 0.95em;
+    }
+
+    .cover {
+      background-image: url('https://www.indelibile.it/wp-content/uploads/2025/06/1a18e87e-a6ca-4c20-95ec-85cc2bd6a055-1024x576.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      padding: 20px 16px 60px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .cover h1 {
+      color: #ffffff;
+      text-shadow: 4px 4px 0px #000000;
+      font-size: 35px;
+      margin-bottom: 20px;
+      margin-top: 10px;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.88);
+      border-radius: 13px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      padding: 18px 16px;
+      max-width: 360px;
+      width: 100%;
+      margin-top: -10px;
+      backdrop-filter: blur(4px);
+    }
+
+    .banner {
+      background-color: #fff;
+      border: 2px solid #003374;
+      border-radius: 3px;
+      width: 300px;
+      padding: 0;
+      margin: 4px auto 8px auto;
+      box-sizing: border-box;
+    }
+
+    .banner img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0;
+      padding: 0;
+      border-radius: 2px;
+    }
+
+    .select-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    select,
+    input[type="text"],
+    input[type="password"] {
+      flex: 1;
+      padding: 8px 10px;
+      font-size: 1em;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 100%;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+
+    #passwordinput {
+      display: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1.1em;
+      border-radius: 6px;
+      background-color: #3f51b5;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    button:hover {
+      background-color: #303f9f;
+    }
+
+    .disclaimer {
+      font-size: 0.8em;
+      margin-top: 10px;
+    }
+
+    .disclaimer a {
+      color: #003374;
+      text-decoration: underline;
+    }
+
+    #infobox {
+      font-size: 0.85em;
+      color: #ea5906;
+      margin: 4px 0 -2px 0;
+    }
+
+    @media (max-width: 420px) {
+      .container {
+        padding: 16px 12px;
+        max-width: 92%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-title">💬 Chat NebulaLounge –
+      <span class="header-subtitle">Dove tutto può iniziare 🛸</span>
+    </div>
+    <div class="menu-links">
+      <a href="/">🔙 Torna su <em>Oltre la Verità</em></a>
+      <a href="/chat">💬 Chat Gratis</a>
+    </div>
+  </div>
+
+  <!-- COVER + TITOLO -->
+  <div class="cover">
+    <h1>Accedi alla NebulaLounge 🚀 Gratis</h1>
+
+    <div class="container">
+      <div class="banner">
+        <a href="https://tc.tradetracker.net/?c=18031&m=2469548&a=432856&r=&u=" target="_blank" rel="sponsored nofollow">
+          <img src="https://ti.tradetracker.net/?c=18031&m=2469548&a=432856&r=&t=html"
+            width="300" height="250" alt="Happy Card Feltrinelli" />
+        </a>
+      </div>
+
+      <input type="text" id="nickinput" placeholder="Nickname *" required />
+      <div id="infobox"></div>
+
+      <input type="password" id="passwordinput" placeholder="Password (se registrato)" />
+
+      <div class="select-row">
+        <select id="sexselect" aria-label="Sono">
+          <option value="">*Sono: ♂️ ♀️</option>
+          <option value="M">👨‍💼 Uomo ♂️</option>
+          <option value="F">👩‍🎓 Donna ♀️</option>
+        </select>
+
+        <select id="lookingselect" aria-label="Cerco">
+          <option value="">*Cerco: ♀️ ♂️</option>
+          <option value="F">👩 Donna ♀️</option>
+          <option value="M">👨 Uomo ♂️</option>
+        </select>
+      </div>
+
+      <input type="text" id="cityinput" placeholder="Città (opzionale)" />
+
+      <button onclick="vaiAllaVerifica()">Entra in Chat</button>
+
+      <div class="disclaimer">
+        Accedendo accetti le <a href="disclaimer.html" target="_blank">regole di Simosnap</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const registeredNicks = ["Nebula", "Valerio", "Luna", "Stella"];
+
+    document.getElementById('nickinput').addEventListener('input', function () {
+  const nick = this.value.trim().toLowerCase();
+  const list = registeredNicks.map(n => n.toLowerCase());
+  if (list.includes(nick)) {
+    document.getElementById('passwordinput').style.display = 'block';
+    document.getElementById('infobox').textContent = "🔐 Nick registrato. Inserisci la password.";
+  } else {
+    document.getElementById('passwordinput').style.display = 'none';
+    document.getElementById('infobox').textContent = "";
+    document.getElementById('passwordinput').value = "";
+  }
+});
+
+    function vaiAllaVerifica() {
+      const nick = document.getElementById('nickinput').value.trim();
+      const sex = document.getElementById('sexselect').value;
+      const looking = document.getElementById('lookingselect').value;
+      const city = document.getElementById('cityinput').value.trim();
+      const password = document.getElementById('passwordinput').value;
+
+      if (!nick || !sex || !looking) {
+        alert("Per favore compila tutti i campi obbligatori.");
+        return;
+      }
+
+      localStorage.setItem("nick", nick);
+      localStorage.setItem("sex", sex);
+      localStorage.setItem("looking", looking);
+      localStorage.setItem("city", city);
+      if (password) localStorage.setItem("password", password);
+
+      window.location.href = "join.html";
+    }
+  </script>
+
+</body>
+</html>
