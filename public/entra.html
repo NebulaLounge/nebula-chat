@@ -209,11 +209,12 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+  import { sanitizeNick, isRegisteredNick } from "./utils.js";
+
   let registeredNicks = [];
   let welcomeMessage = "";
 
-  // Carica config.json
   fetch("config.json")
     .then(response => response.json())
     .then(config => {
@@ -229,28 +230,12 @@
     }
   }
 
-  function sanitizeNick(nick) {
-    return nick
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .trim()
-      .replace(/\s+/g, "_")
-      .replace(/[^\w-]/g, "")
-      .toLowerCase();
-  }
-
-  function isRegisteredNick(nickSanitized) {
-    return registeredNicks
-      .map(n => sanitizeNick(n))
-      .includes(nickSanitized);
-  }
-
   function updatePasswordVisibility(nickInput) {
     const nickSanitized = sanitizeNick(nickInput);
     const passwordInput = document.getElementById('passwordinput');
     const infoBox = document.getElementById('infobox');
 
-    if (isRegisteredNick(nickSanitized)) {
+    if (isRegisteredNick(nickSanitized, registeredNicks)) {
       passwordInput.style.display = 'block';
       infoBox.textContent = "🔐 Nick registrato. Inserisci la password.";
     } else {
