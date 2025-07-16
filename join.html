@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NebulaLounge – Connessione</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0b132b;
+      color: #eee;
+    }
+
+    .container {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    #welcomeTop {
+      width: 100%;
+      height: 90px;
+      background: linear-gradient(to right, #001f3f 0%, #142a4d 40%, #142a4d 60%, #001f3f 100%);
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 600;
+      text-align: center;
+      color: #f0e8de;
+      box-shadow: inset 0 0 22px #ea5906aa;
+      margin: 0;
+      transition: opacity 1s ease;
+    }
+
+    .frame-banner {
+      width: 100%;
+      height: 90px;
+      margin: 0;
+      background: linear-gradient(to right, #001f3f 0%, #0b132b 40%, #0b132b 60%, #001f3f 100%);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
+    }
+
+    iframe.chat {
+      border: none;
+      width: 100%;
+      max-width: 1080px;
+      height: 700px;
+      background: #000;
+      box-shadow: 0 0 14px rgba(0,0,0,0.4);
+    }
+
+    .banner-bottom {
+      width: 100%;
+      height: 90px;
+      margin: 0;
+      background: linear-gradient(to right, #001f3f 0%, #0b132b 40%, #0b132b 60%, #001f3f 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
+    }
+
+    form { display: none; }
+
+    @media (max-width: 768px) {
+      #welcomeTop { font-size: 1.05rem; padding: 0 8px; }
+      iframe.chat { height: 540px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Benvenuto iniziale -->
+    <div id="welcomeTop">
+      🌌 Benvenuto su&nbsp;<strong>NebulaLounge</strong>! Ciao il tuo Nick è <span id="nickSpan"></span>, sei&nbsp; <span id="sexSpan"></span> che cerca&nbsp; <span id="lookingSpan"></span>&nbsp;<span id="citySpan"></span>.
+    </div>
+
+    <!-- Banner superiore -->
+    <div class="frame-banner" id="bannerTop">
+      <iframe
+        src="https://rotator.tradetracker.net/?r=97208&amp;t=iframe"
+        width="728" height="90"
+        style="border:0; margin:0; padding:0;"
+        frameborder="0" scrolling="no"
+        title="Banner pubblicitario">
+      </iframe>
+    </div>
+
+    <!-- Form nascosto -->
+    <form id="chatForm" action="https://kw-rr.simosnap.com/login.php" method="post" target="chatFrame">
+      <input type="hidden" name="nick" id="nickField" />
+      <input type="hidden" name="sex" id="sexField" />
+      <input type="hidden" name="looking" id="lookingField" />
+      <input type="hidden" name="location" id="cityField" />
+      <input type="hidden" name="password" id="passwordField" />
+      <input type="hidden" name="channel" value="#NebulaLounge" />
+    </form>
+
+    <!-- Chat frame -->
+    <iframe class="chat" name="chatFrame" id="chatFrame" title="Chat NebulaLounge"></iframe>
+
+  </div>
+
+  <!-- Banner inferiore -->
+  <div class="banner-bottom">
+    <iframe
+      src="https://rotator.tradetracker.net/?r=97208&amp;t=iframe"
+      width="728" height="90"
+      style="border:0; margin:0; padding:0;"
+      frameborder="0" scrolling="no"
+      title="Banner pubblicitario">
+    </iframe>
+  </div>
+
+  <!-- Audio benvenuto -->
+  <audio id="welcomeAudio" preload="auto" src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
+
+  <script>
+    function capitalize(str) {
+      return str ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
+    }
+
+    window.onload = function () {
+      const nick = localStorage.getItem("nick") || "Guest";
+      const sex = localStorage.getItem("sex") || "";
+      const looking = localStorage.getItem("looking") || "";
+      const city = localStorage.getItem("city") || "";
+      const password = localStorage.getItem("password") || "";
+
+      document.getElementById("nickField").value = nick;
+      document.getElementById("sexField").value = sex;
+      document.getElementById("lookingField").value = looking;
+      document.getElementById("cityField").value = city;
+      document.getElementById("passwordField").value = password;
+
+      document.getElementById("nickSpan").innerHTML = `👤 <strong>${capitalize(nick)}</strong>`;
+      document.getElementById("sexSpan").innerHTML = sex === "M"
+        ? " un 👨 Uomo ♂️"
+        : sex === "F"
+          ? " una 👩 Donna ♀️"
+          : "un* utente";
+      document.getElementById("lookingSpan").innerHTML = looking === "M"
+        ? " un 👨‍💼 Uomo ♂️"
+        : looking === "F"
+          ? " una 👩‍🎓 Donna ♀️"
+          : "qualcuno";
+      document.getElementById("citySpan").innerHTML = city
+        ? `dalla città di📍${capitalize(city)}`
+        : "da una località sconosciuta 🕵️";
+
+      document.getElementById("chatForm").submit();
+
+      // Audio dopo 7s
+      setTimeout(() => {
+        const audio = document.getElementById("welcomeAudio");
+        audio.play().catch(() => {});
+      }, 7000);
+
+      // Dopo 17s sostituisci welcome con banner
+      setTimeout(() => {
+        const welcomeBox = document.getElementById("welcomeTop");
+        welcomeBox.style.opacity = "0";
+        setTimeout(() => {
+          welcomeBox.style.display = "none";
+          document.getElementById("bannerTop").style.display = "flex";
+        }, 1000);
+      }, 17000);
+    };
+  </script>
+
+</body>
+</html>
