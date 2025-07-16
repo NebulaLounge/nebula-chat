@@ -210,15 +210,32 @@
   </div>
 
   <script>
-  const registeredNicks = ["Nebula", "Valerio", "Luna", "Stella"];
+  let registeredNicks = [];
+  let welcomeMessage = "";
+
+  // Carica config.json
+  fetch("config.json")
+    .then(response => response.json())
+    .then(config => {
+      registeredNicks = config.registeredNicks || [];
+      welcomeMessage = config.welcomeMessage || "";
+      mostraMessaggioBenvenuto();
+    });
+
+  function mostraMessaggioBenvenuto() {
+    const infoBox = document.getElementById("infobox");
+    if (welcomeMessage) {
+      infoBox.textContent = welcomeMessage;
+    }
+  }
 
   function sanitizeNick(nick) {
     return nick
-      .normalize("NFD")                     // rimuove accenti
+      .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .trim()
-      .replace(/\s+/g, "_")                // spazi → underscore
-      .replace(/[^\w-]/g, "")              // rimuove caratteri speciali
+      .replace(/\s+/g, "_")
+      .replace(/[^\w-]/g, "")
       .toLowerCase();
   }
 
@@ -239,7 +256,7 @@
     } else {
       passwordInput.style.display = 'none';
       passwordInput.value = "";
-      infoBox.textContent = "";
+      infoBox.textContent = welcomeMessage || "";
     }
   }
 
