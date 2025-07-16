@@ -54,18 +54,28 @@
 
   <p>Partecipando alla chat, accetti le seguenti regole di comportamento:</p>
 
-  <ul>
-    <li>❌ Vietato insultare, discriminare o provocare altri utenti</li>
-    <li>🚫 Niente spam, pubblicità o link non richiesti</li>
-    <li>🔞 Contenuti espliciti solo dove consentito e nel rispetto degli altri</li>
-    <li>🧠 Rispetta la privacy: non condividere dati personali senza consenso</li>
-    <li>👮 I moderatori possono intervenire in caso di violazioni</li>
-    <li>📜 Le conversazioni possono essere monitorate per garantire la sicurezza</li>
+  <ul id="rulesList">
+    <!-- Le regole verranno caricate qui -->
   </ul>
 
   <p>Per domande o segnalazioni, contatta l'amministratore via email o IRC.</p>
 
   <a class="back" href="entra.html">🔙 Torna alla chat</a>
+
+  <script>
+    fetch("config.json")
+      .then(response => response.json())
+      .then(config => {
+        const rules = config.rules || [];
+        const list = document.getElementById("rulesList");
+
+        rules.forEach(rule => {
+          const li = document.createElement("li");
+          li.textContent = rule;
+          list.appendChild(li);
+        });
+      });
+  </script>
 
 </body>
 </html>
