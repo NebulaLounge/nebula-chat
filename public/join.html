@@ -129,57 +129,82 @@
   <audio id="welcomeAudio" preload="auto" src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
 
   <script>
-    function capitalize(str) {
-      return str ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
+  let registeredNicks = [];
+  let welcomeMessage = "";
+
+  // Carica config.json
+  fetch("config.json")
+    .then(response => response.json())
+    .then(config => {
+      registeredNicks = config.registeredNicks || [];
+      welcomeMessage = config.welcomeMessage || "";
+      mostraMessaggioBenvenuto();
+    });
+
+  function mostraMessaggioBenvenuto() {
+    const infoBox = document.getElementById("infobox");
+    if (welcomeMessage) {
+      infoBox.textContent = welcomeMessage;
+    }
+  }
+
+  function sanitizeNick(nick) {
+    return nick
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim()
+      .replace(/\s+/g, "_")
+      .replace(/[^\w-]/g, "")
+      .toLowerCase();
+  }
+
+  function isRegisteredNick(nickSanitized) {
+    return registeredNicks
+      .map(n => sanitizeNick(n))
+      .includes(nickSanitized);
+  }
+
+  function updatePasswordVisibility(nickInput) {
+    const nickSanitized = sanitizeNick(nickInput);
+    const passwordInput = document.getElementById('passwordinput');
+    const infoBox = document.getElementById('infobox');
+
+    if (isRegisteredNick(nickSanitized)) {
+      passwordInput.style.display = 'block';
+      infoBox.textContent = "🔐 Nick registrato. Inserisci la password.";
+    } else {
+      passwordInput.style.display = 'none';
+      passwordInput.value = "";
+      infoBox.textContent = welcomeMessage || "";
+    }
+  }
+
+  document.getElementById('nickinput').addEventListener('input', function () {
+    updatePasswordVisibility(this.value);
+  });
+
+  function vaiAllaVerifica() {
+    const rawNick = document.getElementById('nickinput').value;
+    const nick = sanitizeNick(rawNick);
+    const sex = document.getElementById('sexselect').value;
+    const looking = document.getElementById('lookingselect').value;
+    const city = document.getElementById('cityinput').value.trim();
+    const password = document.getElementById('passwordinput').value;
+
+    if (!nick || !sex || !looking) {
+      alert("⚠️ Compila tutti i campi obbligatori.");
+      return;
     }
 
-    window.onload = function () {
-      const nick = localStorage.getItem("nick") || "Guest";
-      const sex = localStorage.getItem("sex") || "";
-      const looking = localStorage.getItem("looking") || "";
-      const city = localStorage.getItem("city") || "";
-      const password = localStorage.getItem("password") || "";
+    localStorage.setItem("nick", nick);
+    localStorage.setItem("sex", sex);
+    localStorage.setItem("looking", looking);
+    localStorage.setItem("city", city);
+    if (password) localStorage.setItem("password", password);
 
-      document.getElementById("nickField").value = nick;
-      document.getElementById("sexField").value = sex;
-      document.getElementById("lookingField").value = looking;
-      document.getElementById("cityField").value = city;
-      document.getElementById("passwordField").value = password;
-
-      document.getElementById("nickSpan").innerHTML = `👤 <strong>${capitalize(nick)}</strong>`;
-      document.getElementById("sexSpan").innerHTML = sex === "M"
-        ? " un 👨 Uomo ♂️"
-        : sex === "F"
-          ? " una 👩 Donna ♀️"
-          : "un* utente";
-      document.getElementById("lookingSpan").innerHTML = looking === "M"
-        ? " un 👨‍💼 Uomo ♂️"
-        : looking === "F"
-          ? " una 👩‍🎓 Donna ♀️"
-          : "qualcuno";
-      document.getElementById("citySpan").innerHTML = city
-        ? `dalla città di📍${capitalize(city)}`
-        : "da una località sconosciuta 🕵️";
-
-      document.getElementById("chatForm").submit();
-
-      // Audio dopo 7s
-      setTimeout(() => {
-        const audio = document.getElementById("welcomeAudio");
-        audio.play().catch(() => {});
-      }, 7000);
-
-      // Dopo 17s sostituisci welcome con banner
-      setTimeout(() => {
-        const welcomeBox = document.getElementById("welcomeTop");
-        welcomeBox.style.opacity = "0";
-        setTimeout(() => {
-          welcomeBox.style.display = "none";
-          document.getElementById("bannerTop").style.display = "flex";
-        }, 1000);
-      }, 17000);
-    };
-  </script>
+    window.location.href = "join.html";
+  }
+</script>
 
 </body>
 </html>
