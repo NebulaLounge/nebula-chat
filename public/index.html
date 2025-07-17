@@ -1,59 +1,259 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NebulaLounge – Dove tutto può iniziare</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+<!-- wp:html -->
+<!-- wp:html -->
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+  }
 
-  <!-- HEADER -->
-  <div class="header-wrapper">
-    <div class="header-title">
-      💬 Chat NebulaLounge –
-      <span class="header-subtitle">Dove tutto può iniziare 🛸</span>
-    </div>
-    <div class="menu-links">
-      <a href="/">🔙 Torna su <em>Oltre la Verità</em></a>
-      <a href="/chat">💬 Chat Gratis</a>
-    </div>
+  /* Elimina margini verticali tra i blocchi WordPress */
+  .wp-block-html, 
+  .wp-block-cover,
+  .wp-block-cover.alignfull,
+  .wp-block-stackable-columns,
+  .is-layout-constrained {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+  }
+
+  /* Spingi leggermente su il contenitore principale per togliere spazio residuo */
+  .main-container {
+    margin-top: -1px !important;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background: url('https://www.indelibile.it/wp-content/uploads/2025/06/063fce2d-0d25-443c-912c-f579bdb246dd-1024x576.png') center center / cover no-repeat fixed;
+    background-color: #000;
+    box-sizing: border-box;
+  }
+
+  .content-wrapper {
+    max-width: 1200px;
+    width: 100%;
+    padding: 32px 16px;
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+    box-sizing: border-box;
+  }
+
+  .main-left {
+    flex: 1 1 calc(100% - 400px);
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  }
+
+  .main-left h2 {
+    font-size: clamp(2.2rem, 6vw, 80px);
+    color: #ea5906;
+    margin-bottom: 16px;
+    text-shadow: 0px 7px 0px #003374;
+  }
+
+  .main-left p {
+    font-size: clamp(1rem, 2vw, 20px);
+    line-height: 1.6;
+  }
+
+  .main-right {
+    flex: 0 0 380px;
+    max-width: 380px;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.3);
+    text-align: center;
+    backdrop-filter: blur(6px);
+    padding: 24px 16px;
+    box-sizing: border-box;
+  }
+
+.main-right-title {
+  color: #fff7f0;
+  font-size: 1.7em;
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: 0 3 8px rgba(234, 89, 6, 0.3);
+  margin-bottom: 20px;
+  padding: 0 8px;
+  user-select: text;
+}
+
+
+  .main-right img {
+    border-radius: 6px;
+    border: 2px solid #003374;
+    margin-bottom: 16px;
+    max-width: 100%;
+    height: auto;
+  }
+ .main-right a.button {
+  display: flex;               /* usa flexbox */
+  justify-content: center;     /* centra orizzontalmente */
+  align-items: center;         /* centra verticalmente */
+  text-align: center;
+  height: 40px;                /* altezza fissa per uniformità */
+  padding: 0 12px;             /* solo padding orizzontale */
+  margin-bottom: 10px;
+  font-size: 1em;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+/* Pulsante arancione */
+.button-orange {
+  background-color: #ea5906;
+  color: #ffffff;
+}
+
+.button-orange:hover {
+  background-color: #003374;  /* blu scuro */
+  color: #ea5906;             /* arancione testo */
+}
+
+/* Pulsante blu */
+.button-blue {
+  background-color: #003374;
+  color: #ffffff;
+}
+
+.button-blue:hover {
+  background-color: #ea5906;  /* arancione */
+  color: #003374;             /* blu scuro testo */
+}
+
+
+  /* Header */
+  .header-wrapper {
+    background-color: #003374;
+    color: #ffffff;
+    width: 100%;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  .header-title {
+    font-size: 1.4em;
+    color: #ea5906;
+  }
+
+  .header-subtitle {
+    font-size: 0.75em;
+    color: #ffffff;
+  }
+
+  .menu-links {
+    font-size: 0.95em;
+    text-align: right;
+  }
+
+  .menu-links a {
+    color: #ffffff;
+    margin-left: 20px;
+    text-decoration: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .header-wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .menu-links {
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    .content-wrapper {
+      flex-direction: column;
+      padding: 24px 16px;
+    }
+
+    .main-left, .main-right {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+
+    .main-right {
+      margin-top: 24px;
+      max-width: none;
+      flex: 1 1 100%;
+    }
+
+    @media (max-width: 768px) {
+  .main-right a.button {
+    font-size: 0.95em;
+    padding: 0 10px;  /* solo orizzontale */
+    height: 40px;
+  }
+}
+</style>
+
+<!-- STRISCIA BLU HEADER -->
+<div class="header-wrapper">
+  <div class="header-title">
+    💬 Chat NebulaLounge –
+    <span class="header-subtitle">Dove tutto può iniziare 🛸</span>
   </div>
+  <div class="menu-links">
+    <a href="/">🔙 Torna su <em>Oltre la Verità</em></a>
+    <a href="/chat">💬 Chat Gratis</a>
+  </div>
+</div>
 
-  <!-- CONTENUTO -->
-  <div class="main-container">
-    <div class="content-wrapper">
+<!-- SEZIONE CONTENUTI SU SFONDO -->
+<div class="main-container">
+  <div class="content-wrapper">
 
-      <!-- TESTO -->
-      <div class="main-left">
-        <h2>#NebulaLounge</h2>
-        <p><strong>Incontra, flirta, lasciati ispirare</strong>.<br>
-          Una chat <strong>libera</strong> e leggera, dove ogni parola può <strong>accendere qualcosa</strong>.<br>
-          <strong>Amicizie, incontri</strong> e nuove avventure ti aspettano nella <strong>NebulaLounge</strong>.<br><br>
-          Se cerchi <strong>incontri</strong>, <strong>complicità</strong>, <strong>emozioni</strong> o semplici attimi,<br>
-          nella <strong>NebulaLounge</strong> ogni parola è un <strong>invito</strong>, ogni attimo una <strong>possibilità</strong>.<br><br>
-          <strong>Lasciati trovare.</strong> <span style="color:#ea5906;">A volte basta un “ciao”.</span><br>
-          Perché qui, <strong>tutto può davvero cominciare</strong>.
-        </p>
+    <!-- TESTO A SINISTRA -->
+    <div class="main-left">
+      <h2>#NebulaLounge</h2>
+      <p><strong>Incontra, flirta, lasciati ispirare</strong>.<br>
+        Unisciti a chi ha voglia di parlare, <strong>conoscersi</strong>, scoprirsi.<br>
+        Una chat <strong>libera</strong> e leggera, dove ogni parola può <strong>accendere qualcosa</strong>.<br>
+        <strong>Amicizie, incontri</strong> e nuove avventure ti aspettano nella <strong>NebulaLounge</strong>.<br><br>
+        Parole che scorrono leggere, sguardi che si incrociano tra righe di testo.<br>
+        Se cerchi <strong>incontri</strong>, <strong>complicità</strong>, <strong>emozioni</strong> o semplici attimi,<br>
+        nella <strong>NebulaLounge</strong> ogni parola è un <strong>invito</strong>, ogni attimo una <strong>possibilità</strong>.<br><br>
+        Connettiti con chi ha voglia di <strong>ascoltare</strong>, <strong>parlare</strong>, <strong>giocare</strong>.<br>
+        <strong>Lasciati trovare.</strong> <span style="color:#ea5906;">A volte basta un “ciao”. Altre, basta sapere cosa vuoi.</span><br>
+        Perché qui, <strong>tutto può davvero cominciare</strong>.
+      </p>
+    </div>
+
+    <!-- BOX A DESTRA -->
+    <div class="main-right">
+      <div class="main-right-title">
+        Entra gratis in chat<br><strong>NebulaLounge ti aspetta!</strong>
       </div>
 
-      <!-- BOX -->
-      <div class="main-right">
-        <div class="main-right-title">
-          Entra gratis in chat<br><strong>NebulaLounge ti aspetta!</strong>
-        </div>
+      <a href="https://tc.tradetracker.net/?c=18031&m=2469548&a=432856&r=&u=" target="_blank" rel="sponsored nofollow">
+        <img src="https://ti.tradetracker.net/?c=18031&m=2469548&a=432856&r=&t=html"
+          width="300" height="300" alt="Happy Card Feltrinelli" />
+      </a>
 
-        <a href="https://tc.tradetracker.net/?c=18031&m=2469548&a=432856&r=&u=" target="_blank" rel="sponsored nofollow">
-          <img src="https://ti.tradetracker.net/?c=18031&m=2469548&a=432856&r=&t=html"
-            width="300" height="300" alt="Happy Card Feltrinelli" />
-        </a>
-
-        <a class="button button-orange" href="entra.html">🚀 Entra in Chat</a>
-        <a class="button button-blue" href="#">💘 Visita il Sito Partner</a>
-      </div>
-
+      <a class="button button-orange" href="https://www.indelibile.it/entra/">🚀 Entra in Chat</a>
+      <a class="button button-blue" href="#">💘 Visita il Sito Partner</a>
     </div>
-  </div>
 
-</body>
-</html>
+  </div>
+</div>
+<!-- /wp:html -->
+
+<!-- /wp:html -->
