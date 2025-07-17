@@ -209,43 +209,8 @@
     </div>
   </div>
 
-  <script>
-    const registeredNicks = ["Nebula", "Valerio", "Luna", "Stella"];
-
-    document.getElementById('nickinput').addEventListener('input', function () {
-  const nick = this.value.trim().toLowerCase();
-  const list = registeredNicks.map(n => n.toLowerCase());
-  if (list.includes(nick)) {
-    document.getElementById('passwordinput').style.display = 'block';
-    document.getElementById('infobox').textContent = "🔐 Nick registrato. Inserisci la password.";
-  } else {
-    document.getElementById('passwordinput').style.display = 'none';
-    document.getElementById('infobox').textContent = "";
-    document.getElementById('passwordinput').value = "";
-  }
-});
-
-    function vaiAllaVerifica() {
-      const nick = document.getElementById('nickinput').value.trim();
-      const sex = document.getElementById('sexselect').value;
-      const looking = document.getElementById('lookingselect').value;
-      const city = document.getElementById('cityinput').value.trim();
-      const password = document.getElementById('passwordinput').value;
-
-      if (!nick || !sex || !looking) {
-        alert("Per favore compila tutti i campi obbligatori.");
-        return;
-      }
-
-      localStorage.setItem("nick", nick);
-      localStorage.setItem("sex", sex);
-      localStorage.setItem("looking", looking);
-      localStorage.setItem("city", city);
-      if (password) localStorage.setItem("password", password);
-
-      window.location.href = "join.html";
-    }
-  </script>
+  <!-- Script esterno come modulo -->
+  <script type="module" src="entra-script.js"></script>
 
 </body>
 </html>
