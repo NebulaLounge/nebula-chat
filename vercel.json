@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/chat", "destination": "/entra.html" },
+    { "source": "/accesso", "destination": "/join.html" }
+  ]
+}
