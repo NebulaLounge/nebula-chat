@@ -23,23 +23,37 @@
       gap: 0;
     }
 
-    #welcomeTop {
-      width: 100%;
-      height: 90px;
-      background: linear-gradient(to right, #001f3f 0%, #142a4d 40%, #142a4d 60%, #001f3f 100%);
-      padding: 0 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      font-weight: 600;
-      text-align: center;
-      color: #f0e8de;
-      box-shadow: inset 0 0 22px #ea5906aa;
-      margin: 0;
-      transition: opacity 1s ease;
-    }
+   #welcomeTop {
+  width: 100%;
+  height: 90px;
+  background: linear-gradient(to right, #001f3f 0%, #142a4d 40%, #142a4d 60%, #001f3f 100%);
+  padding: 4px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #f0e8de;
+  box-shadow: inset 0 0 22px #ea5906aa;
+  margin: 0;
+  transition: opacity 1s ease;
+  overflow: hidden;
+  box-sizing: border-box;
+}
 
+  .welcomeTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #f0e8de;
+  line-height: 1.2;
+}
+
+.welcomeDetails {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #f0e8de;
+  line-height: 1.2;
+}
     .frame-banner {
       width: 100%;
       height: 90px;
@@ -84,9 +98,12 @@
   <div class="container">
 
     <!-- Benvenuto iniziale -->
-    <div id="welcomeTop">
-      🌌 Benvenuto su&nbsp;<strong>NebulaLounge</strong>! Ciao il tuo Nick è <span id="nickSpan"></span>, sei&nbsp; <span id="sexSpan"></span> che cerca&nbsp; <span id="lookingSpan"></span>&nbsp;<span id="citySpan"></span>.
-    </div>
+<div id="welcomeTop">
+  <div class="welcomeTitle">🌌 Benvenuto su <strong>NebulaLounge</strong>!</div>
+  <div class="welcomeDetails">
+    Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span> e stai cercando <span id="lookingSpan"></span> <span id="citySpan"></span>.
+  </div>
+</div>
 
     <!-- Banner superiore -->
     <div class="frame-banner" id="bannerTop">
