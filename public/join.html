@@ -156,67 +156,71 @@
   }
 
   window.onload = function () {
-    const nick = localStorage.getItem("nick") || "Guest";
-    const sex = localStorage.getItem("sex") || "";
-    const looking = localStorage.getItem("looking") || "";
-    const city = localStorage.getItem("city") || "";
-    const password = localStorage.getItem("password") || "";
+  const nick = localStorage.getItem("nick") || "Guest";
+  const sex = localStorage.getItem("sex") || "";
+  const looking = localStorage.getItem("looking") || "";
+  const city = localStorage.getItem("city") || "";
+  const password = localStorage.getItem("password") || "";
 
-    document.getElementById("nickField").value = nick;
-    document.getElementById("sexField").value = sex;
-    document.getElementById("lookingField").value = looking;
-    document.getElementById("cityField").value = city;
-    document.getElementById("passwordField").value = password;
+  // Popola i campi del form
+  document.getElementById("nickField").value = nick;
+  document.getElementById("sexField").value = sex;
+  document.getElementById("lookingField").value = looking;
+  document.getElementById("cityField").value = city;
+  document.getElementById("passwordField").value = password;
 
-    const sexText = sex === "M" ? "un 👨‍💼 Uomo ♂️" : sex === "F" ? "una 👩 Donna ♀️" : "un* utente";
-    const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
-    const cityText = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
+  // Popola i dati visivi
+  const sexText = sex === "M" ? "un 👨‍💼 Uomo ♂️" : sex === "F" ? "una 👩 Donna ♀️" : "un* utente";
+  const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
+  const cityText = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
 
-    document.getElementById("nickSpan").textContent = capitalize(nick);
-    document.getElementById("sexSpan").textContent = sexText;
-    document.getElementById("lookingSpan").textContent = lookingText;
-    document.getElementById("citySpan").textContent = cityText;
+  document.getElementById("nickSpan").textContent = capitalize(nick);
+  document.getElementById("sexSpan").textContent = sexText;
+  document.getElementById("lookingSpan").textContent = lookingText;
+  document.getElementById("citySpan").textContent = cityText;
 
-    // Carica config.json
-    fetch("config.json")
-      .then(response => response.json())
-      .then(config => {
-        document.querySelector('input[name="channel"]').value = config.channel || "#NebulaLounge";
+  // Carica config.json
+  fetch("config.json")
+    .then(response => response.json())
+    .then(config => {
+      document.querySelector('input[name="channel"]').value = config.channel || "#NebulaLounge";
 
-        if (config.welcomeMessage) {
-          const extraMessage = document.createElement("div");
-          extraMessage.id = "extraWelcome";
-          extraMessage.innerHTML = `<em>${config.welcomeMessage}</em>`;
-          extraMessage.style.cssText = "margin-top:12px; font-size:1rem; color:#ea5906;";
-          document.body.appendChild(extraMessage);
-        }
-      });
+      if (config.welcomeMessage) {
+        const extraMessage = document.createElement("div");
+        extraMessage.id = "extraWelcome";
+        extraMessage.innerHTML = `<em>${config.welcomeMessage}</em>`;
+        extraMessage.style.cssText = "margin-top:12px; font-size:1rem; color:#ea5906;";
+        document.body.appendChild(extraMessage);
+      }
+    })
+    .catch(err => console.warn("Errore nel caricamento di config.json:", err));
 
-    document.getElementById("chatForm").submit();
+  // Invia il form per caricare la chat
+  document.getElementById("chatForm").submit();
 
-    // Audio dopo 7s
+  // Audio dopo 7s
+  setTimeout(() => {
+    const audio = document.getElementById("welcomeAudio");
+    audio.play().catch(() => {});
+  }, 7000);
+
+  // Dopo 10s mostra i dettagli utente
+  setTimeout(() => {
+    document.getElementById("welcomeDetails").style.display = "block";
+    document.getElementById("welcomeTitle").style.fontSize = "1.4rem";
+  }, 10000);
+
+  // Dopo 17s sostituisci welcome con banner
+  setTimeout(() => {
+    const welcomeBox = document.getElementById("welcomeTop");
+    welcomeBox.style.opacity = "0";
+
     setTimeout(() => {
-      const audio = document.getElementById("welcomeAudio");
-      audio.play().catch(() => {});
-    }, 7000);
-
-    // Dopo 10s mostra dettagli utente
-    setTimeout(() => {
-      document.getElementById("welcomeDetails").style.display = "block";
-      document.getElementById("welcomeTitle").style.fontSize = "1.4rem";
-    }, 10000);
-
-    /    // Dopo 17s sostituisci welcome con banner
-    setTimeout(() => {
-      const welcomeBox = document.getElementById("welcomeTop");
-      welcomeBox.style.opacity = "0";
-
-      setTimeout(() => {
-        welcomeBox.style.display = "none";
-        document.getElementById("bannerTop").style.display = "flex";
-      }, 1000); // attende la fine della dissolvenza
-    }, 17000);
-  };
+      welcomeBox.style.display = "none";
+      document.getElementById("bannerTop").style.display = "flex";
+    }, 1000);
+  }, 17000);
+};
 </script>
 </body>
 </html>     
