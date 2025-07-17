@@ -208,6 +208,14 @@
   </div>
 
   <script>
+    function sanitizeNick(nick) {
+      return nick
+        .toLowerCase()
+        .replace(/\s+/g, "_")
+        .replace(/[^a-z0-9_]/g, "")
+        .slice(0, 25);
+    }
+
     const nickInput = document.getElementById("nickinput");
     const passwordInput = document.getElementById("passwordinput");
     const infoBox = document.getElementById("infobox");
@@ -218,8 +226,17 @@
     nickInput.addEventListener("input", () => {
       clearTimeout(delayCheck);
       delayCheck = setTimeout(() => {
-        const nick = nickInput.value.trim();
-        if (nick.length < 3) return;
+        let rawNick = nickInput.value.trim();
+        let nick = sanitizeNick(rawNick);
+        nickInput.value = nick;
+
+        if (nick === "") {
+          nickIsRegistered = false;
+          passwordInput.style.display = "none";
+          passwordInput.value = "";
+          infoBox.textContent = "";
+          return;
+        }
 
         fetch(`https://www.simosnap.org/rest/service.php/checknick/${nick}`)
           .then(res => res.json())
@@ -227,7 +244,7 @@
             if (data.registered === "yes") {
               nickIsRegistered = true;
               passwordInput.style.display = "block";
-              infoBox.innerHTML = `<span style="color:#b10303;"><b>🔐 Il nickname è registrato.</b><br>Inserisci la password per autenticarti.</span>`;
+                            infoBox.innerHTML = `<span style="color:#b10303;"><b>🔐 Il nickname è registrato.</b><br>Inserisci la password per autenticarti.</span>`;
             } else {
               nickIsRegistered = false;
               passwordInput.style.display = "none";
@@ -246,7 +263,7 @@
     });
 
     function vaiAllaVerifica() {
-      const nick = nickInput.value.trim();
+      const nick = sanitizeNick(nickInput.value.trim());
       const sex = document.getElementById("sexselect").value;
       const looking = document.getElementById("lookingselect").value;
       const city = document.getElementById("cityinput").value.trim();
@@ -255,7 +272,12 @@
       if (!nick || nick.length < 3) {
         alert("⚠️ Inserisci un nickname valido (minimo 3 caratteri).");
         return;
-            }
+      }
+
+      if (!sex || !looking) {
+        alert("⚠️ Seleziona sesso e preferenza.");
+        return;
+      }
 
       if (nickIsRegistered && !password) {
         alert("⚠️ Il nickname è registrato. Inserisci la password per continuare.");
