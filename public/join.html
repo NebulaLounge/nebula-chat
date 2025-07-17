@@ -170,9 +170,10 @@
 const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
 const cityText = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
 
-document.getElementById("welcomeTop").innerHTML =
-  `🌌 Benvenuto su NebulaLounge! Ciao ${capitalize(nick)}, sei ${sexText} e stai cercando ${lookingText} ${cityText}.`;
-
+document.getElementById("nickSpan").textContent = capitalize(nick);
+document.getElementById("sexSpan").textContent = sexText;
+document.getElementById("lookingSpan").textContent = lookingText;
+document.getElementById("citySpan").textContent = cityText;
     // Carica config.json
     fetch("config.json")
       .then(response => response.json())
