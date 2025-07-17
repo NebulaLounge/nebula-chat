@@ -1,5 +1,4 @@
 <!-- wp:html -->
-<!-- wp:html -->
 <style>
   html, body {
     margin: 0;
@@ -7,18 +6,6 @@
     font-family: 'Segoe UI', sans-serif;
   }
 
-  /* Elimina margini verticali tra i blocchi WordPress */
-  .wp-block-html, 
-  .wp-block-cover,
-  .wp-block-cover.alignfull,
-  .wp-block-stackable-columns,
-  .is-layout-constrained {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    border-top: none !important;
-  }
-
-  /* Spingi leggermente su il contenitore principale per togliere spazio residuo */
   .main-container {
     margin-top: -1px !important;
     width: 100%;
@@ -26,9 +13,6 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-    padding: 0;
-    margin-left: auto;
-    margin-right: auto;
     background: url('https://www.indelibile.it/wp-content/uploads/2025/06/063fce2d-0d25-443c-912c-f579bdb246dd-1024x576.png') center center / cover no-repeat fixed;
     background-color: #000;
     box-sizing: border-box;
@@ -74,17 +58,16 @@
     box-sizing: border-box;
   }
 
-.main-right-title {
-  color: #fff7f0;
-  font-size: 1.7em;
-  font-weight: 700;
-  line-height: 1.2;
-  text-shadow: 0 3 8px rgba(234, 89, 6, 0.3);
-  margin-bottom: 20px;
-  padding: 0 8px;
-  user-select: text;
-}
-
+  .main-right-title {
+    color: #fff7f0;
+    font-size: 1.7em;
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 3px 8px rgba(234, 89, 6, 0.3);
+    margin-bottom: 20px;
+    padding: 0 8px;
+    user-select: text;
+  }
 
   .main-right img {
     border-radius: 6px;
@@ -93,47 +76,45 @@
     max-width: 100%;
     height: auto;
   }
- .main-right a.button {
-  display: flex;               /* usa flexbox */
-  justify-content: center;     /* centra orizzontalmente */
-  align-items: center;         /* centra verticalmente */
-  text-align: center;
-  height: 40px;                /* altezza fissa per uniformità */
-  padding: 0 12px;             /* solo padding orizzontale */
-  margin-bottom: 10px;
-  font-size: 1em;
-  max-width: 300px;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 8px;
-  color: #ffffff;
-  text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-/* Pulsante arancione */
-.button-orange {
-  background-color: #ea5906;
-  color: #ffffff;
-}
 
-.button-orange:hover {
-  background-color: #003374;  /* blu scuro */
-  color: #ea5906;             /* arancione testo */
-}
+  .main-right a.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 44px;
+    padding: 0 14px;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 
-/* Pulsante blu */
-.button-blue {
-  background-color: #003374;
-  color: #ffffff;
-}
+  .button-orange {
+    background-color: #ea5906;
+    color: #ffffff;
+  }
 
-.button-blue:hover {
-  background-color: #ea5906;  /* arancione */
-  color: #003374;             /* blu scuro testo */
-}
+  .button-orange:hover {
+    background-color: #003374;
+    color: #ea5906;
+  }
 
+  .button-blue {
+    background-color: #003374;
+    color: #ffffff;
+  }
 
-  /* Header */
+  .button-blue:hover {
+    background-color: #ea5906;
+    color: #003374;
+  }
+
   .header-wrapper {
     background-color: #003374;
     color: #ffffff;
@@ -192,17 +173,23 @@
 
     .main-right {
       margin-top: 24px;
-      max-width: none;
-      flex: 1 1 100%;
+      padding: 20px 12px;
     }
 
-    @media (max-width: 768px) {
-  .main-right a.button {
-    font-size: 0.95em;
-    padding: 0 10px;  /* solo orizzontale */
-    height: 40px;
+    .main-right a.button {
+      font-size: 1rem;
+      height: 42px;
+      padding: 0 12px;
+    }
+
+    .main-left h2 {
+      font-size: 2rem;
+    }
+
+    .main-left p {
+      font-size: 1rem;
+    }
   }
-}
 </style>
 
 <!-- STRISCIA BLU HEADER -->
@@ -226,8 +213,7 @@
       <h2>#NebulaLounge</h2>
       <p><strong>Incontra, flirta, lasciati ispirare</strong>.<br>
         Unisciti a chi ha voglia di parlare, <strong>conoscersi</strong>, scoprirsi.<br>
-        Una chat <strong>libera</strong> e leggera, dove ogni parola può <strong>accendere qualcosa</strong>.<br>
-        <strong>Amicizie, incontri</strong> e nuove avventure ti aspettano nella <strong>NebulaLounge</strong>.<br><br>
+        Una chat <strong>libera</strong> e leggera, dove ogni parola può <strong>accendere qualcosa</strong>.<br><br>
         Parole che scorrono leggere, sguardi che si incrociano tra righe di testo.<br>
         Se cerchi <strong>incontri</strong>, <strong>complicità</strong>, <strong>emozioni</strong> o semplici attimi,<br>
         nella <strong>NebulaLounge</strong> ogni parola è un <strong>invito</strong>, ogni attimo una <strong>possibilità</strong>.<br><br>
@@ -249,11 +235,9 @@
       </a>
       
       <a class="button button-orange" href="entra.html" target="_self">🚀 Entra in Chat</a>
-            <a class="button button-blue" href="#">💘 Visita il Sito Partner</a>
+      <a class="button button-blue" href="#">💘 Visita il Sito Partner</a>
     </div>
 
   </div>
 </div>
-<!-- /wp:html -->
-
 <!-- /wp:html -->
