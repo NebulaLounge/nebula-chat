@@ -1,41 +1,41 @@
-import { sanitizeNick, isRegisteredNick } from './utils.js';
-
-let config = {};
-
-// Funzione per controllo blacklist
-function containsBlacklistedWord(text, blacklist) {
-  const lowerText = text.toLowerCase();
-  return blacklist.some(word => lowerText.includes(word.toLowerCase()));
-}
+import { sanitizeNick } from './utils.js';
 
 window.addEventListener("DOMContentLoaded", () => {
   const nickInput = document.getElementById('nickinput');
   const passwordInput = document.getElementById('passwordinput');
   const infoBox = document.getElementById('infobox');
 
-  // Carica config.json
-  fetch('config.json')
-    .then(response => response.json())
-    .then(data => {
-      config = data;
+  // 🔍 Funzione per verificare se il nick è registrato su Simosnap
+  async function isNickRegisteredOnSimosnap(nick) {
+    try {
+      const response = await fetch(`https://www.simosnap.org/rest/service.php/nickserv/${encodeURIComponent(nick)}`);
+      if (!response.ok) return false;
+      const data = await response.json();
+      return data.nickname?.toLowerCase() === nick.toLowerCase();
+    } catch (error) {
+      console.error("Errore nella verifica del nick:", error);
+      return false;
+    }
+  }
 
-      // Attiva il listener sul nickname
-      nickInput.addEventListener('input', () => {
-        const rawNick = nickInput.value;
-        const nickSanitized = sanitizeNick(rawNick);
+  // 🔁 Listener sul campo nickname
+  nickInput.addEventListener('input', async () => {
+    const rawNick = nickInput.value;
+    const nickSanitized = sanitizeNick(rawNick);
 
-        if (isRegisteredNick(nickSanitized, config.registeredNicks)) {
-          passwordInput.style.display = 'block';
-          infoBox.textContent = "🔐 Nick registrato. Inserisci la password.";
-        } else {
-          passwordInput.style.display = 'none';
-          infoBox.textContent = "";
-          passwordInput.value = "";
-        }
-      });
-    });
+    const isRegistered = await isNickRegisteredOnSimosnap(nickSanitized);
 
-  // Funzione di verifica e invio
+    if (isRegistered) {
+      passwordInput.style.display = 'block';
+      infoBox.textContent = "🔐 Nick registrato su Simosnap. Inserisci la password.";
+    } else {
+      passwordInput.style.display = 'none';
+      infoBox.textContent = "";
+      passwordInput.value = "";
+    }
+  });
+
+  // ✅ Funzione di invio
   window.vaiAllaVerifica = function () {
     const rawNick = nickInput.value;
     const nickSanitized = sanitizeNick(rawNick);
@@ -46,11 +46,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
     if (!nickSanitized || !sex || !looking) {
       alert("Per favore compila tutti i campi obbligatori.");
-      return;
-    }
-
-    if (containsBlacklistedWord(nickSanitized, config.blacklist) || containsBlacklistedWord(city, config.blacklist)) {
-      alert("❌ Il nickname o la città contiene parole non consentite.");
       return;
     }
 
