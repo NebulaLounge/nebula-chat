@@ -1,243 +1,112 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Entra nella NebulaLounge</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NebulaLounge – Dove tutto può cominciare</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #003374;
+      background: linear-gradient(to bottom right, #003374, #001f4d);
       color: white;
-    }
-
-    .cover {
-      background: linear-gradient(rgba(234, 89, 6, 0.25), rgba(0, 51, 116, 0.45)),
-      url('https://www.indelibile.it/wp-content/uploads/2025/06/1a18e87e-a6ca-4c20-95ec-85cc2bd6a055.png');
-      background-size: cover;
-      background-position: center;
       min-height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      padding: 30px;
     }
-
-    .box {
-      background-color: rgba(44,62,80,0.6);
-      border-radius: 13px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-      text-align: center;
-      padding: 24px;
-      max-width: 400px;
+    header {
+      background-color: #003374;
       width: 100%;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInBox 1.2s ease-out forwards;
-      color: white;
-    }
-
-    @keyframes fadeInBox {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    h2 {
-      font-size: 38px;
+      padding: 1em 2em;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       color: #ea5906;
-      margin-bottom: 20px;
-      text-shadow: 1px 1px 4px #00193a;
     }
-
-    .banner {
-      background-color: #fff;
-      color: #003374;
-      border: 2px solid #ea5906;
-      border-radius: 8px;
-      width: 300px;
-      height: 300px;
-      margin: 0 auto 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-
-    .selection-row {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      align-items: flex-start;
-      margin-bottom: 22px;
-    }
-
-    .group-block {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .group-block .label {
-      font-weight: bold;
-      font-size: 1em;
-      min-width: 60px;
-      text-align: right;
-    }
-
-    .emoji-group {
-      display: flex;
-      gap: 10px;
-    }
-
-    .emoji-option {
-      background-color: rgba(255,255,255,0.15);
-      border-radius: 8px;
-      padding: 10px;
-      cursor: pointer;
-      font-size: 2em;
-      transition: border 0.3s ease, background 0.3s ease;
-      border: 2px solid transparent;
-      text-align: center;
-    }
-
-    .emoji-option.active {
-      border-color: #ea5906;
-      background-color: rgba(255,255,255,0.3);
-    }
-
-    .row {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
-    input {
-      padding: 12px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1em;
-      width: 100%;
-    }
-
-    .submit-row {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 18px;
-      gap: 8px;
-    }
-
-    button {
-      background-color: #ea5906;
+    header a {
       color: white;
-      border: 2px solid #fff;
-      font-weight: bold;
-      padding: 14px 75px;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+    main {
+      max-width: 960px;
+      padding: 2em;
+      flex: 1;
+      display: flex;
+      gap: 2em;
+    }
+    .left {
+      flex: 1.8;
+    }
+    .right {
+      flex: 1;
+      background-color: rgba(255 255 255 / 0.1);
+      padding: 1em;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(234, 89, 6, 0.7);
+    }
+    h2 {
+      color: #ea5906;
+    }
+    a.button {
+      display: inline-block;
+      margin-top: 1em;
+      padding: 12px 20px;
       border-radius: 6px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: #ea5906;
+      transition: background-color 0.3s ease;
     }
-
-    button:hover {
-      background-color: #d25505;
-      transform: scale(1.05);
-      box-shadow: 0 0 10px rgba(234,89,6,0.5);
+    a.button:hover {
+      background-color: #c64502;
     }
-
-    .disclaimer {
-      font-size: 0.85em;
-      color: #ccc;
-      text-align: center;
-    }
-
-    .disclaimer a {
-      color: #ffa74f;
-      text-decoration: underline;
-    }
-
-    @media (max-width: 600px) {
-      .row {
-        flex-direction: column;
-      }
+    img.banner {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 1em;
     }
   </style>
 </head>
 <body>
-  <div class="cover">
-    <div class="box">
-      <h2>Accesso alla NebulaLounge</h2>
+  <header>
+    <div>💬 NebulaLounge – Dove tutto può cominciare 🛸</div>
+    <nav>
+      <a href="/">🏠 Home</a>
+      <a href="/entra.html">🚀 Entra Gratis</a>
+      <a href="/chat">💬 Chat</a>
+    </nav>
+  </header>
 
-      <div class="banner">📢 Spazio banner 300×250</div>
+  <main>
+    <section class="left">
+      <h2>#NebulaLounge</h2>
+      <p>
+        <strong>Incontra, flirta, lasciati ispirare.</strong><br />
+        Unisciti a chi ha voglia di parlare, <strong>conoscersi</strong>, scoprirsi.<br />
+        Una chat <strong>libera</strong> e leggera, dove ogni parola può <strong>accendere qualcosa</strong>.<br />
+        Amicizie, incontri e nuove avventure ti aspettano nella <strong>NebulaLounge</strong>.
+      </p>
+      <p>
+        Parole che scorrono leggere, sguardi che si incrociano tra righe di testo.<br />
+        Se cerchi <strong>incontri</strong>, <strong>complicità</strong>, <strong>emozioni</strong> o semplici attimi,<br />
+        nella <strong>NebulaLounge</strong> ogni parola è un invito, ogni attimo una possibilità.<br />
+        <span style="color:#ea5906;">A volte basta un “ciao”. Altre, sapere cosa vuoi.</span>
+      </p>
+    </section>
 
-      <p>Inserisci i tuoi dati per accedere alla chat:</p>
+    <aside class="right">
+      <h3>Entra Gratis in Chat</h3>
+      <a href="/entra.html" class="button">🚀 Entra nella NebulaLounge</a>
 
-      <div class="selection-row">
-        <div class="group-block">
-          <div class="label">Sono:</div>
-          <div class="emoji-group" id="sono-group">
-            <div class="emoji-option" data-group="sono" data-value="F">👩‍🦰<br>♀</div>
-            <div class="emoji-option" data-group="sono" data-value="M">👨<br>♂</div>
-          </div>
-        </div>
-
-        <div class="group-block">
-          <div class="label">Cerco:</div>
-          <div class="emoji-group" id="cerco-group">
-            <div class="emoji-option" data-group="cerco" data-value="F">👩‍🦱<br>♀</div>
-            <div class="emoji-option" data-group="cerco" data-value="M">🧔<br>♂</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <input type="text" id="nickinput" placeholder="Nickname *" required />
-        <input type="text" id="cityinput" placeholder="Città (opzionale)" />
-      </div>
-
-      <div class="submit-row">
-        <button onclick="vaiAllaVerifica()">Entra in Chat</button>
-        <div class="disclaimer">
-          Accedendo accetti le <a href="disclaimer.html" target="_blank">regole di Simosnap</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    let selectedSono = "";
-    let selectedCerco = "";
-
-    document.querySelectorAll('.emoji-option').forEach(el => {
-      el.addEventListener('click', () => {
-        const group = el.dataset.group;
-        document.querySelectorAll(`.emoji-option[data-group="${group}"]`).forEach(e => e.classList.remove('active'));
-        el.classList.add('active');
-
-        if (group === "sono") selectedSono = el.dataset.value;
-        if (group === "cerco") selectedCerco = el.dataset.value;
-      });
-    });
-
-    function vaiAllaVerifica() {
-      const nick = document.getElementById('nickinput').value.trim();
-      const city = document.getElementById('cityinput').value.trim();
-
-      if (!nick || !selectedSono || !selectedCerco) {
-        alert("Per favore compila tutti i campi obbligatori.");
-        return;
-      }
-
-      localStorage.setItem("nick", nick);
-      localStorage.setItem("sex", selectedSono);
-      localStorage.setItem("looking", selectedCerco);
-      localStorage.setItem("city", city);
-
-      window.location.href = "join/";
-    }
-  </script>
+      <a href="https://tc.tradetracker.net/?c=18031&m=2469548&a=432856&r=&u=" target="_blank" rel="sponsored nofollow">
+        <img src="assets/banner-example.jpg" alt="Banner promozionale" class="banner" />
+      </a>
+    </aside>
+  </main>
 </body>
 </html>
