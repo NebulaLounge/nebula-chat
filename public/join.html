@@ -202,13 +202,13 @@
   setTimeout(() => {
     const audio = document.getElementById("welcomeAudio");
     audio.play().catch(() => {});
-  }, 17000);
+  }, 7000);
 
-  // Dopo 10s mostra i dettagli utente
+  // Dopo 7s mostra i dettagli utente
   setTimeout(() => {
     document.getElementById("welcomeDetails").style.display = "block";
     document.getElementById("welcomeTitle").style.fontSize = "1.4rem";
-  }, 10000);
+  }, 7000);
 
   // Dopo 17s sostituisci welcome con banner
   setTimeout(() => {
@@ -219,7 +219,7 @@
       welcomeBox.style.display = "none";
       document.getElementById("bannerTop").style.display = "flex";
     }, 1000);
-  }, 17000);
+  }, 24000);
 };
 </script>
 </body>
