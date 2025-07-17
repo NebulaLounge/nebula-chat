@@ -24,39 +24,39 @@
     }
 
     #welcomeStep1, #welcomeStep2 {
-  width: 100%;
-  height: 90px;
-  background: linear-gradient(to right, #001f3f 0%, #142a4d 40%, #142a4d 60%, #001f3f 100%);
-  padding: 0 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: #f0e8de;
-  box-shadow: inset 0 0 22px #ea5906aa;
-  margin: 0;
-  transition: opacity 1s ease;
-  overflow: hidden;
-  box-sizing: border-box;
-}
+      width: 100%;
+      height: 90px;
+      background: linear-gradient(to right, #001f3f 0%, #142a4d 40%, #142a4d 60%, #001f3f 100%);
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #f0e8de;
+      box-shadow: inset 0 0 22px #ea5906aa;
+      margin: 0;
+      transition: opacity 1s ease;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
 
     #welcomeStep1 .welcomeTitle,
-#welcomeStep2 .welcomeTitle {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #f0e8de;
-  line-height: 1.2;
-  margin-bottom: 4px;
-}
+    #welcomeStep2 .welcomeTitle {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f0e8de;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
 
-#welcomeStep2 .welcomeDetails {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #f0e8de;
-  line-height: 1.2;
-  display: none;
-}
+    #welcomeStep2 .welcomeDetails {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #f0e8de;
+      line-height: 1.2;
+    }
+
     .frame-banner {
       width: 100%;
       height: 90px;
@@ -91,7 +91,7 @@
     form { display: none; }
 
     @media (max-width: 768px) {
-      #welcomeTop { font-size: 1.05rem; padding: 0 8px; }
+      #welcomeStep1, #welcomeStep2 { font-size: 1.05rem; padding: 0 8px; }
       iframe.chat { height: 540px; }
     }
   </style>
@@ -100,22 +100,22 @@
 
   <div class="container">
 
-   <!-- Benvenuto iniziale – Step 1 -->
-<div id="welcomeStep1">
-  <div class="welcomeTitle">
-    🌌 Benvenuta/o – Connessione attiva. Inizia il viaggio su <strong>NebulaLounge</strong>!
-  </div>
-</div>
+    <!-- Step 1 -->
+    <div id="welcomeStep1">
+      <div class="welcomeTitle">
+        🌌 Benvenuta/o – Connessione attiva. Inizia il viaggio su <strong>NebulaLounge</strong>!
+      </div>
+    </div>
 
-<!-- Benvenuto dettagliato – Step 2 -->
-<div id="welcomeStep2" style="display: none;">
-  <div class="welcomeTitle">
-    🚀 Benvenuto nella <strong>NebulaLounge</strong>! Lasciati ispirare.
-  </div>
-  <div class="welcomeDetails">
-    Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span> e stai cercando <span id="lookingSpan"></span> <span id="citySpan"></span>.
-  </div>
-</div>
+    <!-- Step 2 -->
+    <div id="welcomeStep2" style="display: none;">
+      <div class="welcomeTitle">
+        🚀 Benvenuto nella <strong>NebulaLounge</strong>! Lasciati ispirare.
+      </div>
+      <div class="welcomeDetails">
+        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span> e stai cercando <span id="lookingSpan"></span> <span id="citySpan"></span>.
+      </div>
+    </div>
 
     <!-- Banner superiore -->
     <div class="frame-banner" id="bannerTop">
@@ -165,78 +165,78 @@
   }
 
   window.onload = function () {
-  const nick = localStorage.getItem("nick") || "Guest";
-  const sex = localStorage.getItem("sex") || "";
-  const looking = localStorage.getItem("looking") || "";
-  const city = localStorage.getItem("city") || "";
-  const password = localStorage.getItem("password") || "";
+    const nick = localStorage.getItem("nick") || "Guest";
+    const sex = localStorage.getItem("sex") || "";
+    const looking = localStorage.getItem("looking") || "";
+    const city = localStorage.getItem("city") || "";
+    const password = localStorage.getItem("password") || "";
 
-  // Popola i campi del form
-  document.getElementById("nickField").value = nick;
-  document.getElementById("sexField").value = sex;
-  document.getElementById("lookingField").value = looking;
-  document.getElementById("cityField").value = city;
-  document.getElementById("passwordField").value = password;
+    // Popola i campi del form
+    document.getElementById("nickField").value = nick;
+    document.getElementById("sexField").value = sex;
+    document.getElementById("lookingField").value = looking;
+    document.getElementById("cityField").value = city;
+    document.getElementById("passwordField").value = password;
 
-  // Popola i dati visivi
-  const sexText = sex === "M" ? "un 👨‍💼 Uomo ♂️" : sex === "F" ? "una 👩 Donna ♀️" : "un* utente";
-  const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
-  const cityText = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
+    // Popola i dati visivi
+    const sexText = sex === "M" ? "un 👨‍💼 Uomo ♂️" : sex === "F" ? "una 👩 Donna ♀️" : "un* utente";
+    const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
+    const cityText = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
 
-  document.getElementById("nickSpan").textContent = capitalize(nick);
-document.getElementById("sexSpan").textContent = sexText;
-document.getElementById("lookingSpan").textContent = lookingText;
-document.getElementById("citySpan").textContent = cityText;
+    document.getElementById("nickSpan").textContent = capitalize(nick);
+    document.getElementById("sexSpan").textContent = sexText;
+    document.getElementById("lookingSpan").textContent = lookingText;
+    document.getElementById("citySpan").textContent = cityText;
 
-// 🔄 Transizione tra step 1 e step 2
-setTimeout(() => {
-  const step1 = document.getElementById("welcomeStep1");
-  const step2 = document.getElementById("welcomeStep2");
-
-  step1.style.opacity = "0";
-
-  setTimeout(() => {
-    step1.style.display = "none";
-    step2.style.display = "flex";
-  }, 1000);
-}, 7000);
-
-  // Carica config.json
-  fetch("config.json")
-    .then(response => response.json())
-    .then(config => {
-      document.querySelector('input[name="channel"]').value = config.channel || "#NebulaLounge";
-
-      if (config.welcomeMessage) {
-        const extraMessage = document.createElement("div");
-        extraMessage.id = "extraWelcome";
-        extraMessage.innerHTML = `<em>${config.welcomeMessage}</em>`;
-        extraMessage.style.cssText = "margin-top:12px; font-size:1rem; color:#ea5906;";
-        document.body.appendChild(extraMessage);
-      }
-    })
-    .catch(err => console.warn("Errore nel caricamento di config.json:", err));
-
-  // Invia il form per caricare la chat
-  document.getElementById("chatForm").submit();
-
-  // Audio dopo 8s
-  setTimeout(() => {
-    const audio = document.getElementById("welcomeAudio");
-    audio.play().catch(() => {});
-  }, 8000);
-
-  // Dopo 17s sostituisci welcome con banner
-  setTimeout(() => {
-    const welcomeBox = document.getElementById("welcomeTop");
-    welcomeBox.style.opacity = "0";
-
+    // Transizione tra step 1 e step 2
     setTimeout(() => {
-      welcomeBox.style.display = "none";
-      document.getElementById("bannerTop").style.display = "flex";
-    }, 1000);
-  }, 24000);
-};
-</script>
+      const step1 = document.getElementById("welcomeStep1");
+      const step2 = document.getElementById("welcomeStep2");
+
+      step1.style.opacity = "0";
+
+      setTimeout(() => {
+        step1.style.display = "none";
+        step2.style.display = "flex";
+      }, 1000);
+    }, 7000);
+
+    // Carica config.json
+    fetch("config.json")
+      .then(response => response.json())
+      .then(config => {
+        document.querySelector('input[name="channel"]').value = config.channel || "#NebulaLounge";
+
+          if (config.welcomeMessage) {
+          const extraMessage = document.createElement("div");
+          extraMessage.id = "extraWelcome";
+          extraMessage.innerHTML = `<em>${config.welcomeMessage}</em>`;
+          extraMessage.style.cssText = "margin-top:12px; font-size:1rem; color:#ea5906;";
+          document.body.appendChild(extraMessage);
+        }
+      })
+      .catch(err => console.warn("Errore nel caricamento di config.json:", err));
+
+    // Invia il form per caricare la chat
+    document.getElementById("chatForm").submit();
+
+    // Audio dopo 8s
+    setTimeout(() => {
+      const audio = document.getElementById("welcomeAudio");
+      audio.play().catch(() => {});
+    }, 8000);
+
+    // Dopo 24s sostituisci il secondo step con il banner
+    setTimeout(() => {
+      const step2 = document.getElementById("welcomeStep2");
+      step2.style.opacity = "0";
+
+      setTimeout(() => {
+        step2.style.display = "none";
+        document.getElementById("bannerTop").style.display = "flex";
+      }, 1000);
+    }, 24000);
+  };
+  </script>
 </body>
-</html>     
+</html>
