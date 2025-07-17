@@ -147,12 +147,6 @@
       margin: 4px 0 -2px 0;
     }
 
-    #nickpreview {
-      font-size: 0.8em;
-      color: #666;
-      margin-top: -4px;
-    }
-
     @media (max-width: 420px) {
       .container {
         padding: 16px 12px;
@@ -185,7 +179,6 @@
       </div>
 
       <input type="text" id="nickinput" placeholder="Nickname *" required />
-      <div id="nickpreview"></div>
       <div id="infobox"></div>
 
       <input type="password" id="passwordinput" placeholder="Password (se registrato)" />
@@ -215,7 +208,7 @@
   </div>
 
   <script>
-    const welcomeMessage = "🚀 Benvenuto nella NebulaLounge! Lasciati ispirare.";
+    const registeredNicks = ["nebula", "valerio", "luna", "stella", "maria"];
 
     function sanitizeNick(nick) {
       return nick
@@ -225,40 +218,20 @@
         .slice(0, 25);
     }
 
-    async function checkNickOnline(nickSanitized) {
-      const url = "https://www.simosnap.org/rest/service.php/channels/%23NebulaLounge/users";
-      try {
-        const response = await fetch(url);
-        const users = await response.json();
-        return users.some(user => sanitizeNick(user.nickname) === nickSanitized);
-      } catch (error) {
-        console.error("Errore nel recupero utenti:", error);
-        return false;
-      }
+    function isRegisteredNick(nickSanitized) {
+      return registeredNicks.includes(nickSanitized);
     }
 
     const nickInput = document.getElementById("nickinput");
     const passwordInput = document.getElementById("passwordinput");
     const infoBox = document.getElementById("infobox");
-    const nickPreview = document.getElementById("nickpreview");
 
-    infoBox.textContent = welcomeMessage;
-
-    nickInput.addEventListener("input", async () => {
+    nickInput.addEventListener("input", () => {
       const nickSanitized = sanitizeNick(nickInput.value);
-      nickPreview.textContent = `Nick usato: ${nickSanitized}`;
 
-      if (nickSanitized.length === 0) {
-        infoBox.textContent = welcomeMessage;
-        passwordInput.style.display = "none";
-        return;
-      }
-
-      const isOnline = await checkNickOnline(nickSanitized);
-
-      if (isOnline) {
+      if (isRegisteredNick(nickSanitized)) {
         passwordInput.style.display = "block";
-        infoBox.textContent = "🔐 Nick attivo. Inserisci la password.";
+        infoBox.textContent = "🔐 Nick registrato. Inserisci la password.";
       } else {
         passwordInput.style.display = "none";
         passwordInput.value = "";
@@ -268,7 +241,7 @@
 
     function vaiAllaVerifica() {
       const nick = sanitizeNick(nickInput.value);
-           const sex = document.getElementById("sexselect").value;
+      const sex = document.getElementById("sexselect").value;
       const looking = document.getElementById("lookingselect").value;
       const city = document.getElementById("cityinput").value.trim();
       const password = passwordInput.value;
@@ -288,10 +261,9 @@
       localStorage.setItem("looking", looking);
       localStorage.setItem("city", city);
       if (password) localStorage.setItem("password", password);
-
       window.location.href = "join.html";
     }
   </script>
 
 </body>
-</html>      
+</html>
