@@ -132,4 +132,132 @@
     }
 
     .disclaimer {
-      font-size
+      font-size: 0.8em;
+      margin-top: 10px;
+    }
+
+    .disclaimer a {
+      color: #003374;
+      text-decoration: underline;
+    }
+
+    #infobox {
+      font-size: 0.85em;
+      color: #ea5906;
+      margin: 4px 0 -2px 0;
+    }
+
+    #nickpreview {
+      font-size: 0.8em;
+      color: #666;
+      margin-top: -4px;
+    }
+
+    @media (max-width: 420px) {
+      .container {
+        padding: 16px 12px;
+        max-width: 92%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-title">💬 Chat NebulaLounge –
+      <span class="header-subtitle">Dove tutto può iniziare 🛸</span>
+    </div>
+    <div class="menu-links">
+      <a href="/">🔙 Torna su <em>Oltre la Verità</em></a>
+      <a href="/chat">💬 Chat Gratis</a>
+    </div>
+  </div>
+
+  <div class="cover">
+    <h1>Accedi alla NebulaLounge 🚀 Gratis</h1>
+
+    <div class="container">
+      <div class="banner">
+        <a href="https://tc.tradetracker.net/?c=18031&m=2469548&a=432856&r=&u=" target="_blank" rel="sponsored nofollow">
+          <img src="https://ti.tradetracker.net/?c=18031&m=2469548&a=432856&r=&t=html"
+            width="300" height="250" alt="Happy Card Feltrinelli" />
+        </a>
+      </div>
+
+      <input type="text" id="nickinput" placeholder="Nickname *" required />
+      <div id="nickpreview"></div>
+      <div id="infobox"></div>
+
+      <input type="password" id="passwordinput" placeholder="Password (se registrato)" />
+
+      <div class="select-row">
+        <select id="sexselect" aria-label="Sono">
+          <option value="">*Sono: ♂️ ♀️</option>
+          <option value="M">👨‍💼 Uomo ♂️</option>
+          <option value="F">👩‍🎓 Donna ♀️</option>
+        </select>
+
+        <select id="lookingselect" aria-label="Cerco">
+          <option value="">*Cerco: ♀️ ♂️</option>
+          <option value="F">👩 Donna ♀️</option>
+          <option value="M">👨 Uomo ♂️</option>
+        </select>
+      </div>
+
+      <input type="text" id="cityinput" placeholder="Città (opzionale)" />
+
+      <button onclick="vaiAllaVerifica()">Entra in Chat</button>
+
+      <div class="disclaimer">
+        Accedendo accetti le <a href="disclaimer.html" target="_blank">regole di Simosnap</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const registeredNicks = ["Nebula", "Valerio", "Luna", "Stella"];
+    const welcomeMessage = "🚀 Benvenuto nella NebulaLounge! Lasciati ispirare.";
+
+    function sanitizeNick(nick) {
+      return nick
+        .toLowerCase()
+        .replace(/\s+/g, "_")
+        .replace(/[^a-z0-9_]/g, "")
+        .slice(0, 25);
+    }
+
+    function isRegisteredNick(nickSanitized, registeredNicks) {
+      return registeredNicks
+        .map(n => sanitizeNick(n))
+        .includes(nickSanitized);
+    }
+
+    const nickInput = document.getElementById("nickinput");
+    const passwordInput = document.getElementById("passwordinput");
+    const infoBox = document.getElementById("infobox");
+    const nickPreview = document.getElementById("nickpreview");
+
+    infoBox.textContent = welcomeMessage;
+
+    nickInput.addEventListener("input", () => {
+      const nickSanitized = sanitizeNick(nickInput.value);
+      nickPreview.textContent = `Nick usato: ${nickSanitized}`;
+
+      if (isRegisteredNick(nickSanitized, registeredNicks)) {
+        passwordInput.style.display = "block";
+        infoBox.textContent = "🔐 Nick registrato. Inserisci la password.";
+      } else {
+        passwordInput.style.display = 'none';
+        passwordInput.value = "";
+
+        if (nickSanitized.length === 0) {
+          infoBox.textContent = welcomeMessage;
+        } else {
+          infoBox.textContent = "";
+        }
+      }
+    });
+
+    function vaiAllaVerifica() {
+      const nick = sanitizeNick(nickInput.value);
+      const sex = document.getElementById
