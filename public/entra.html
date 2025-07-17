@@ -102,10 +102,15 @@
         passwordInput.style.display = "block";
         infoBox.textContent = "🔐 Nick registrato. Inserisci la password.";
       } else {
-        passwordInput.style.display = "none";
-        passwordInput.value = "";
-        infoBox.textContent = "";
-      }
+  passwordInput.style.display = 'none';
+  passwordInput.value = "";
+
+  if (nickSanitized.length === 0) {
+    infoBox.textContent = welcomeMessage || "";
+  } else {
+    infoBox.textContent = "";
+  }
+}
     });
 
     window.vaiAllaVerifica = function () {
