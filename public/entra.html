@@ -257,10 +257,15 @@
     const city = document.getElementById('cityinput').value.trim();
     const password = document.getElementById('passwordinput').value;
 
-    if (!nick || !sex || !looking) {
-      alert("⚠️ Compila tutti i campi obbligatori.");
-      return;
-    }
+    if (!nick || nick.length < 3) {
+  alert("⚠️ Inserisci un nickname valido (minimo 3 caratteri).");
+  return;
+}
+
+if (!sex || !looking) {
+  alert("⚠️ Seleziona sesso e preferenza.");
+  return;
+}
 
     localStorage.setItem("nick", nick);
     localStorage.setItem("sex", sex);
