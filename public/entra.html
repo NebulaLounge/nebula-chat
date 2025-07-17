@@ -208,39 +208,45 @@
   </div>
 
   <script>
-    const registeredNicks = ["nebula", "maria", "valerio", "luna", "stella"];
-
-    function sanitizeNick(nick) {
-      return nick
-        .toLowerCase()
-        .replace(/\s+/g, "_")
-        .replace(/[^a-z0-9_]/g, "")
-        .slice(0, 25);
-    }
-
-    function isNickRegistered(nickSanitized) {
-      return registeredNicks.includes(nickSanitized);
-    }
-
     const nickInput = document.getElementById("nickinput");
     const passwordInput = document.getElementById("passwordinput");
     const infoBox = document.getElementById("infobox");
 
-    nickInput.addEventListener("input", () => {
-      const nickSanitized = sanitizeNick(nickInput.value);
+    let nickIsRegistered = false;
+    let delayCheck;
 
-      if (isNickRegistered(nickSanitized)) {
-        passwordInput.style.display = "block";
-        infoBox.textContent = "🔐 Nick registrato. Inserisci la password.";
-      } else {
-        passwordInput.style.display = "none";
-        passwordInput.value = "";
-        infoBox.textContent = "";
-      }
+    nickInput.addEventListener("input", () => {
+      clearTimeout(delayCheck);
+      delayCheck = setTimeout(() => {
+        const nick = nickInput.value.trim();
+        if (nick.length < 3) return;
+
+        fetch(`https://www.simosnap.org/rest/service.php/checknick/${nick}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.registered === "yes") {
+              nickIsRegistered = true;
+              passwordInput.style.display = "block";
+              infoBox.innerHTML = `<span style="color:#b10303;"><b>🔐 Il nickname è registrato.</b><br>Inserisci la password per autenticarti.</span>`;
+            } else {
+              nickIsRegistered = false;
+              passwordInput.style.display = "none";
+              passwordInput.value = "";
+              infoBox.textContent = "";
+            }
+          })
+          .catch(err => {
+            console.error("Errore nella verifica del nick:", err);
+            nickIsRegistered = false;
+            passwordInput.style.display = "none";
+            passwordInput.value = "";
+            infoBox.textContent = "";
+          });
+      }, 500);
     });
 
     function vaiAllaVerifica() {
-      const nick = sanitizeNick(nickInput.value);
+      const nick = nickInput.value.trim();
       const sex = document.getElementById("sexselect").value;
       const looking = document.getElementById("lookingselect").value;
       const city = document.getElementById("cityinput").value.trim();
@@ -249,19 +255,14 @@
       if (!nick || nick.length < 3) {
         alert("⚠️ Inserisci un nickname valido (minimo 3 caratteri).");
         return;
-      }
+            }
 
-      if (!sex || !looking) {
-        alert("⚠️ Seleziona sesso e preferenza.");
+      if (nickIsRegistered && !password) {
+        alert("⚠️ Il nickname è registrato. Inserisci la password per continuare.");
         return;
       }
 
-      if (isNickRegistered(nick) && !password) {
-        alert("⚠️ Il nick è registrato. Inserisci la password per evitare che venga cambiato dal server.");
-        return;
-      }
-
-            localStorage.setItem("nick", nick);
+      localStorage.setItem("nick", nick);
       localStorage.setItem("sex", sex);
       localStorage.setItem("looking", looking);
       localStorage.setItem("city", city);
