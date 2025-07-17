@@ -1,144 +1,243 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
   <title>Entra nella NebulaLounge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* ...tutto il tuo CSS originale qui, invariato... */
-    /* aggiungo solo uno stile per il preview */
-    #nickpreview {
-      font-size: 0.8em;
-      color: #666;
-      margin-top: -4px;
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #003374;
+      color: white;
+    }
+
+    .cover {
+      background: linear-gradient(rgba(234, 89, 6, 0.25), rgba(0, 51, 116, 0.45)),
+      url('https://www.indelibile.it/wp-content/uploads/2025/06/1a18e87e-a6ca-4c20-95ec-85cc2bd6a055.png');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+    }
+
+    .box {
+      background-color: rgba(44,62,80,0.6);
+      border-radius: 13px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      text-align: center;
+      padding: 24px;
+      max-width: 400px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInBox 1.2s ease-out forwards;
+      color: white;
+    }
+
+    @keyframes fadeInBox {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      font-size: 38px;
+      color: #ea5906;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 4px #00193a;
+    }
+
+    .banner {
+      background-color: #fff;
+      color: #003374;
+      border: 2px solid #ea5906;
+      border-radius: 8px;
+      width: 300px;
+      height: 300px;
+      margin: 0 auto 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .selection-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 22px;
+    }
+
+    .group-block {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .group-block .label {
+      font-weight: bold;
+      font-size: 1em;
+      min-width: 60px;
+      text-align: right;
+    }
+
+    .emoji-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .emoji-option {
+      background-color: rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 2em;
+      transition: border 0.3s ease, background 0.3s ease;
+      border: 2px solid transparent;
+      text-align: center;
+    }
+
+    .emoji-option.active {
+      border-color: #ea5906;
+      background-color: rgba(255,255,255,0.3);
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    input {
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      width: 100%;
+    }
+
+    .submit-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 18px;
+      gap: 8px;
+    }
+
+    button {
+      background-color: #ea5906;
+      color: white;
+      border: 2px solid #fff;
+      font-weight: bold;
+      padding: 14px 75px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #d25505;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(234,89,6,0.5);
+    }
+
+    .disclaimer {
+      font-size: 0.85em;
+      color: #ccc;
+      text-align: center;
+    }
+
+    .disclaimer a {
+      color: #ffa74f;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .row {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-title">💬 Chat NebulaLounge –
-      <span class="header-subtitle">Dove tutto può iniziare 🛸</span>
-    </div>
-    <div class="menu-links">
-      <a href="/">🔙 Torna su <em>Oltre la Verità</em></a>
-      <a href="/chat">💬 Chat Gratis</a>
-    </div>
-  </div>
-
-  <!-- COVER + TITOLO -->
   <div class="cover">
-    <h1>Accedi alla NebulaLounge 🚀 Gratis</h1>
+    <div class="box">
+      <h2>Accesso alla NebulaLounge</h2>
 
-    <div class="container">
-      <div class="banner">
-        <a href="https://tc.tradetracker.net/?c=18031&m=2469548&a=432856&r=&u=" target="_blank" rel="sponsored nofollow">
-          <img src="https://ti.tradetracker.net/?c=18031&m=2469548&a=432856&r=&t=html"
-            width="300" height="250" alt="Happy Card Feltrinelli" />
-        </a>
+      <div class="banner">📢 Spazio banner 300×250</div>
+
+      <p>Inserisci i tuoi dati per accedere alla chat:</p>
+
+      <div class="selection-row">
+        <div class="group-block">
+          <div class="label">Sono:</div>
+          <div class="emoji-group" id="sono-group">
+            <div class="emoji-option" data-group="sono" data-value="F">👩‍🦰<br>♀</div>
+            <div class="emoji-option" data-group="sono" data-value="M">👨<br>♂</div>
+          </div>
+        </div>
+
+        <div class="group-block">
+          <div class="label">Cerco:</div>
+          <div class="emoji-group" id="cerco-group">
+            <div class="emoji-option" data-group="cerco" data-value="F">👩‍🦱<br>♀</div>
+            <div class="emoji-option" data-group="cerco" data-value="M">🧔<br>♂</div>
+          </div>
+        </div>
       </div>
 
-      <input type="text" id="nickinput" placeholder="Nickname *" required />
-      <div id="nickpreview"></div>
-      <div id="infobox"></div>
-
-      <input type="password" id="passwordinput" placeholder="Password (se registrato)" />
-
-      <div class="select-row">
-        <select id="sexselect" aria-label="Sono">
-          <option value="">*Sono: ♂️ ♀️</option>
-          <option value="M">👨‍💼 Uomo ♂️</option>
-          <option value="F">👩‍🎓 Donna ♀️</option>
-        </select>
-
-        <select id="lookingselect" aria-label="Cerco">
-          <option value="">*Cerco: ♀️ ♂️</option>
-          <option value="F">👩 Donna ♀️</option>
-          <option value="M">👨 Uomo ♂️</option>
-        </select>
+      <div class="row">
+        <input type="text" id="nickinput" placeholder="Nickname *" required />
+        <input type="text" id="cityinput" placeholder="Città (opzionale)" />
       </div>
 
-      <input type="text" id="cityinput" placeholder="Città (opzionale)" />
-
-      <button onclick="vaiAllaVerifica()">Entra in Chat</button>
-
-      <div class="disclaimer">
-        Accedendo accetti le <a href="disclaimer.html" target="_blank">regole di Simosnap</a>
+      <div class="submit-row">
+        <button onclick="vaiAllaVerifica()">Entra in Chat</button>
+        <div class="disclaimer">
+          Accedendo accetti le <a href="disclaimer.html" target="_blank">regole di Simosnap</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <script type="module">
-    import { sanitizeNick, isRegisteredNick } from "./utils.js";
+  <script>
+    let selectedSono = "";
+    let selectedCerco = "";
 
-    let registeredNicks = [];
-    let welcomeMessage = "";
+    document.querySelectorAll('.emoji-option').forEach(el => {
+      el.addEventListener('click', () => {
+        const group = el.dataset.group;
+        document.querySelectorAll(`.emoji-option[data-group="${group}"]`).forEach(e => e.classList.remove('active'));
+        el.classList.add('active');
 
-    const nickInput = document.getElementById("nickinput");
-    const passwordInput = document.getElementById("passwordinput");
-    const infoBox = document.getElementById("infobox");
-    const nickPreview = document.getElementById("nickpreview");
-
-    fetch("config.json")
-      .then(response => response.json())
-      .then(config => {
-        registeredNicks = config.registeredNicks || [];
-        welcomeMessage = config.welcomeMessage || "";
-        infoBox.textContent = welcomeMessage;
+        if (group === "sono") selectedSono = el.dataset.value;
+        if (group === "cerco") selectedCerco = el.dataset.value;
       });
-
-    nickInput.addEventListener("input", () => {
-      const nickSanitized = sanitizeNick(nickInput.value);
-      nickPreview.textContent = `Nick usato: ${nickSanitized}`;
-
-      if (nickSanitized.length === 0) {
-        infoBox.textContent = welcomeMessage;
-        passwordInput.style.display = "none";
-        return;
-      }
-
-      if (isRegisteredNick(nickSanitized, registeredNicks)) {
-        passwordInput.style.display = "block";
-        infoBox.textContent = "🔐 Nick registrato. Inserisci la password.";
-      } else {
-  passwordInput.style.display = 'none';
-  passwordInput.value = "";
-
-  if (nickSanitized.length === 0) {
-    infoBox.textContent = welcomeMessage || "";
-  } else {
-    infoBox.textContent = "";
-  }
-}
     });
 
-    window.vaiAllaVerifica = function () {
-      const nick = sanitizeNick(nickInput.value);
-      const sex = document.getElementById("sexselect").value;
-      const looking = document.getElementById("lookingselect").value;
-      const city = document.getElementById("cityinput").value.trim();
-      const password = passwordInput.value;
+    function vaiAllaVerifica() {
+      const nick = document.getElementById('nickinput').value.trim();
+      const city = document.getElementById('cityinput').value.trim();
 
-      if (!nick || nick.length < 3) {
-        alert("⚠️ Inserisci un nickname valido (minimo 3 caratteri).");
-        return;
-      }
-
-      if (!sex || !looking) {
-        alert("⚠️ Seleziona sesso e preferenza.");
+      if (!nick || !selectedSono || !selectedCerco) {
+        alert("Per favore compila tutti i campi obbligatori.");
         return;
       }
 
       localStorage.setItem("nick", nick);
-      localStorage.setItem("sex", sex);
-      localStorage.setItem("looking", looking);
+      localStorage.setItem("sex", selectedSono);
+      localStorage.setItem("looking", selectedCerco);
       localStorage.setItem("city", city);
-      if (password) localStorage.setItem("password", password);
 
-      window.location.href = "join.html";
-    };
+      window.location.href = "join/";
+    }
   </script>
-
 </body>
 </html>
