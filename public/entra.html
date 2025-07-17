@@ -1,57 +1,116 @@
-import { sanitizeNick } from './utils.js';
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entra in Chat</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .form-group { margin-bottom: 15px; }
+    #passwordinput { display: none; }
+    #infobox { margin-top: 10px; color: #b10303; font-weight: bold; }
+  </style>
+</head>
+<body>
 
-window.addEventListener("DOMContentLoaded", () => {
-  const nickInput = document.getElementById('nickinput');
-  const passwordInput = document.getElementById('passwordinput');
-  const infoBox = document.getElementById('infobox');
+  <h1>Benvenuto nella Chat</h1>
 
-  async function checkNickOnSimosnap(nick) {
-    try {
-      const response = await fetch(`https://www.simosnap.org/rest/service.php/checknick/${encodeURIComponent(nick)}`);
-      if (!response.ok) return false;
-      const data = await response.json();
-      return data.registered === "yes";
-    } catch (error) {
-      console.error("Errore nella verifica del nick:", error);
-      return false;
-    }
-  }
+  <div class="form-group">
+    <label for="nickinput">Nickname:</label>
+    <input type="text" id="nickinput" placeholder="Inserisci il tuo nickname" />
+  </div>
 
-  nickInput.addEventListener('input', async () => {
-    const rawNick = nickInput.value;
-    const nickSanitized = sanitizeNick(rawNick);
+  <div class="form-group">
+    <label for="sexselect">Sono:</label>
+    <select id="sexselect">
+      <option value="">-- Seleziona --</option>
+      <option value="m">Uomo</option>
+      <option value="f">Donna</option>
+    </select>
+  </div>
 
-    const isRegistered = await checkNickOnSimosnap(nickSanitized);
+  <div class="form-group">
+    <label for="lookingselect">Cerco:</label>
+    <select id="lookingselect">
+      <option value="">-- Seleziona --</option>
+      <option value="m">Uomo</option>
+      <option value="f">Donna</option>
+    </select>
+  </div>
 
-    if (isRegistered) {
-      passwordInput.style.display = 'block';
-      infoBox.textContent = "🔐 Nick registrato su Simosnap. Inserisci la password.";
-    } else {
-      passwordInput.style.display = 'none';
-      infoBox.textContent = "";
-      passwordInput.value = "";
-    }
-  });
+  <div class="form-group">
+    <label for="cityinput">Città:</label>
+    <input type="text" id="cityinput" placeholder="La tua città" />
+  </div>
 
-  window.vaiAllaVerifica = function () {
-    const rawNick = nickInput.value;
-    const nickSanitized = sanitizeNick(rawNick);
-    const sex = document.getElementById('sexselect').value;
-    const looking = document.getElementById('lookingselect').value;
-    const city = document.getElementById('cityinput').value.trim();
-    const password = passwordInput.value;
+  <div class="form-group" id="passwordbox">
+    <input type="password" id="passwordinput" placeholder="Inserisci la password" />
+  </div>
 
-    if (!nickSanitized || !sex || !looking) {
-      alert("Per favore compila tutti i campi obbligatori.");
-      return;
-    }
+  <div id="infobox"></div>
 
-    localStorage.setItem("nick", nickSanitized);
-    localStorage.setItem("sex", sex);
-    localStorage.setItem("looking", looking);
-    localStorage.setItem("city", city);
-    if (password) localStorage.setItem("password", password);
+  <button onclick="vaiAllaVerifica()">Entra</button>
 
-    window.location.href = "join.html";
-  };
-});
+  <!-- ✅ Script -->
+  <script type="module">
+    import { sanitizeNick } from './utils.js';
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const nickInput = document.getElementById('nickinput');
+      const passwordInput = document.getElementById('passwordinput');
+      const infoBox = document.getElementById('infobox');
+
+      async function checkNickOnSimosnap(nick) {
+        try {
+          const response = await fetch(`https://www.simosnap.org/rest/service.php/checknick/${encodeURIComponent(nick)}`);
+          if (!response.ok) return false;
+          const data = await response.json();
+          return data.registered === "yes";
+        } catch (error) {
+          console.error("Errore nella verifica del nick:", error);
+          return false;
+        }
+      }
+
+      nickInput.addEventListener('input', async () => {
+        const rawNick = nickInput.value;
+        const nickSanitized = sanitizeNick(rawNick);
+
+        const isRegistered = await checkNickOnSimosnap(nickSanitized);
+
+        if (isRegistered) {
+          passwordInput.style.display = 'block';
+          infoBox.textContent = "🔐 Nick registrato su Simosnap. Inserisci la password.";
+        } else {
+          passwordInput.style.display = 'none';
+          infoBox.textContent = "";
+          passwordInput.value = "";
+        }
+      });
+
+      window.vaiAllaVerifica = function () {
+        const rawNick = nickInput.value;
+        const nickSanitized = sanitizeNick(rawNick);
+        const sex = document.getElementById('sexselect').value;
+        const looking = document.getElementById('lookingselect').value;
+        const city = document.getElementById('cityinput').value.trim();
+        const password = passwordInput.value;
+
+        if (!nickSanitized || !sex || !looking) {
+          alert("Per favore compila tutti i campi obbligatori.");
+          return;
+        }
+
+        localStorage.setItem("nick", nickSanitized);
+        localStorage.setItem("sex", sex);
+        localStorage.setItem("looking", looking);
+        localStorage.setItem("city", city);
+        if (password) localStorage.setItem("password", password);
+
+        window.location.href = "join.html";
+      };
+    });
+  </script>
+
+</body>
+</html>
