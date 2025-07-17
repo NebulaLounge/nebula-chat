@@ -215,7 +215,6 @@
   </div>
 
   <script>
-    const registeredNicks = ["Nebula", "Valerio", "Luna", "Stella"];
     const welcomeMessage = "🚀 Benvenuto nella NebulaLounge! Lasciati ispirare.";
 
     function sanitizeNick(nick) {
@@ -226,10 +225,16 @@
         .slice(0, 25);
     }
 
-    function isRegisteredNick(nickSanitized, registeredNicks) {
-      return registeredNicks
-        .map(n => sanitizeNick(n))
-        .includes(nickSanitized);
+    async function checkNickOnline(nickSanitized) {
+      const url = "https://www.simosnap.org/rest/service.php/channels/%23NebulaLounge/users";
+      try {
+        const response = await fetch(url);
+        const users = await response.json();
+        return users.some(user => sanitizeNick(user.nickname) === nickSanitized);
+      } catch (error) {
+        console.error("Errore nel recupero utenti:", error);
+        return false;
+      }
     }
 
     const nickInput = document.getElementById("nickinput");
@@ -239,28 +244,31 @@
 
     infoBox.textContent = welcomeMessage;
 
-    nickInput.addEventListener("input", () => {
+    nickInput.addEventListener("input", async () => {
       const nickSanitized = sanitizeNick(nickInput.value);
       nickPreview.textContent = `Nick usato: ${nickSanitized}`;
 
-      if (isRegisteredNick(nickSanitized, registeredNicks)) {
-        passwordInput.style.display = "block";
-        infoBox.textContent = "🔐 Nick registrato. Inserisci la password.";
-      } else {
-        passwordInput.style.display = 'none';
-        passwordInput.value = "";
+      if (nickSanitized.length === 0) {
+        infoBox.textContent = welcomeMessage;
+        passwordInput.style.display = "none";
+        return;
+      }
 
-        if (nickSanitized.length === 0) {
-          infoBox.textContent = welcomeMessage;
-        } else {
-          infoBox.textContent = "";
-        }
+      const isOnline = await checkNickOnline(nickSanitized);
+
+      if (isOnline) {
+        passwordInput.style.display = "block";
+        infoBox.textContent = "🔐 Nick attivo. Inserisci la password.";
+      } else {
+        passwordInput.style.display = "none";
+        passwordInput.value = "";
+        infoBox.textContent = "";
       }
     });
 
     function vaiAllaVerifica() {
       const nick = sanitizeNick(nickInput.value);
-      const sex = document.getElementById("sexselect").value;
+           const sex = document.getElementById("sexselect").value;
       const looking = document.getElementById("lookingselect").value;
       const city = document.getElementById("cityinput").value.trim();
       const password = passwordInput.value;
@@ -286,4 +294,4 @@
   </script>
 
 </body>
-</html>
+</html>      
