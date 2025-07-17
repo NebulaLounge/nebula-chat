@@ -55,6 +55,7 @@
       font-weight: 500;
       color: #f0e8de;
       line-height: 1.2;
+      display: none;
     }
 
     .frame-banner {
@@ -198,6 +199,7 @@
       setTimeout(() => {
         step1.style.display = "none";
         step2.style.display = "flex";
+        step2.querySelector(".welcomeDetails").style.display = "block";
       }, 1000);
     }, 7000);
 
@@ -207,7 +209,7 @@
       .then(config => {
         document.querySelector('input[name="channel"]').value = config.channel || "#NebulaLounge";
 
-          if (config.welcomeMessage) {
+        if (config.welcomeMessage) {
           const extraMessage = document.createElement("div");
           extraMessage.id = "extraWelcome";
           extraMessage.innerHTML = `<em>${config.welcomeMessage}</em>`;
@@ -220,10 +222,14 @@
     // Invia il form per caricare la chat
     document.getElementById("chatForm").submit();
 
-    // Audio dopo 8s
+    // Audio dopo 8s con log
     setTimeout(() => {
       const audio = document.getElementById("welcomeAudio");
-      audio.play().catch(() => {});
+      audio.play().then(() => {
+        console.log("Audio riprodotto.");
+      }).catch(err => {
+        console.warn("Audio bloccato:", err);
+      });
     }, 8000);
 
     // Dopo 24s sostituisci il secondo step con il banner
