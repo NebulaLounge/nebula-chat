@@ -49,13 +49,6 @@ window.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const isRegistered = config.registeredNicks && isRegisteredNick(nickSanitized, config.registeredNicks);
-
-    if (isRegistered && !password) {
-      const conferma = confirm("⚠️ Il nickname è registrato ma non hai inserito la password.\nVerrai identificato come guest nella chat. Vuoi continuare?");
-      if (!conferma) return;
-    }
-
     if (containsBlacklistedWord(nickSanitized, config.blacklist) || containsBlacklistedWord(city, config.blacklist)) {
       alert("❌ Il nickname o la città contiene parole non consentite.");
       return;
