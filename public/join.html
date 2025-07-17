@@ -162,8 +162,13 @@ document.getElementById("welcomeTop").innerHTML =
         document.querySelector('input[name="channel"]').value = config.channel || "#NebulaLounge";
 
         if (config.welcomeMessage) {
-          document.getElementById("welcomeTop").innerHTML += `<br><em>${config.welcomeMessage}</em>`;
-        }
+  // Salviamo il messaggio per usarlo altrove
+  const extraMessage = document.createElement("div");
+  extraMessage.id = "extraWelcome";
+  extraMessage.innerHTML = `<em>${config.welcomeMessage}</em>`;
+  extraMessage.style.cssText = "margin-top:12px; font-size:1rem; color:#ea5906;";
+  document.body.appendChild(extraMessage); // oppure appendilo dove vuoi
+}
       });
 
     document.getElementById("chatForm").submit();
