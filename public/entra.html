@@ -260,4 +260,30 @@
 
     function vaiAllaVerifica() {
       const nick = sanitizeNick(nickInput.value);
-      const sex = document.getElementById
+      const sex = document.getElementById("sexselect").value;
+      const looking = document.getElementById("lookingselect").value;
+      const city = document.getElementById("cityinput").value.trim();
+      const password = passwordInput.value;
+
+      if (!nick || nick.length < 3) {
+        alert("⚠️ Inserisci un nickname valido (minimo 3 caratteri).");
+        return;
+      }
+
+      if (!sex || !looking) {
+        alert("⚠️ Seleziona sesso e preferenza.");
+        return;
+      }
+
+      localStorage.setItem("nick", nick);
+      localStorage.setItem("sex", sex);
+      localStorage.setItem("looking", looking);
+      localStorage.setItem("city", city);
+      if (password) localStorage.setItem("password", password);
+
+      window.location.href = "join.html";
+    }
+  </script>
+
+</body>
+</html>
