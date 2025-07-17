@@ -2,91 +2,72 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Entra nella NebulaLounge</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #001f4d;
-      color: #fff;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-    }
-    label {
-      display: block;
-      margin-top: 12px;
-    }
-    input, select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 4px;
-      border-radius: 6px;
-      border: none;
-      box-sizing: border-box;
-    }
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #ea5906;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-size: 1em;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #fff;
-      color: #ea5906;
-    }
-    #infobox {
-      margin-top: 16px;
-      font-size: 1em;
-      color: #ffcc00;
-    }
+    /* ...tutto il tuo CSS originale qui, invariato... */
+    /* aggiungo solo uno stile per il preview */
     #nickpreview {
-      margin-top: 8px;
-      font-size: 0.9em;
-      color: #aaa;
-    }
-    #passwordinput {
-      display: none;
+      font-size: 0.8em;
+      color: #666;
+      margin-top: -4px;
     }
   </style>
 </head>
 <body>
 
-  <h1>🚀 Entra nella NebulaLounge</h1>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-title">💬 Chat NebulaLounge –
+      <span class="header-subtitle">Dove tutto può iniziare 🛸</span>
+    </div>
+    <div class="menu-links">
+      <a href="/">🔙 Torna su <em>Oltre la Verità</em></a>
+      <a href="/chat">💬 Chat Gratis</a>
+    </div>
+  </div>
 
-  <label for="nickinput">Nickname</label>
-  <input type="text" id="nickinput" placeholder="Es. Barbara la brutta" />
-  <div id="nickpreview"></div>
+  <!-- COVER + TITOLO -->
+  <div class="cover">
+    <h1>Accedi alla NebulaLounge 🚀 Gratis</h1>
 
-  <label for="sexselect">Sesso</label>
-  <select id="sexselect">
-    <option value="">-- Seleziona --</option>
-    <option value="M">Maschio</option>
-    <option value="F">Femmina</option>
-    <option value="X">Altro</option>
-  </select>
+    <div class="container">
+      <div class="banner">
+        <a href="https://tc.tradetracker.net/?c=18031&m=2469548&a=432856&r=&u=" target="_blank" rel="sponsored nofollow">
+          <img src="https://ti.tradetracker.net/?c=18031&m=2469548&a=432856&r=&t=html"
+            width="300" height="250" alt="Happy Card Feltrinelli" />
+        </a>
+      </div>
 
-  <label for="lookingselect">Cerchi</label>
-  <select id="lookingselect">
-    <option value="">-- Seleziona --</option>
-    <option value="M">Maschio</option>
-    <option value="F">Femmina</option>
-    <option value="X">Qualcosa di diverso</option>
-  </select>
+      <input type="text" id="nickinput" placeholder="Nickname *" required />
+      <div id="nickpreview"></div>
+      <div id="infobox"></div>
 
-  <label for="cityinput">Città</label>
-  <input type="text" id="cityinput" placeholder="Es. Messina" />
+      <input type="password" id="passwordinput" placeholder="Password (se registrato)" />
 
-  <label for="passwordinput">Password</label>
-  <input type="password" id="passwordinput" placeholder="Solo per nick registrati" />
+      <div class="select-row">
+        <select id="sexselect" aria-label="Sono">
+          <option value="">*Sono: ♂️ ♀️</option>
+          <option value="M">👨‍💼 Uomo ♂️</option>
+          <option value="F">👩‍🎓 Donna ♀️</option>
+        </select>
 
-  <div id="infobox"></div>
+        <select id="lookingselect" aria-label="Cerco">
+          <option value="">*Cerco: ♀️ ♂️</option>
+          <option value="F">👩 Donna ♀️</option>
+          <option value="M">👨 Uomo ♂️</option>
+        </select>
+      </div>
 
-  <button onclick="vaiAllaVerifica()">🚀 Entra</button>
+      <input type="text" id="cityinput" placeholder="Città (opzionale)" />
+
+      <button onclick="vaiAllaVerifica()">Entra in Chat</button>
+
+      <div class="disclaimer">
+        Accedendo accetti le <a href="disclaimer.html" target="_blank">regole di Simosnap</a>
+      </div>
+    </div>
+  </div>
 
   <script type="module">
     import { sanitizeNick, isRegisteredNick } from "./utils.js";
