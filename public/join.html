@@ -172,14 +172,12 @@
     const city = localStorage.getItem("city") || "";
     const password = localStorage.getItem("password") || "";
 
-    // Popola i campi del form
     document.getElementById("nickField").value = nick;
     document.getElementById("sexField").value = sex;
     document.getElementById("lookingField").value = looking;
     document.getElementById("cityField").value = city;
     document.getElementById("passwordField").value = password;
 
-    // Popola i dati visivi
     const sexText = sex === "M" ? "un 👨‍💼 Uomo ♂️" : sex === "F" ? "una 👩 Donna ♀️" : "un* utente";
     const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
     const cityText = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
@@ -189,7 +187,6 @@
     document.getElementById("lookingSpan").textContent = lookingText;
     document.getElementById("citySpan").textContent = cityText;
 
-    // Transizione tra step 1 e step 2
     setTimeout(() => {
       const step1 = document.getElementById("welcomeStep1");
       const step2 = document.getElementById("welcomeStep2");
@@ -203,7 +200,6 @@
       }, 1000);
     }, 7000);
 
-    // Carica config.json
     fetch("config.json")
       .then(response => response.json())
       .then(config => {
@@ -213,7 +209,7 @@
           const extraMessage = document.createElement("div");
           extraMessage.id = "extraWelcome";
           extraMessage.innerHTML = `<em>${config.welcomeMessage}</em>`;
-          extraMessage.style.cssText = "margin-top:12px; font-size:1rem; color:#ea5906;";
+                   extraMessage.style.cssText = "margin-top:12px; font-size:1rem; color:#ea5906;";
           document.body.appendChild(extraMessage);
         }
       })
@@ -244,5 +240,53 @@
     }, 24000);
   };
   </script>
+
+  <!-- Autocompletamento città -->
+  <script>
+    function setupAutocomplete(cities) {
+      const input = document.getElementById("cityField");
+      const suggestionBox = document.createElement("div");
+      suggestionBox.style.cssText = "position:absolute; background:#fff; color:#000; border:1px solid #ccc; z-index:1000; max-height:200px; overflow-y:auto; font-size:0.95rem;";
+      suggestionBox.id = "citySuggestions";
+      document.body.appendChild(suggestionBox);
+
+      input.addEventListener("input", () => {
+        const val = input.value.toLowerCase();
+        const matches = cities.filter(c => c.toLowerCase().startsWith(val)).slice(0, 10);
+
+        suggestionBox.innerHTML = "";
+        if (val && matches.length) {
+          const rect = input.getBoundingClientRect();
+          suggestionBox.style.top = rect.bottom + window.scrollY + "px";
+          suggestionBox.style.left = rect.left + window.scrollX + "px";
+          suggestionBox.style.width = rect.width + "px";
+
+          matches.forEach(city => {
+            const item = document.createElement("div");
+            item.textContent = city;
+            item.style.padding = "6px";
+            item.style.cursor = "pointer";
+            item.addEventListener("click", () => {
+              input.value = city;
+              suggestionBox.innerHTML = "";
+              localStorage.setItem("city", city);
+            });
+            suggestionBox.appendChild(item);
+          });
+        } else {
+          suggestionBox.innerHTML = "";
+        }
+      });
+    }
+
+    fetch("https://nebula-chat-silk.vercel.app/comuni.json")
+      .then(res => res.json())
+      .then(data => {
+        const cities = data.map(c => c.nome);
+        setupAutocomplete(cities);
+      })
+      .catch(err => console.error("Errore nel caricamento dei comuni:", err));
+  </script>
+
 </body>
 </html>
