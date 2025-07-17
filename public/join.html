@@ -148,20 +148,12 @@
     document.getElementById("cityField").value = city;
     document.getElementById("passwordField").value = password;
 
-    document.getElementById("nickSpan").innerHTML = `👤 <strong>${capitalize(nick)}</strong>`;
-    document.getElementById("sexSpan").innerHTML = sex === "M"
-      ? " un 👨 Uomo ♂️"
-      : sex === "F"
-        ? " una 👩 Donna ♀️"
-        : "un* utente";
-    document.getElementById("lookingSpan").innerHTML = looking === "M"
-      ? " un 👨‍💼 Uomo ♂️"
-      : looking === "F"
-        ? " una 👩‍🎓 Donna ♀️"
-        : "qualcuno";
-    document.getElementById("citySpan").innerHTML = city
-      ? `dalla città di📍${capitalize(city)}`
-      : "da una località sconosciuta 🕵️";
+    const sexText = sex === "M" ? "un 👨‍💼 Uomo ♂️" : sex === "F" ? "una 👩 Donna ♀️" : "un* utente";
+const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
+const cityText = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
+
+document.getElementById("welcomeTop").innerHTML =
+  `🌌 Benvenuto su NebulaLounge! Ciao ${capitalize(nick)}, sei ${sexText} e stai cercando ${lookingText} ${cityText}.`;
 
     // Carica config.json
     fetch("config.json")
