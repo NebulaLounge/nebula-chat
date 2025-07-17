@@ -184,9 +184,22 @@
   const cityText = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
 
   document.getElementById("nickSpan").textContent = capitalize(nick);
-  document.getElementById("sexSpan").textContent = sexText;
-  document.getElementById("lookingSpan").textContent = lookingText;
-  document.getElementById("citySpan").textContent = cityText;
+document.getElementById("sexSpan").textContent = sexText;
+document.getElementById("lookingSpan").textContent = lookingText;
+document.getElementById("citySpan").textContent = cityText;
+
+// 🔄 Transizione tra step 1 e step 2
+setTimeout(() => {
+  const step1 = document.getElementById("welcomeStep1");
+  const step2 = document.getElementById("welcomeStep2");
+
+  step1.style.opacity = "0";
+
+  setTimeout(() => {
+    step1.style.display = "none";
+    step2.style.display = "flex";
+  }, 1000);
+}, 7000);
 
   // Carica config.json
   fetch("config.json")
@@ -212,12 +225,6 @@
     const audio = document.getElementById("welcomeAudio");
     audio.play().catch(() => {});
   }, 8000);
-
-  // Dopo 7s mostra i dettagli utente
-  setTimeout(() => {
-    document.getElementById("welcomeDetails").style.display = "block";
-    document.getElementById("welcomeTitle").style.fontSize = "1.4rem";
-  }, 7000);
 
   // Dopo 17s sostituisci welcome con banner
   setTimeout(() => {
