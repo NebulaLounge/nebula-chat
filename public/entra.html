@@ -208,8 +208,6 @@
   </div>
 
   <script>
-    const registeredNicks = ["nebula", "valerio", "luna", "stella", "maria"];
-
     function sanitizeNick(nick) {
       return nick
         .toLowerCase()
@@ -218,18 +216,30 @@
         .slice(0, 25);
     }
 
-    function isRegisteredNick(nickSanitized) {
-      return registeredNicks.includes(nickSanitized);
+    async function isNickRegistered(nickSanitized) {
+      const url = `https://www.simosnap.org/rest/service.php/nickserv/${nickSanitized}`;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) return false;
+        const data = await response.json();
+        return data.display && data.display.toLowerCase() === nickSanitized;
+      } catch (error) {
+        console.error("Errore NickServ API:", error);
+        return false;
+      }
     }
 
     const nickInput = document.getElementById("nickinput");
     const passwordInput = document.getElementById("passwordinput");
     const infoBox = document.getElementById("infobox");
 
-    nickInput.addEventListener("input", () => {
-      const nickSanitized = sanitizeNick(nickInput.value);
+    let nickIsRegistered = false;
 
-      if (isRegisteredNick(nickSanitized)) {
+    nickInput.addEventListener("input", async () => {
+      const nickSanitized = sanitizeNick(nickInput.value);
+      nickIsRegistered = await isNickRegistered(nickSanitized);
+
+      if (nickIsRegistered) {
         passwordInput.style.display = "block";
         infoBox.textContent = "🔐 Nick registrato. Inserisci la password.";
       } else {
@@ -247,8 +257,8 @@
       const password = passwordInput.value;
 
       if (!nick || nick.length < 3) {
-        alert("⚠️ Inserisci un nickname valido (minimo 3 caratteri).");
-        return;
+        alert("⚠️ Inserisci un nickname valido (minimo 3 caratteri)."); 
+            return;
       }
 
       if (!sex || !looking) {
@@ -256,10 +266,11 @@
         return;
       }
 
-      if (isRegisteredNick(nick) && passwordInput.style.display === "block" && !password) {
+      if (nickIsRegistered && !password) {
         alert("⚠️ Il nick è registrato. Inserisci la password per evitare che venga cambiato dal server.");
         return;
       }
+
       localStorage.setItem("nick", nick);
       localStorage.setItem("sex", sex);
       localStorage.setItem("looking", looking);
