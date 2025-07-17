@@ -256,11 +256,16 @@
         return;
       }
 
+      if (isRegisteredNick(nick) && passwordInput.style.display === "block" && !password) {
+        alert("⚠️ Il nick è registrato. Inserisci la password per evitare che venga cambiato dal server.");
+        return;
+      }
       localStorage.setItem("nick", nick);
       localStorage.setItem("sex", sex);
       localStorage.setItem("looking", looking);
       localStorage.setItem("city", city);
       if (password) localStorage.setItem("password", password);
+
       window.location.href = "join.html";
     }
   </script>
