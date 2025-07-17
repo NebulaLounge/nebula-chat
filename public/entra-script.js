@@ -40,6 +40,13 @@ window.vaiAllaVerifica = function () {
     return;
   }
 
+    const isRegistered = config.registeredNicks && isRegisteredNick(nickSanitized, config.registeredNicks);
+
+  if (isRegistered && !password) {
+    const conferma = confirm("⚠️ Il nickname è registrato ma non hai inserito la password.\nVerrai identificato come guest nella chat. Vuoi continuare?");
+    if (!conferma) return;
+  }
+  
   localStorage.setItem("nick", nickSanitized);
   localStorage.setItem("sex", sex);
   localStorage.setItem("looking", looking);
