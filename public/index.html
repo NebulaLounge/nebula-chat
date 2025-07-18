@@ -140,13 +140,55 @@
     text-decoration: none;
   }
 
-  /* MOBILE OPTIMIZATION */
-  @media (max-width: 768px) {
-    .header-wrapper {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+  /* Tablet e smartphone */
+@media (max-width: 768px) {
+  .header-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
+  .menu-links {
+    text-align: left;
+    margin-top: 10px;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+    padding: 24px 16px;
+  }
+}
+
+/* Smartphone stretti */
+@media (max-width: 600px) {
+  .content-wrapper {
+    padding: 20px 12px;
+    max-width: 100%;
+  }
+
+  .main-left, .main-right {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .main-right {
+    margin-top: 24px;
+    padding: 20px 12px;
+  }
+
+  .main-left h2 {
+    font-size: 2rem;
+  }
+
+  .main-left p {
+    font-size: 1rem;
+  }
+
+  .main-right a.button {
+    font-size: 1rem;
+    height: 44px;
+    line-height: 44px;
+  }
+}
     .menu-links {
       text-align: left;
       margin-top: 10px;
