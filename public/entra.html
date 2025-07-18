@@ -116,8 +116,8 @@
 .nav-menu {
   position: absolute;
   top: 60px;
-  right: 16px;
-  width: 220px;
+  left: 16px; /* ← Sposta il menu a sinistra */
+  width: 240px;
   background-color: #003374;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
@@ -126,6 +126,7 @@
   gap: 10px;
   display: none;
   z-index: 999;
+  text-align: left; /* ← Allinea contenuto interno a sinistra */
 }
 
 body.menu-open .nav-menu {
