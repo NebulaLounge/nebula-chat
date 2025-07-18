@@ -5,223 +5,261 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Entra nella NebulaLounge</title>
   <style>
-    body {
-      background: linear-gradient(to bottom right, #003374, #001f4d);
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      color: #003374;
+  body {
+    background: linear-gradient(to bottom right, #003374, #001f4d);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    color: #003374;
+  }
+
+  /* MENU HEADER */
+  .nav-wrapper {
+    width: 100%;
+    background-color: #003374;
+    color: #fff;
+    padding: 12px 16px;
+    box-sizing: border-box;
+  }
+
+  .nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .nav-title {
+    font-size: 1.4em;
+    font-weight: 600;
+    color: #ea5906;
+  }
+
+  .header-subtitle {
+    font-size: 0.75em;
+    color: #ffffff;
+  }
+
+  .menu-links a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 0.95em;
+  }
+
+  .nav-toggle {
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+
+  .nav-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+  }
+
+  .nav-menu {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .nav-menu li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1em;
+  }
+
+  .desktop-only {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .desktop-only {
+      display: none;
     }
 
-    /* MENU HEADER */
-    .nav-wrapper {
-      width: 100%;
-      background-color: #003374;
-      color: #fff;
-      padding: 12px 16px;
-      box-sizing: border-box;
-    }
-
-    .nav-header {
+    .mobile-only {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    .nav-toggle {
-      font-size: 1.5em;
-      cursor: pointer;
+      width: 100%;
+      gap: 12px;
     }
 
     .nav-title {
-      font-size: 1.4em;
-      font-weight: 600;
-      color: #ea5906;
+      font-size: 1.2em;
       text-align: center;
       flex-grow: 1;
     }
 
     .nav-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 4px;
+      width: 36px;
+      height: 36px;
     }
 
     .nav-menu {
-      list-style: none;
-      margin: 12px 0 0;
-      padding: 0;
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .nav-menu li a {
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 1em;
-    }
-
-    /* MOBILE */
-    @media (max-width: 768px) {
-      .nav-header {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .nav-title {
-        font-size: 1.2em;
-      }
-
-      .nav-logo {
-        width: 36px;
-        height: 36px;
-      }
-
-      .nav-menu {
-        display: none;
-        flex-direction: column;
-        gap: 12px;
-        margin-top: 12px;
-      }
-
-      body.menu-open .nav-menu {
-        display: flex;
-      }
-    }
-
-    .cover {
-      background-image: url('https://www.indelibile.it/wp-content/uploads/2025/06/1a18e87e-a6ca-4c20-95ec-85cc2bd6a055-1024x576.png');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      padding: 20px 16px 60px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .cover h1 {
-      color: #ffffff;
-      text-shadow: 4px 4px 0px #000000;
-      font-size: 35px;
-      margin-bottom: 20px;
-      margin-top: 10px;
-    }
-
-    .container {
-      background-color: rgba(255, 255, 255, 0.88);
-      border-radius: 13px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-      text-align: center;
-      padding: 18px 16px;
-      max-width: 360px;
-      width: 100%;
-      margin-top: -10px;
-      backdrop-filter: blur(4px);
-    }
-
-    .banner {
-      background-color: #fff;
-      border: 2px solid #003374;
-      border-radius: 3px;
-      width: 300px;
-      padding: 0;
-      margin: 4px auto 8px auto;
-      box-sizing: border-box;
-    }
-
-    .banner img {
-      display: block;
-      width: 100%;
-      height: auto;
-      margin: 0;
-      padding: 0;
-      border-radius: 2px;
-    }
-
-    .select-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin: 10px 0;
-    }
-
-    select,
-    input[type="text"],
-    input[type="password"] {
-      flex: 1;
-      padding: 8px 10px;
-      font-size: 1em;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      width: 100%;
-      margin: 8px 0;
-      box-sizing: border-box;
-    }
-
-    #passwordinput {
       display: none;
-    }
-
-    button {
-      width: 100%;
-      padding: 10px;
-      font-size: 1.1em;
-      border-radius: 6px;
-      background-color: #3f51b5;
-      color: white;
-      border: none;
-      cursor: pointer;
+      flex-direction: column;
+      gap: 12px;
       margin-top: 12px;
     }
 
-    button:hover {
-      background-color: #303f9f;
+    body.menu-open .nav-menu {
+      display: flex;
     }
+  }
 
-    .disclaimer {
-      font-size: 0.8em;
-      margin-top: 10px;
-    }
+  .cover {
+    background-image: url('https://www.indelibile.it/wp-content/uploads/2025/06/1a18e87e-a6ca-4c20-95ec-85cc2bd6a055-1024x576.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 20px 16px 60px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
 
-    .disclaimer a {
-      color: #003374;
-      text-decoration: underline;
-    }
+  .cover h1 {
+    color: #ffffff;
+    text-shadow: 4px 4px 0px #000000;
+    font-size: 35px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
 
-    #infobox {
-      font-size: 0.85em;
-      color: #ea5906;
-      margin: 4px 0 -2px 0;
-    }
+  .container {
+    background-color: rgba(255, 255, 255, 0.88);
+    border-radius: 13px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    padding: 18px 16px;
+    max-width: 360px;
+    width: 100%;
+    margin-top: -10px;
+    backdrop-filter: blur(4px);
+  }
 
-    @media (max-width: 420px) {
-      .container {
-        padding: 16px 12px;
-        max-width: 92%;
-      }
+  .banner {
+    background-color: #fff;
+    border: 2px solid #003374;
+    border-radius: 3px;
+    width: 300px;
+    padding: 0;
+    margin: 4px auto 8px auto;
+    box-sizing: border-box;
+  }
+
+  .banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border-radius: 2px;
+  }
+
+  .select-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 10px 0;
+  }
+
+  select,
+  input[type="text"],
+  input[type="password"] {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 1em;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+
+  #passwordinput {
+    display: none;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1em;
+    border-radius: 6px;
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 12px;
+  }
+
+  button:hover {
+    background-color: #303f9f;
+  }
+
+  .disclaimer {
+    font-size: 0.8em;
+    margin-top: 10px;
+  }
+
+  .disclaimer a {
+    color: #003374;
+    text-decoration: underline;
+  }
+
+  #infobox {
+    font-size: 0.85em;
+    color: #ea5906;
+    margin: 4px 0 -2px 0;
+  }
+
+  @media (max-width: 420px) {
+    .container {
+      padding: 16px 12px;
+      max-width: 92%;
     }
-  </style>
+  }
+</style>
 </head>
 <body>
 
   <!-- MENU HEADER -->
   <header class="nav-wrapper">
-    <div class="nav-header">
+  <div class="nav-header">
+    <div class="nav-title desktop-only">💬 Chat NebulaLounge – <span class="header-subtitle">Dove tutto può iniziare 🛸</span></div>
+    <div class="menu-links desktop-only">
+      <a href="/">🔙 Torna su <em>Oltre la Verità</em></a>
+      <a href="/chat">💬 Chat Gratis</a>
+    </div>
+
+    <!-- Mobile layout -->
+    <div class="mobile-only">
       <div class="nav-toggle" onclick="document.body.classList.toggle('menu-open')">☰</div>
       <span class="nav-title">Nebula Chat</span>
       <img src="https://www.indelibile.it/wp-content/uploads/2025/06/Logo-60x60-1.gif" alt="Logo Nebula" class="nav-logo" />
     </div>
-    <ul class="nav-menu">
-      <li><a href="/">🏠 Vai al sito principale</a></li>
-      <li><a href="index.html">💬 Entra nella chat</a></li>
-      <li><a href="entra.html">🚀 Accesso rapido</a></li>
-    </ul>
-  </header>
+  </div>
+
+  <ul class="nav-menu mobile-only">
+    <li><a href="/">🏠 Vai al sito principale</a></li>
+    <li><a href="index.html">💬 Entra nella chat</a></li>
+    <li><a href="entra.html">🚀 Accesso rapido</a></li>
+  </ul>
+</header>
 
   <div class="cover">
     <h1>Accedi alla NebulaLounge 🚀 Gratis</h1>
