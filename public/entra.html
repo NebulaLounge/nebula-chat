@@ -89,64 +89,64 @@
 
   /* === MOBILE MENU === */
   @media (max-width: 768px) {
-    .desktop-only {
-      display: none;
-    }
-
-    .mobile-only {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      gap: 12px;
-    }
-
-    .nav-title {
-      font-size: 1.2em;
-      text-align: center;
-      flex-grow: 1;
-      color: #ea5906;
-    }
-
-    .nav-logo {
-      width: 36px;
-      height: 36px;
-    }
-
-    .nav-menu {
-      position: absolute;
-      top: 60px;
-      right: 16px;
-      width: 220px;
-      background-color: #003374;
-      border-radius: 8px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-      padding: 12px;
-      flex-direction: column;
-      gap: 10px;
-      display: none;
-      z-index: 999;
-    }
-
-    .nav-menu li a {
-      display: block;
-      font-size: 1em;
-      color: #fff;
-      text-decoration: none;
-      padding: 8px 10px;
-      border-radius: 6px;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .nav-menu li a:hover {
-      background-color: #ea5906;
-      color: #003374;
-    }
-
-    body.menu-open .nav-menu {
-      display: flex;
-    }
+  .desktop-only {
+    display: none;
   }
+
+  .mobile-only {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .nav-title {
+    font-size: 1.2em;
+    text-align: center;
+    flex-grow: 1;
+    color: #ea5906;
+  }
+
+  .nav-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 60px;
+    right: 16px;
+    width: 220px;
+    background-color: #003374;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    padding: 12px;
+    flex-direction: column;
+    gap: 10px;
+    display: none;
+    z-index: 999;
+  }
+
+  body.menu-open .nav-menu {
+    display: flex;
+  }
+
+  .nav-menu li a {
+    display: block;
+    font-size: 1em;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .nav-menu li a:hover {
+    background-color: #ea5906;
+    color: #003374;
+  }
+}
 
   /* === COVER SECTION === */
   .cover {
