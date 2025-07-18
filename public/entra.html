@@ -112,15 +112,21 @@
     width: 36px;
     height: 36px;
   }
-.nav-menu li a {
-  display: block;
-  font-size: 1em;
-  color: #ffffff;
-  text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  background-color: transparent;
-  text-align: left; /* ⬅️ Allinea testo a sinistra */
+.nav-menu {
+  position: absolute;
+  top: 60px;
+  left: 0; /* ❗ Nessun margine: tutto aderente a sinistra */
+  width: 240px;
+  background-color: #ea5906; /* 🧡 Sfondo arancione vivace */
+  border: 2px solid #003374; /* 🔵 Cornice blu */
+  border-radius: 0 8px 8px 0; /* 📐 Solo angoli destri arrotondati */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  padding: 14px 12px;
+  flex-direction: column;
+  gap: 12px;
+  display: none;
+  z-index: 999;
+  text-align: left;
 }
 
 body.menu-open .nav-menu {
@@ -136,6 +142,26 @@ body.menu-open .nav-menu {
   border-radius: 6px;
   background-color: transparent;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-menu li a:hover {
+  background-color: #ffffff;
+  color: #ea5906;
+}
+
+body.menu-open .nav-menu {
+  display: flex;
+}
+
+.nav-menu li a {
+  display: block;
+  font-size: 1em;
+  color: #ffffff; /* 📝 Testo bianco */
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: transparent;
+  text-align: left; /* ⬅️ Allinea testo a sinistra */
 }
 
 .nav-menu li a:hover {
