@@ -17,15 +17,15 @@
   }
 
   .content-wrapper {
-  width: 100%;
-  max-width: 1200px;
-  padding: 32px 16px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 32px;
-  box-sizing: border-box;
-}
+    width: 100%;
+    max-width: 1200px;
+    padding: 32px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 32px;
+    box-sizing: border-box;
+  }
 
   .main-left {
     flex: 1 1 60%;
@@ -141,54 +141,12 @@
   }
 
   /* Tablet e smartphone */
-@media (max-width: 768px) {
-  .header-wrapper {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+  @media (max-width: 768px) {
+    .header-wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
-  .menu-links {
-    text-align: left;
-    margin-top: 10px;
-  }
-
-  .content-wrapper {
-    flex-direction: column;
-    padding: 24px 16px;
-  }
-}
-
-/* Smartphone stretti */
-@media (max-width: 600px) {
-  .content-wrapper {
-    padding: 20px 12px;
-    max-width: 100%;
-  }
-
-  .main-left, .main-right {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-
-  .main-right {
-    margin-top: 24px;
-    padding: 20px 12px;
-  }
-
-  .main-left h2 {
-    font-size: 2rem;
-  }
-
-  .main-left p {
-    font-size: 1rem;
-  }
-
-  .main-right a.button {
-    font-size: 1rem;
-    height: 44px;
-    line-height: 44px;
-  }
-}
     .menu-links {
       text-align: left;
       margin-top: 10px;
@@ -198,29 +156,41 @@
       flex-direction: column;
       padding: 24px 16px;
     }
+  }
 
-    .main-left, .main-right {
-      flex: 1 1 100%;
-      max-width: 100%;
+  /* Smartphone stretti */
+  @media (max-width: 600px) {
+    .main-container {
+      flex-direction: column;
+      align-items: center;
     }
 
     .main-right {
+      order: 1;
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    .main-left {
+      order: 2;
       margin-top: 24px;
-      padding: 20px 12px;
+      padding: 0 12px;
+    }
+
+    .main-left h2 {
+      font-size: 1.6rem;
+    }
+
+    .main-left p {
+      font-size: 1rem;
     }
 
     .main-right a.button {
       font-size: 1rem;
       height: 44px;
       line-height: 44px;
-    }
-
-    .main-left h2 {
-      font-size: 2rem;
-    }
-
-    .main-left p {
-      font-size: 1rem;
     }
   }
 </style>
