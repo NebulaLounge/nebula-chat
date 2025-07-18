@@ -1,6 +1,7 @@
 nebula-chat/
 ├── public/
-│   ├── entra.html         → Pagina di accesso
+│   ├── index.html         → Pagina di accesso
+│   ├── entra.html         → Pagina di ..........
 │   ├── join.html          → Pagina di connessione alla chat
 │   ├── disclaimer.html    → Regole e condizioni
 │   ├── config.json        → Configurazione dinamica
