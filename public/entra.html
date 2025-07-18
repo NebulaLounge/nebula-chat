@@ -12,13 +12,14 @@
     color: #003374;
   }
 
-  /* MENU HEADER */
+  /* === MENU HEADER === */
   .nav-wrapper {
     width: 100%;
     background-color: #003374;
     color: #fff;
     padding: 12px 16px;
     box-sizing: border-box;
+    position: relative;
   }
 
   .nav-header {
@@ -39,10 +40,14 @@
     color: #ffffff;
   }
 
+  .menu-links {
+    display: flex;
+    gap: 16px;
+  }
+
   .menu-links a {
     color: #ffffff;
     text-decoration: none;
-    margin-left: 20px;
     font-size: 0.95em;
   }
 
@@ -59,7 +64,7 @@
 
   .nav-menu {
     list-style: none;
-    margin: 12px 0 0;
+    margin: 0;
     padding: 0;
     display: flex;
     gap: 20px;
@@ -82,7 +87,7 @@
     display: none;
   }
 
-  /* MOBILE */
+  /* === MOBILE MENU === */
   @media (max-width: 768px) {
     .desktop-only {
       display: none;
@@ -100,6 +105,7 @@
       font-size: 1.2em;
       text-align: center;
       flex-grow: 1;
+      color: #ea5906;
     }
 
     .nav-logo {
@@ -108,10 +114,33 @@
     }
 
     .nav-menu {
-      display: none;
+      position: absolute;
+      top: 60px;
+      right: 16px;
+      width: 220px;
+      background-color: #003374;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      padding: 12px;
       flex-direction: column;
-      gap: 12px;
-      margin-top: 12px;
+      gap: 10px;
+      display: none;
+      z-index: 999;
+    }
+
+    .nav-menu li a {
+      display: block;
+      font-size: 1em;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-menu li a:hover {
+      background-color: #ea5906;
+      color: #003374;
     }
 
     body.menu-open .nav-menu {
@@ -119,6 +148,7 @@
     }
   }
 
+  /* === COVER SECTION === */
   .cover {
     background-image: url('https://www.indelibile.it/wp-content/uploads/2025/06/1a18e87e-a6ca-4c20-95ec-85cc2bd6a055-1024x576.png');
     background-size: cover;
@@ -140,6 +170,7 @@
     margin-top: 10px;
   }
 
+  /* === LOGIN BOX === */
   .container {
     background-color: rgba(255, 255, 255, 0.88);
     border-radius: 13px;
@@ -157,7 +188,6 @@
     border: 2px solid #003374;
     border-radius: 3px;
     width: 300px;
-    padding: 0;
     margin: 4px auto 8px auto;
     box-sizing: border-box;
   }
@@ -166,8 +196,6 @@
     display: block;
     width: 100%;
     height: auto;
-    margin: 0;
-    padding: 0;
     border-radius: 2px;
   }
 
