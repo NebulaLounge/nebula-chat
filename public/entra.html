@@ -112,16 +112,15 @@
     width: 36px;
     height: 36px;
   }
-
-  .nav-menu {
+.nav-menu {
   position: absolute;
   top: 60px;
-  left: 3px;
+  left: 0; /* ❗ Nessun margine: tutto aderente a sinistra */
   width: 240px;
-  background-color: #ffffff; /* Sfondo interno chiaro */
-  border: 2px solid #003374; /* Cornice blu */
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background-color: #ea5906; /* 🧡 Sfondo arancione vivace */
+  border: 2px solid #003374; /* 🔵 Cornice blu */
+  border-radius: 0 8px 8px 0; /* 📐 Solo angoli destri arrotondati */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   padding: 14px 12px;
   flex-direction: column;
   gap: 12px;
@@ -137,22 +136,18 @@ body.menu-open .nav-menu {
 .nav-menu li a {
   display: block;
   font-size: 1em;
-  color: #003374; /* Testo in blu per contrasto */
+  color: #ffffff; /* 📝 Testo bianco */
   text-decoration: none;
-  padding: 8px 10px;
+  padding: 8px 12px;
   border-radius: 6px;
-  background-color: #f0f8ff; /* Azzurrino chiaro */
+  background-color: transparent;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-menu li a:hover {
-  background-color: #ea5906;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #ea5906;
 }
-}
-
-
-
   /* === COVER SECTION === */
   .cover {
     background-image: url('https://www.indelibile.it/wp-content/uploads/2025/06/1a18e87e-a6ca-4c20-95ec-85cc2bd6a055-1024x576.png');
