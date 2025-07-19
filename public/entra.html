@@ -98,48 +98,49 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px;
+    padding: 8px 12px;
     width: 100%;
     background-color: #003374;
     position: relative;
     z-index: 1001;
+    height: 56px;
   }
 
   .nav-toggle {
-    font-size: 1.8em;
+    font-size: 1.5em;
     color: #ffffff;
     cursor: pointer;
-    padding: 8px;
+    padding: 6px;
   }
 
   .nav-title {
-    font-size: 1.3em;
+    font-size: 1.1em;
     font-weight: bold;
     color: #ea5906;
-    flex-grow: 1;
     text-align: center;
+    margin: 0 auto;
   }
 
   .nav-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
   }
 
   .nav-menu {
     position: absolute;
-    top: 60px;
-    left: 10px;
-    width: 230px;
+    top: 56px;
+    left: 8px;
+    width: 220px;
     background-color: #ffffff;
     border: 2px solid #ea5906;
     border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    padding: 12px 0;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    padding: 8px 0;
     display: none;
     flex-direction: column;
     z-index: 999;
-    animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.25s ease;
   }
 
   body.menu-open .nav-menu {
@@ -148,23 +149,22 @@
 
   .nav-menu li {
     list-style: none;
-    width: 100%;
   }
 
   .nav-menu li a {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #333;
-    padding: 10px 16px;
+    color: #222;
+    padding: 8px 14px;
     text-decoration: none;
     transition: background 0.2s ease, color 0.2s ease;
-    font-size: 1em;
+    font-size: 0.95em;
   }
 
   .nav-menu li a:hover {
     background-color: #ea5906;
-    color: white;
+    color: #ffffff;
   }
 
   .nav-menu li a span {
@@ -174,7 +174,7 @@
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(-8px);
+      transform: translateY(-6px);
     }
     to {
       opacity: 1;
