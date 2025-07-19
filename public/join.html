@@ -92,9 +92,22 @@
     form { display: none; }
 
     @media (max-width: 768px) {
-      #welcomeStep1, #welcomeStep2 { font-size: 1.05rem; padding: 0 8px; }
-      iframe.chat { height: 540px; }
-    }
+  #welcomeStep1 .welcomeTitle,
+  #welcomeStep2 .welcomeTitle {
+    font-size: 1.2rem;
+    padding: 0 12px;
+  }
+
+  #welcomeStep2 .welcomeDetails {
+    font-size: 0.95rem;
+  }
+
+  #welcomeStep1, #welcomeStep2 {
+    height: auto;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
   </style>
 </head>
 <body>
