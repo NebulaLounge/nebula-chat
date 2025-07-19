@@ -500,6 +500,17 @@ window.onload = function () {
     })
     .catch(err => console.error("Errore nel caricamento dei comuni:", err));
 };
+ document.addEventListener('click', function(e) {
+    const menu = document.querySelector('.nav-menu');
+    const toggle = document.querySelector('.nav-toggle');
+    const isMenuClick = menu.contains(e.target);
+    const isToggleClick = toggle.contains(e.target);
+    
+    if (document.body.classList.contains('menu-open') && !isMenuClick && !isToggleClick) {
+      document.body.classList.remove('menu-open');
+    }
+  });
+   
 </script>
 
 </body>
