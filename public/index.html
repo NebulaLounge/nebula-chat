@@ -175,11 +175,6 @@
         padding: 24px 16px;
       }
 
-      .main-left h2 {
-        font-size: 1.6rem;
-        text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
-      }
-
       .main-left p {
         font-size: 1rem;
         text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
@@ -223,14 +218,17 @@
       text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
     }
 
-    .main-left h2 {
-      font-size: clamp(2.5rem, 6vw, 80px);
-      color: #ff7f2a;
-      margin-top: 8px;
-      margin-bottom: 12px;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
-    }
-
+   .main-left h2 {
+  font-size: clamp(2.5rem, 6vw, 80px);
+  color: #ff7f2a;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+}
     .main-left p {
       font-size: 1.15rem;
       line-height: 1.8;
