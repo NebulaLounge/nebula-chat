@@ -132,7 +132,7 @@
     border-radius: 12px;
     border: 2px solid #ea5906;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 0px;
+    padding: 0;
     display: none;
     flex-direction: column; /* ✅ fondamentale per visualizzare tutte le voci verticali */
     z-index: 1000;
@@ -149,17 +149,14 @@
   margin: 0;
   }
 
-  .nav-menu li a {
-    display: flex;
-    align-items: center;
-    padding: 6px 10px;
-    font-size: 15px;
-    color: #003374;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: background 0.2s ease, color 0.2s ease;
-  }
+ .nav-menu a {
+  padding: 6px 12px; /* meno spazio verticale */
+  margin: 0;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  border-bottom: 1px solid #eee;
+}
 
   .nav-menu li a:hover {
     background-color: #ea5906;
