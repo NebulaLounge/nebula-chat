@@ -92,6 +92,7 @@
   .desktop-only {
     display: none;
   }
+
   .mobile-only {
     display: flex;
     align-items: center;
@@ -101,7 +102,7 @@
     background-color: #003374;
     position: relative;
     z-index: 1001;
-    height: 15px;
+    height: auto; /* ✅ corregge l'altezza troppo bassa */
   }
 
   .nav-toggle {
@@ -127,16 +128,16 @@
 
   .nav-menu {
     position: absolute;
-    top: 55px;         /* Margine superiore ridotto */
-    left: 5px;         /* Spostato tutto a sinistra */ 
-    width: 220px;      /* Larghezza menu ridotta */
+    top: 50px;          /* meno spazio sopra */
+    left: 5px;          /* allinea a sinistra */
+    width: 190px;       /* menu meno largo */
     background: white;
     border-radius: 12px;
     border: 2px solid #ea5906;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 6px 10px;  /* Margini interni ridotti */
+    padding: 6px 10px;
     display: none;
- /*   flex-direction: column; */
+    flex-direction: column; /* ✅ fondamentale per visualizzare tutte le voci verticali */
     z-index: 1000;
     animation: fadeIn 0.25s ease-out;
   }
@@ -147,16 +148,19 @@
 
   .nav-menu li {
     list-style: none;
+    margin: 4px 0; /* spazio ridotto tra le voci */
   }
 
   .nav-menu li a {
-    display: block;
-    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
     font-size: 15px;
     color: #003374;
     text-decoration: none;
-    transition: background 0.2s ease, color 0.2s ease;
+    border-radius: 6px;
     font-weight: 500;
+    transition: background 0.2s ease, color 0.2s ease;
   }
 
   .nav-menu li a:hover {
@@ -175,6 +179,7 @@
     }
   }
 }
+
   /* === COVER SECTION === */
   .cover {
     background-image: url('https://www.indelibile.it/wp-content/uploads/2025/06/1a18e87e-a6ca-4c20-95ec-85cc2bd6a055-1024x576.png');
@@ -301,7 +306,7 @@
   <a href="index.html">🚀 Home Chat</a>
 </div>
 
-    <!-- Mobile layout -->
+<!-- Mobile layout -->
 <div class="mobile-only">
   <div class="nav-toggle" onclick="document.body.classList.toggle('menu-open')">
     <span class="hamburger-icon">☰</span>
@@ -315,8 +320,6 @@
   <li><a href="https://www.indelibile.it">🏠 <span>Home NebulaLounge</span></a></li>
   <li><a href="index.html">🚀 <span>Home Chat</span></a></li>
 </ul>
-
-
 </header>
 
   <div class="cover">
