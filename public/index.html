@@ -288,7 +288,12 @@
     background-color: #003374;
     color: #ea5906;
   }
-
+    .button-orange:active,
+.button-orange:focus {
+  background-color: #ea5906;
+  color: #ffffff;
+  outline: none;
+}
   .button-blue {
     background-color: #003374;
     color: #ffffff;
@@ -298,6 +303,14 @@
     background-color: #ea5906;
     color: #003374;
   }
+    .button-blue:active,
+.button-blue:focus {
+  background-color: #003374;
+  color: #ffffff;
+  outline: none;
+}
+
+
 </style>
 </head>
 <body>
@@ -378,13 +391,5 @@
       }
     });
   </script>
-<!-- SCRIPT MENU MOBILE pusanti -->
-  <script>
-  document.querySelectorAll('.button-orange, .button-blue').forEach(btn => {
-    btn.addEventListener('mousedown', () => {
-      btn.blur();
-    });
-  });
-</script>
 </body>
 </html>    
