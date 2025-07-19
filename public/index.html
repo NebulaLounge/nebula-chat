@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nebula Lounge</title>
+  <title>NebulaLounge – Index</title>
   <style>
     html, body {
       margin: 0;
@@ -12,6 +12,173 @@
       background-color: #000;
     }
 
+    .nav-wrapper {
+      width: 100%;
+      background-color: #003374;
+      color: #fff;
+      padding: 12px 16px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .nav-title {
+      font-size: 1.4em;
+      font-weight: 600;
+      color: #ea5906;
+    }
+
+    .header-subtitle {
+      font-size: 0.75em;
+      color: #ffffff;
+    }
+
+    .menu-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .menu-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.95em;
+    }
+
+    .nav-toggle {
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+
+    .nav-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+    }
+
+    .nav-menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .nav-menu li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1em;
+    }
+
+    .desktop-only {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mobile-only {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .desktop-only { display: none; }
+
+      .mobile-only {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 12px;
+      }
+
+      .nav-title {
+        font-size: 1.2em;
+        text-align: center;
+        flex-grow: 1;
+        color: #ea5906;
+      }
+
+      .nav-logo {
+        width: 36px;
+        height: 36px;
+      }
+
+      .nav-menu {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 200px;
+        background-color: #ffffff;
+        border: 2px solid #003374;
+        border-radius: 0 8px 8px 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        padding: 4px 0;
+        flex-direction: column;
+        gap: 4px;
+        display: none;
+        z-index: 999;
+        align-items: flex-start;
+      }
+
+      body.menu-open .nav-menu {
+        display: flex;
+      }
+
+      .nav-menu li a {
+        display: block;
+        font-size: 1em;
+        color: #003374;
+        text-decoration: none;
+        padding: 4px 6px;
+        border-radius: 6px;
+        background-color: transparent;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .nav-menu li a:hover {
+        background-color: #ea5906;
+        color: #ffffff;
+      }
+
+      .main-container {
+        flex-direction: column;
+        padding-bottom: 80px;
+      }
+
+      .content-wrapper {
+        flex-direction: column;
+        padding: 24px 16px;
+      }
+
+      .main-left {
+        margin-top: 24px;
+        padding: 0 12px;
+      }
+
+      .main-right {
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+        padding: 24px 16px;
+      }
+
+      .main-left h2 { font-size: 1.6rem; }
+      .main-left p  { font-size: 1rem; }
+      .main-right a.button {
+        font-size: 1rem;
+        height: 44px;
+        line-height: 44px;
+      }
+    }
+
+    /* CONTENUTO */
     .main-container {
       width: 100%;
       display: flex;
@@ -111,80 +278,6 @@
       color: #003374;
     }
 
-    .nav-wrapper {
-      width: 100%;
-      background-color: #003374;
-      color: #fff;
-      padding: 12px 16px;
-      box-sizing: border-box;
-      position: relative;
-    }
-
-    .nav-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    .nav-title {
-      font-size: 1.4em;
-      font-weight: 600;
-      color: #ea5906;
-    }
-
-    .header-subtitle {
-      font-size: 0.75em;
-      color: #ffffff;
-    }
-
-    .menu-links {
-      display: flex;
-      gap: 16px;
-    }
-
-    .menu-links a {
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 0.95em;
-    }
-
-    .nav-toggle {
-      font-size: 1.5em;
-      cursor: pointer;
-    }
-
-    .nav-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 4px;
-    }
-
-    .nav-menu {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .nav-menu li a {
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 1em;
-    }
-
-    .desktop-only {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .mobile-only {
-      display: none;
-    }
-
     footer {
       background-color: #003374;
       color: #fff;
@@ -192,178 +285,9 @@
       padding: 12px;
       font-size: 0.9em;
     }
-
-    @media (max-width: 768px) {
-      .desktop-only {
-        display: none;
-      }
-
-      .mobile-only {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        gap: 12px;
-      }
-
-      .nav-title {
-        font-size: 1.2em;
-        text-align: center;
-        flex-grow: 1;
-        color: #ea5906;
-      }
-
-      .nav-logo {
-        width: 36px;
-        height: 36px;
-      }
-
-      .nav-menu {
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 200px;
-        background-color: #ffffff;
-        border: 2px solid #003374;
-        border-radius: 0 8px 8px 0;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        padding: 4px 0;
-        flex-direction: column;
-        gap: 4px;
-        display: none;
-        z-index: 999;
-        text-align: left;
-        align-items: flex-start;
-      }
-
-      body.menu-open .nav-menu {
-        display: flex;
-      }
-
-      .nav-menu li {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-      }
-
-      .nav-menu li a {
-        display: block;
-        font-size: 1em;
-        color: #003374;
-        text-decoration: none;
-        padding: 4px 6px;
-        border-radius: 6px;
-        background-color: transparent;
-        width: 100%;
-        box-sizing: border-box;
-        text-align: left;
-        margin: 0;
-        justify-content: flex-start;
-        display: flex;
-        align-items: center;
-      }
-
-      .nav-menu li a:hover {
-        background-color: #ea5906;
-        color: #ffffff;
-      }
-
-      .main-container {
-        flex-direction: column;
-        padding-bottom: 80px;
-      }
-
-      .content-wrapper {
-        flex-direction: column;
-        padding: 24px 16px;
-      }
-
-      .main-right {
-        order: 1;
-        width: 100%;
-        max-width: 360px;
-        margin: 0 auto;
-        padding: 24px 16px;
-      }
-
-      .main-left {
-        order: 2;
-        margin-top: 24px;
-        padding: 0 12px;
-      }
-
-      .main-left h2 {
-        font-size: 1.6rem;
-      }
-
-      .main-left p {
-        font-size: 1rem;
-      }
-
-      .main-right a.button {
-        font-size: 1rem;
-        height: 44px;
-        line-height: 44px;
-      }
-    }
   </style>
 </head>
 <body>
-
-  <!-- CONTENUTO PRINCIPALE -->
-<div class="main-container">
-  <div class="content-wrapper">
-
-    <!-- TESTO A SINISTRA -->
-    <div class="main-left">
-      <h2>#NebulaLounge</h2>
-      <p><strong>Incontra, flirta, lasciati ispirare</strong>.<br>
-        Unisciti a chi ha voglia di parlare, <strong>conoscersi</strong>, scoprirsi.<br>
-        Una chat <strong>libera</strong> e leggera, dove ogni parola può <strong>accendere qualcosa</strong>.<br><br>
-        Parole che scorrono leggere, sguardi che si incrociano tra righe di testo.<br>
-        Se cerchi <strong>incontri</strong>, <strong>complicità</strong>, <strong>emozioni</strong> o semplici attimi,<br>
-        nella <strong>NebulaLounge</strong> ogni parola è un <strong>invito</strong>, ogni attimo una <strong>possibilità</strong>.<br><br>
-        Connettiti con chi ha voglia di <strong>ascoltare</strong>, <strong>parlare</strong>, <strong>giocare</strong>.<br>
-        <strong>Lasciati trovare.</strong> <span style="color:#ea5906;">A volte basta un “ciao”. Altre, basta sapere cosa vuoi.</span><br>
-        Perché qui, <strong>tutto può davvero cominciare</strong>.
-      </p>
-    </div>
-
-    <!-- BOX A DESTRA -->
-    <div class="main-right">
-      <div class="main-right-title">
-        Entra gratis in chat<br><strong>NebulaLounge ti aspetta!</strong>
-      </div>
-
-      <a href="https://tc.tradetracker.net/?c=18031&m=2469548&a=432856&r=&u=" target="_blank" rel="sponsored nofollow">
-        <img src="https://ti.tradetracker.net/?c=18031&m=2469548&a=432856&r=&t=html" alt="Happy Card Feltrinelli" />
-      </a>
-
-      <a class="button button-orange" href="entra.html">🚀 Entra in Chat</a>
-      <a class="button button-blue" href="#">💘 Visita il Sito Partner</a>
-    </div>
-
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  Copyright © 2025 – Tema WordPress sviluppato da Creative Themes
-</footer>
-
-<!-- SCRIPT CHIUSURA MENU -->
-<script>
-  document.addEventListener('click', function(e) {
-    const menu = document.querySelector('.nav-menu');
-    const toggle = document.querySelector('.nav-toggle');
-    const isMenuClick = menu.contains(e.target);
-    const isToggleClick = toggle.contains(e.target);
-
-    if (document.body.classList.contains('menu-open') && !isMenuClick && !isToggleClick) {
-      document.body.classList.remove('menu-open');
-    }
-  });
-</script>
 
   <!-- MENU -->
   <header class="nav-wrapper">
@@ -377,14 +301,70 @@
       <!-- Mobile -->
       <div class="mobile-only">
         <div class="nav-toggle" onclick="document.body.classList.toggle('menu-open')">☰</div>
-                <span class="nav-title">Nebula Chat</span>
+        <span class="nav-title">Nebula Chat</span>
         <img src="https://www.indelibile.it/wp-content/uploads/2025/06/Logo-60x60-1.gif" alt="Logo Nebula" class="nav-logo" />
       </div>
     </div>
 
-    <!-- MENU MOBILE -->
     <ul class="nav-menu mobile-only">
       <li><a href="https://www.indelibile.it">🏠 Home NebulaLounge</a></li>
       <li><a href="index.html">🚀 Home Chat</a></li>
     </ul>
   </header>
+
+  <!-- CONTENUTO PRINCIPALE -->
+  <div class="main-container">
+    <div class="content-wrapper">
+
+      <!-- TESTO A SINISTRA -->
+      <div class="main-left">
+        <h2>#NebulaLounge</h2>
+        <p><strong>Incontra, flirta, lasciati ispirare</strong>.<br>
+          Unisciti a chi ha voglia di parlare, <strong>conoscersi</strong>, scoprirsi.<br>
+          Una chat <strong>libera</strong> e leggera, dove ogni parola può <strong>accendere qualcosa</strong>.<br><br>
+          Parole che scorrono leggere, sguardi che si incrociano tra righe di testo.<br>
+          Se cerchi <strong>incontri</strong>, <strong>complicità</strong>, <strong>emozioni</strong> o semplici attimi,<br>
+          nella <strong>NebulaLounge</strong> ogni parola è un <strong>invito</strong>, ogni attimo una <strong>possibilità</strong>.<br><br>
+          Connettiti con chi ha voglia di <strong>ascoltare</strong>, <strong>parlare</strong>, <strong>giocare</strong>.<br>
+          <strong>Lasciati trovare.</strong> <span style="color:#ea5906;">A volte basta un “ciao”. Altre, basta sapere cosa vuoi.</span><br>
+          Perché qui, <strong>tutto può davvero cominciare</strong>.
+        </p>
+      </div>
+
+      <!-- BOX A DESTRA -->
+      <div class="main-right">
+        <div class="main-right-title">
+          Entra gratis in chat<br><strong>NebulaLounge ti aspetta!</strong>
+        </div>
+
+        <a href="https://tc.tradetracker.net/?c=18031&m=2469548&a=432856&r=&u=" target="_blank" rel="sponsored nofollow">
+          <img src="https://ti.tradetracker.net/?c=18031&m=2469548&a=432856&r=&t=html" alt="Happy Card Feltrinelli" />
+        </a>
+
+        <a class="button button-orange" href="entra.html">🚀 Entra in Chat</a>
+        <a class="button button-blue" href="#">💘 Visita il Sito Partner</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    Copyright © 2025 – Tema WordPress sviluppato da Creative Themes
+  </footer>
+
+  <!-- SCRIPT: chiusura menu mobile -->
+  <script>
+    document.addEventListener('click', function(e) {
+      const menu = document.querySelector('.nav-menu');
+      const toggle = document.querySelector('.nav-toggle');
+      if (document.body.classList.contains('menu-open') &&
+          !menu.contains(e.target) &&
+          !toggle.contains(e.target)) {
+        document.body.classList.remove('menu-open');
+      }
+    });
+  </script>
+
+</body>
+</html>
