@@ -118,7 +118,7 @@
     position: absolute;     
     top: 60px;
     left: 0;
-    width: 240px;
+    width: 200px; /* larghezza tendina menu' */
     background-color: #ea5906;
     border: 2px solid #003374;
     border-radius: 0 8px 8px 0;
@@ -345,6 +345,17 @@
   </div>
 
  <script>
+  document.addEventListener('click', function (event) {
+    const menu = document.querySelector('.nav-menu');
+    const menuButton = document.querySelector('.menu-toggle'); // sostituisci con l'id o classe reale del bottone hamburger
+
+    // Se il menu è aperto e il click non è dentro al menu né sul bottone
+    if (document.body.classList.contains('menu-open') &&
+        !menu.contains(event.target) &&
+        !menuButton.contains(event.target)) {
+      document.body.classList.remove('menu-open');
+    }
+  });
 window.onload = function () {
   const nickInput = document.getElementById("nickinput");
   const passwordInput = document.getElementById("passwordinput");
