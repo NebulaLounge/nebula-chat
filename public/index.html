@@ -391,5 +391,13 @@
       }
     });
   </script>
+  <!-- SCRIPT pulsanti hover -->
+  <script>
+  document.querySelectorAll('.button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(() => btn.blur(), 200);
+    });
+  });
+</script>
 </body>
 </html>    
