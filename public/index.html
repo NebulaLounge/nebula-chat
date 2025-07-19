@@ -1,185 +1,366 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Entra nella NebulaLounge</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0b132b, #1c2541);
-      color: #ffffff;
-    }
+<!-- wp:html -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #000;
+  }
 
-    /* ✅ HEADER CON MENU */
+  .main-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: url('https://www.indelibile.it/wp-content/uploads/2025/06/063fce2d-0d25-443c-912c-f579bdb246dd-1024x576.png') center center / cover no-repeat fixed;
+    box-sizing: border-box;
+  }
+
+  .content-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    padding: 32px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 32px;
+    box-sizing: border-box;
+  }
+
+  .main-left {
+    flex: 1 1 60%;
+    color: #f2f2f2;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  }
+
+  .main-left h2 {
+    font-size: clamp(2.5rem, 6vw, 80px);
+    color: #ff7f2a;
+    margin-bottom: 16px;
+    text-shadow: 0px 7px 0px #001f4d;
+  }
+
+  .main-left p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+  }
+
+  .main-right {
+    flex: 1 1 35%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.3);
+    text-align: center;
+    backdrop-filter: blur(6px);
+    padding: 24px 16px;
+    box-sizing: border-box;
+  }
+
+  .main-right-title {
+    color: #fff7f0;
+    font-size: 1.7em;
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 3px 8px rgba(234, 89, 6, 0.3);
+    margin-bottom: 20px;
+    padding: 0 8px;
+  }
+
+  .main-right img {
+    border-radius: 6px;
+    border: 2px solid #003374;
+    margin-bottom: 16px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .main-right a.button {
+    display: block;
+    text-align: center;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 14px;
+    margin: 10px auto;
+    font-size: 1.1em;
+    max-width: 300px;
+    border-radius: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .button-orange {
+    background-color: #ea5906;
+  }
+
+  .button-orange:hover {
+    background-color: #003374;
+    color: #ea5906;
+  }
+
+  .button-blue {
+    background-color: #003374;
+  }
+
+  .button-blue:hover {
+    background-color: #ea5906;
+    color: #003374;
+  }
+
+  .nav-wrapper {
+    width: 100%;
+    background-color: #003374;
+    color: #fff;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .nav-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-grow: 1;
+  }
+
+  .nav-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+  }
+
+  .nav-title {
+    font-size: 1.4em;
+    font-weight: 600;
+    color: #ea5906;
+  }
+
+  .nav-toggle {
+    font-size: 1.5em;
+    cursor: pointer;
+    display: none;
+  }
+
+  .nav-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .nav-menu li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1em;
+  }
+
+  footer {
+    background-color: #003374;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-size: 0.9em;
+  }
+
+  /* Tablet e smartphone */
+  @media (max-width: 768px) {
     .nav-wrapper {
-      position: relative;
-      width: 100%;
-      background-color: #003374;
-      padding: 10px 16px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .logo-title {
-      font-size: 24px;
-      font-weight: bold;
-      color: #ffffff;
-      margin: 0;
-    }
-
-    .menu-toggle {
-      display: none;
-      font-size: 28px;
-      background: none;
-      border: none;
-      color: #ffffff;
-      cursor: pointer;
-      position: absolute;
-      top: 10px;
-      right: 16px;
-      z-index: 1001;
-    }
-
-    .nav-menu {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 200px;
-      background-color: #ffffff;
-      border: 2px solid #003374;
-      border-radius: 0 8px 8px 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      padding: 4px 0;
       flex-direction: column;
-      gap: 4px;
-      display: none;
-      z-index: 999;
-      text-align: left;
       align-items: flex-start;
     }
 
-    .nav-menu a {
-      padding: 6px 10px;
-      color: #003374;
-      text-decoration: none;
-      font-weight: 500;
-      width: 100%;
+    .nav-toggle {
+      display: block;
+      margin-top: 8px;
     }
 
-    .nav-menu a:hover {
-      background-color: #e6ecf5;
+    .nav-menu {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
     }
 
-    /* ✅ RESPONSIVE MENU */
-    @media (max-width: 768px) {
-      .menu-toggle {
-        display: block;
-      }
-    }
-
-    /* ✅ CONTENUTO PRINCIPALE */
-    .main-wrapper {
+    body.menu-open .nav-menu {
       display: flex;
-      justify-content: space-between;
-      padding: 24px;
-      flex-wrap: wrap;
     }
 
-    .main-left, .main-right {
-      flex: 1 1 300px;
-      padding: 16px;
+    .nav-logo {
+      width: 36px;
+      height: 36px;
+    }
+
+    .nav-title {
+      font-size: 1.2em;
+    }
+
+    .content-wrapper {
+      flex-direction: column;
+      padding: 24px 16px;
+    }
+  }
+
+  /* Smartphone stretti */
+  @media (max-width: 600px) {
+    .main-container {
+      flex-direction: column;
+      align-items: center;
     }
 
     .main-right {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      color: #ffffff;
+      order: 1;
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto;
+      padding: 24px 16px;
     }
 
-    .main-right-title {
-      font-size: 20px;
-      margin-bottom: 16px;
+    .main-left {
+      order: 2;
+      margin-top: 24px;
+      padding: 0 12px;
     }
 
-    .main-right img {
-      max-width: 100%;
-      border-radius: 12px;
+    .main-left h2 {
+      font-size: 1.6rem;
     }
 
-    .main-right button {
-      margin-top: 12px;
-      background-color: #fca311;
-      border: none;
-      color: white;
-      padding: 10px 18px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
+    .main-left p {
+      font-size: 1rem;
     }
 
-    .main-right button:hover {
-      background-color: #ffb547;
+    .main-right a.button {
+      font-size: 1rem;
+      height: 44px;
+      line-height: 44px;
     }
-  </style>
-</head>
-<body>
+  }
+</style>
 
-  <!-- ✅ HEADER con LOGO e MENU -->
-  <header class="nav-wrapper">
-    <h1 class="logo-title">NebulaLounge</h1>
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-    <nav class="nav-menu" id="navMenu">
-      <a href="#">🌌 Entra in chat</a>
-      <a href="#">📺 Playlist video</a>
-    </nav>
-  </header>
-
-  <!-- ✅ CONTENUTO PRINCIPALE -->
-  <div class="main-wrapper">
-    <div class="main-left">
-      <h2>🎬 NebulaLounge ti aspetta!</h2>
-      <p>Connettiti con nuove persone, guarda clip selezionate e vivi un'esperienza unica nella lounge più misteriosa del web.</p>
-      <img src="https://www.indelibile.it/banner-nebulalounge.jpg" alt="Banner NebulaLounge" />
+<!-- MENU -->
+<header class="nav-wrapper">
+  <div class="nav-header">
+    <div class="nav-title desktop-only">💬 Chat NebulaLounge – <span class="header-subtitle">Dove tutto può iniziare 🛸</span></div>
+    <div class="menu-links desktop-only">
+      <a href="https://www.indelibile.it">🏠 Home NebulaLounge</a>
+      <a href="index.html">🚀 Home Chat</a>
     </div>
+
+    <!-- Mobile -->
+    <div class="mobile-only">
+      <div class="nav-toggle" onclick="document.body.classList.toggle('menu-open')">☰</div>
+      <span class="nav-title">Nebula Chat</span>
+      <img src="https://www.indelibile.it/wp-content/uploads/2025/06/Logo-60x60-1.gif" alt="Logo Nebula" class="nav-logo" />
+    </div>
+  </div>
+
+  <ul class="nav-menu mobile-only">
+    <li><a href="https://www.indelibile.it">🏠 Home NebulaLounge</a></li>
+    <li><a href="index.html">🚀 Home Chat</a></li>
+  </ul>
+</header>
+
+<!-- MAIN CONTENT -->
+<div class="main-container">
+  <div class="content-wrapper">
+
+    <!-- LEFT TEXT -->
+    <div class="main-left">
+      <h2>#NebulaLounge</h2>
+      <p><strong>Incontra, flirta, lasciati ispirare</strong>.<br>
+        Unisciti a chi ha voglia di parlare, <strong>conoscersi</strong>, scoprirsi.<br>
+        Una chat <strong>libera</strong> e leggera, dove ogni parola può <strong>accendere qualcosa</strong>.<br><br>
+        Parole che scorrono leggere, sguardi che si incrociano tra righe di testo.<br>
+        Se cerchi <strong>incontri</strong>, <strong>complicità</strong>, <strong>emozioni</strong> o semplici attimi,<br>
+        nella <strong>NebulaLounge</strong> ogni parola è un <strong>invito</strong>, ogni attimo una <strong>possibilità</strong>.<br><br>
+        Connettiti con chi ha voglia di <strong>ascoltare</strong>, <strong>parlare</strong>, <strong>giocare</strong>.<br>
+        <strong>Lasciati trovare.</strong> <span style="color:#ea5906;">A volte basta un “ciao”. Altre, basta sapere cosa vuoi.</span><br>
+        Perché qui, <strong>tutto può davvero cominciare</strong>.
+      </p>
+    </div>
+
+    <!-- RIGHT BOX -->
     <div class="main-right">
       <div class="main-right-title">
         Entra gratis in chat<br><strong>NebulaLounge ti aspetta!</strong>
       </div>
-      <form>
-        <input type="text" placeholder="Scegli un nickname" style="width:100%; padding:10px; margin-bottom:10px;" />
-        <select style="width:100%; padding:10px; margin-bottom:10px;">
-          <option value="">Sesso</option>
-          <option value="m">Uomo</option>
-          <option value="f">Donna</option>
-        </select>
-        <select style="width:100%; padding:10px; margin-bottom:10px;">
-          <option value="">Cerco</option>
-          <option value="m">Uomo</option>
-          <option value="f">Donna</option>
-        </select>
-        <button type="submit">🌠 Entra Ora</button>
-      </form>
+
+      <a href="https://tc.tradetracker.net/?c=18031&m=2469548&a=432856&r=&u=" target="_blank" rel="sponsored nofollow">
+        <img src="https://ti.tradetracker.net/?c=18031&m=2469548&a=432856&r=&t=html"
+          alt="Happy Card Feltrinelli" />
+      </a>
+      
+      <a class="button button-orange" href="entra.html">🚀 Entra in Chat</a>
+      <a class="button button-blue" href="#">💘 Visita il Sito Partner</a>
     </div>
+
   </div>
+</div>
 
-  <!-- ✅ SCRIPT PER MENU -->
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('navMenu');
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+<!-- FOOTER -->
+<footer>
+  Copyright © 2025 – Tema WordPress sviluppato da Creative Themes
+</footer>
+
+<!-- SCRIPT: chiusura menu mobile al tocco -->
+<script>
+  document.addEventListener('click', function(e) {
+    const menu = document.querySelector('.nav-menu');
+    const toggle = document.querySelector('.nav-toggle');
+    const isMenuClick = menu.contains(e.target);
+    const isToggleClick = toggle.contains(e.target);
+
+    if (document.body.classList.contains('menu-open') && !isMenuClick && !isToggleClick) {
+      document.body.classList.remove('menu-open');
     }
+  });
+</script>
+</header>
 
-    // Chiudi il menu cliccando fuori
-    document.addEventListener('click', function(event) {
-      const menu = document.getElementById('navMenu');
-      const toggle = document.querySelector('.menu-toggle');
-      if (!menu.contains(event.target) && !toggle.contains(event.target)) {
-        menu.style.display = 'none';
-      }
-    });
-  </script>
+<!-- MAIN CONTENT -->
+<div class="main-container">
+  <div class="content-wrapper">
 
-</body>
-</html>
+    <!-- LEFT TEXT -->
+    <div class="main-left">
+      <h2>#NebulaLounge</h2>
+      <p><strong>Incontra, flirta, lasciati ispirare</strong>.<br>
+        Unisciti a chi ha voglia di parlare, <strong>conoscersi</strong>, scoprirsi.<br>
+        Una chat <strong>libera</strong> e leggera, dove ogni parola può <strong>accendere qualcosa</strong>.<br><br>
+        Parole che scorrono leggere, sguardi che si incrociano tra righe di testo.<br>
+        Se cerchi <strong>incontri</strong>, <strong>complicità</strong>, <strong>emozioni</strong> o semplici attimi,<br>
+        nella <strong>NebulaLounge</strong> ogni parola è un <strong>invito</strong>, ogni attimo una <strong>possibilità</strong>.<br><br>
+        Connettiti con chi ha voglia di <strong>ascoltare</strong>, <strong>parlare</strong>, <strong>giocare</strong>.<br>
+        <strong>Lasciati trovare.</strong> <span style="color:#ea5906;">A volte basta un “ciao”. Altre, basta sapere cosa vuoi.</span><br>
+        Perché qui, <strong>tutto può davvero cominciare</strong>.
+      </p>
+    </div>
+
+    <!-- RIGHT BOX -->
+    <div class="main-right">
+      <div class="main-right-title">
+        Entra gratis in chat<br><strong>NebulaLounge ti aspetta!</strong>
+      </div>
+
+      <a href="https://tc.tradetracker.net/?c=18031&m=2469548&a=432856&r=&u=" target="_blank" rel="sponsored nofollow">
+        <img src="https://ti.tradetracker.net/?c=18031&m=2469548&a=432856&r=&t=html"
+          alt="Happy Card Feltrinelli" />
+      </a>
+      
+      <a class="button button-orange" href="entra.html">🚀 Entra in Chat</a>
+      <a class="button button-blue" href="#">💘 Visita il Sito Partner</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Copyright © 2025 – Tema WordPress sviluppato da Creative Themes
+</footer>
+<!-- /wp:html -->
