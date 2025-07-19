@@ -279,37 +279,52 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-  .button-orange {
-    background-color: #ea5906;
-    color: #ffffff;
-  }
+  .button-orange,
+.button-blue {
+  display: block;
+  text-align: center;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 14px;
+  margin: 10px auto;
+  font-size: 1.1em;
+  max-width: 300px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: none;
+  outline: none;
+}
 
-  .button-orange:hover {
-    background-color: #003374;
-    color: #ea5906;
-  }
-    .button-orange:active,
-.button-orange:focus {
+.button-orange {
   background-color: #ea5906;
   color: #ffffff;
-  outline: none;
 }
-  .button-blue {
-    background-color: #003374;
-    color: #ffffff;
-  }
 
-  .button-blue:hover {
-    background-color: #ea5906;
-    color: #003374;
-  }
-    .button-blue:active,
-.button-blue:focus {
+.button-orange:hover,
+.button-orange:focus {
+  background-color: #003374;
+  color: #ea5906;
+}
+
+.button-orange:active {
+  filter: brightness(1.1);
+}
+
+.button-blue {
   background-color: #003374;
   color: #ffffff;
-  outline: none;
 }
 
+.button-blue:hover,
+.button-blue:focus {
+  background-color: #ea5906;
+  color: #003374;
+}
+
+.button-blue:active {
+  filter: brightness(1.1);
+}
 
 </style>
 </head>
