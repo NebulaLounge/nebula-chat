@@ -344,7 +344,7 @@
     </div>
   </div>
 
- <script>
+<script>
   window.onload = function () {
     const nickInput = document.getElementById("nickinput");
     const passwordInput = document.getElementById("passwordinput");
@@ -352,22 +352,24 @@
     const cityInput = document.getElementById("cityinput");
 
     const menu = document.querySelector('.nav-menu');
-    const menuButton = document.querySelector('.menu-toggle'); // assicurati che questo sia corretto!
+    const menuButton = document.querySelector('.nav-toggle');
 
-    // 🔄 Chiusura menu hamburger cliccando fuori
-    document.addEventListener('click', function (event) {
-      if (
-        document.body.classList.contains('menu-open') &&
-        !menu.contains(event.target) &&
-        !menuButton.contains(event.target)
-      ) {
-        document.body.classList.remove('menu-open');
-      }
-    });
+    // 🔄 Chiusura menu hamburger cliccando fuori (desktop + mobile)
+    ['click', 'touchstart'].forEach(eventName => {
+      document.addEventListener(eventName, function (event) {
+        if (
+          document.body.classList.contains('menu-open') &&
+          !menu.contains(event.target) &&
+          !menuButton.contains(event.target)
+        ) {
+          document.body.classList.remove('menu-open');
+        }
+      });
 
-    // ⚠️ Se vuoi evitare propagazione interna (opzionale)
-    menu.addEventListener('click', function (e) {
-      e.stopPropagation();
+      // ⚠️ Evita che clic interni chiudano il menu
+      menu.addEventListener(eventName, function (e) {
+        e.stopPropagation();
+      });
     });
 
     let nickIsRegistered = false;
@@ -509,7 +511,5 @@
       .catch(err => console.error("Errore nel caricamento dei comuni:", err));
   };
 </script>
-
-
 </body>
 </html>
