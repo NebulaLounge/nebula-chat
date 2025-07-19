@@ -134,7 +134,10 @@
   body.menu-open .nav-menu {
     display: flex;
   }
-
+  .nav-menu li {
+    margin: 0;
+    padding: 0;
+  }
   .nav-menu li a {
     display: block;
     font-size: 1em;
@@ -143,8 +146,8 @@
     padding: 8px 12px;
     border-radius: 6px;
     background-color: transparent;
-    text-align: left;
-    transition: background-color 0.3s ease, color 0.3s ease;
+   width: 100%;
+    box-sizing: border-box;
   }
 
   .nav-menu li a:hover {
