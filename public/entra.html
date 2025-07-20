@@ -344,19 +344,7 @@
     </div>
   </div>
 
- <script>
-  document.addEventListener('click', function (event) {
-    const menu = document.querySelector('.nav-menu');
-    const menuButton = document.querySelector('.menu-toggle'); // sostituisci con l'id o classe reale del bottone hamburger
-
-    // Se il menu è aperto e il click non è dentro al menu né sul bottone
-    if (document.body.classList.contains('menu-open') &&
-        !menu.contains(event.target) &&
-        !menuButton.contains(event.target)) {
-      document.body.classList.remove('menu-open');
-    }
-  });
-window.onload = function () {
+ window.addEventListener("DOMContentLoaded", () => {
   const nickInput = document.getElementById("nickinput");
   const passwordInput = document.getElementById("passwordinput");
   const infoBox = document.getElementById("infobox");
@@ -366,53 +354,56 @@ window.onload = function () {
   let delayCheck;
   let validCities = [];
 
+  // ✅ Sanitizza solo al momento del submit
   function sanitizeNick(nick) {
-    return nick
-      .toLowerCase()
-      .replace(/\s+/g, "_")
-      .replace(/[^a-z0-9_]/g, "")
-      .slice(0, 25);
+    return nick.toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_]/g, "").slice(0, 25);
   }
 
+  // 🔍 Usa nickserv per verifica più affidabile
+  async function isNickRegistered(nick) {
+    try {
+      const res = await fetch(`https://www.simosnap.org/rest/service.php/nickserv/${encodeURIComponent(nick)}`);
+      if (!res.ok) return false;
+      const data = await res.json();
+      return data.nickname?.toLowerCase() === nick.toLowerCase();
+    } catch (err) {
+      console.error("❌ Errore verifica nick:", err);
+      return false;
+    }
+  }
+
+  // 🔁 Listener sul nick (senza sanitizzazione precoce)
   nickInput.addEventListener("input", () => {
     clearTimeout(delayCheck);
-    delayCheck = setTimeout(() => {
-      let rawNick = nickInput.value.trim();
-      let nick = sanitizeNick(rawNick);
-      nickInput.value = nick;
+    const rawNick = nickInput.value.trim();
 
-      if (nick === "") {
+    if (rawNick.length < 3) {
+      passwordInput.style.display = "none";
+      passwordInput.value = "";
+      infoBox.textContent = "";
+      return;
+    }
+
+    infoBox.innerHTML = `<span style="color:#aaa;">🕵️ Verifica in corso...</span>`;
+
+    delayCheck = setTimeout(async () => {
+      const isRegistered = await isNickRegistered(rawNick);
+
+      if (isRegistered) {
+        nickIsRegistered = true;
+        passwordInput.style.display = "block";
+        passwordInput.focus();
+        infoBox.innerHTML = `<span style="color:#ea5906;"><b>🔐 Nick registrato.</b><br>Inserisci la password per autenticarti.</span>`;
+      } else {
         nickIsRegistered = false;
         passwordInput.style.display = "none";
         passwordInput.value = "";
         infoBox.textContent = "";
-        return;
       }
-
-      fetch(`https://www.simosnap.org/rest/service.php/nickserv/${nick}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.registered === "yes") {
-            nickIsRegistered = true;
-            passwordInput.style.display = "block";
-            infoBox.innerHTML = `<span style="color:#b10303;"><b>🔐 Il nickname è registrato.</b><br>Inserisci la password per autenticarti.</span>`;
-          } else {
-            nickIsRegistered = false;
-            passwordInput.style.display = "none";
-            passwordInput.value = "";
-            infoBox.textContent = "";
-          }
-        })
-        .catch(err => {
-          console.error("Errore nella verifica del nick:", err);
-          nickIsRegistered = false;
-          passwordInput.style.display = "none";
-          passwordInput.value = "";
-          infoBox.textContent = "";
-        });
-    }, 500);
+    }, 400);
   });
 
+  // 🏙 Autocomplete città
   function setupAutocomplete(cities) {
     validCities = cities;
     const suggestionBox = document.createElement("div");
@@ -445,8 +436,6 @@ window.onload = function () {
           });
           suggestionBox.appendChild(item);
         });
-      } else {
-        suggestionBox.innerHTML = "";
       }
     });
   }
@@ -456,8 +445,10 @@ window.onload = function () {
     return validCities.some(c => c.toLowerCase() === val);
   }
 
+  // 🚀 Invio dati
   window.vaiAllaVerifica = function () {
-    const nick = sanitizeNick(nickInput.value.trim());
+    const rawNick = nickInput.value.trim();
+    const nick = sanitizeNick(rawNick);
     const sex = document.getElementById("sexselect").value;
     const looking = document.getElementById("lookingselect").value;
     const city = cityInput.value.trim();
@@ -474,7 +465,7 @@ window.onload = function () {
     }
 
     if (nickIsRegistered && !password) {
-      alert("⚠️ Il nickname è registrato. Inserisci la password per continuare.");
+      alert("⚠️ Il nickname è registrato. Inserisci la password.");
       return;
     }
 
@@ -488,10 +479,12 @@ window.onload = function () {
     localStorage.setItem("looking", looking);
     localStorage.setItem("city", city);
     if (password) localStorage.setItem("password", password);
+    else localStorage.removeItem("password");
 
     window.location.href = "join.html";
   };
 
+  // 🌐 Caricamento comuni
   fetch("https://nebula-chat-silk.vercel.app/comuni.json")
     .then(res => res.json())
     .then(data => {
@@ -499,19 +492,7 @@ window.onload = function () {
       setupAutocomplete(cities);
     })
     .catch(err => console.error("Errore nel caricamento dei comuni:", err));
-};
- document.addEventListener('click', function(e) {
-    const menu = document.querySelector('.nav-menu');
-    const toggle = document.querySelector('.nav-toggle');
-    const isMenuClick = menu.contains(e.target);
-    const isToggleClick = toggle.contains(e.target);
-    
-    if (document.body.classList.contains('menu-open') && !isMenuClick && !isToggleClick) {
-      document.body.classList.remove('menu-open');
-    }
-  });
-   
-</script>
+});
 
 </body>
 </html>
