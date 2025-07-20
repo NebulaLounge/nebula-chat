@@ -300,11 +300,10 @@
       })
       .catch(err => console.error("Errore nel caricamento dei comuni:", err));
   </script>
-<script type="module">
-  import { greetUser } from '/bot-welcome.js';
-
+<script src="/bot-welcome.js"></script>
+<script>
   const nick = localStorage.getItem("nick") || "Guest";
-  greetUser(nick);
+  window.greetUser(nick);
 </script>
   <script>
   window.addEventListener("message", function (event) {
