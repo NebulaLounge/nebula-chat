@@ -51,12 +51,19 @@
       box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
     }
 
-    iframe.chat {
-  border: none;
-  width: 100vw; /* larghezza totale della finestra */
-  height: calc(100vh - 180px); /* altezza piena meno banner sopra/sotto (90+90) */
-  display: block;
-}
+    .chat {
+      border: none;
+      width: 100vw;
+      height: calc(100vh - 180px);
+      display: none;
+    }
+
+    .chat-loading {
+      padding: 16px;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
     .banner-bottom {
       width: 100%;
       height: 90px;
@@ -67,8 +74,6 @@
       align-items: center;
       box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
     }
-
-    form { display: none; }
   </style>
 </head>
 <body>
@@ -100,18 +105,11 @@
     </iframe>
   </div>
 
-  <!-- Form invisibile -->
-  <form id="chatForm" action="https://entrainchat-01.simosnap.com/login.php" method="post" target="chatFrame">
-    <input type="hidden" name="nick" id="nickField" />
-    <input type="hidden" name="password" id="passwordField" />
-    <input type="hidden" name="channel" value="#NebulaLounge" />
-    <input type="hidden" name="sex" id="sexField" />
-    <input type="hidden" name="location" id="cityField" />
-    <input type="hidden" name="gecos" value="NebulaLounge" />
-  </form>
+  <!-- Loading -->
+  <div class="chat-loading" id="chatLoading">💬 Connessione in corso...</div>
 
-  <!-- Chat iframe -->
-  <iframe class="chat" name="chatFrame" id="chatFrame" title="Chat NebulaLounge"></iframe>
+  <!-- Chat -->
+  <iframe class="chat" id="chatFrame" title="Chat NebulaLounge"></iframe>
 </div>
 
 <!-- Banner inferiore -->
@@ -126,7 +124,7 @@
 </div>
 
 <!-- Audio -->
-<audio id="welcomeAudio" preload="auto" src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
+<audio id="welcomeAudio" preload="auto" src="assets/welcome.mp3"></audio>
 
 <script>
   function capitalize(str) {
@@ -136,26 +134,21 @@
   }
 
   window.onload = function () {
-    const nick = localStorage.getItem("nick") || "Guest";
+    const nick = localStorage.getItem("nick") || "Guest" + Math.floor(Math.random() * 1000);
     const sex = localStorage.getItem("sex") || "";
     const looking = localStorage.getItem("looking") || "";
     const city = localStorage.getItem("city") || "";
-    const password = localStorage.getItem("password") || "";
 
-    document.getElementById("nickField").value = nick;
-    document.getElementById("sexField").value = sex;
-    document.getElementById("cityField").value = city;
-    document.getElementById("passwordField").value = password;
-
-    const sexText     = sex === "M" ? "un 👨‍💼 Uomo ♂️" : sex === "F" ? "una 👩 Donna ♀️" : "un* utente";
+    const sexText = sex === "M" ? "un 👨‍💼 Uomo ♂️" : sex === "F" ? "una 👩 Donna ♀️" : "un* utente";
     const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
-    const cityText    = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
+    const cityText = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
 
     document.getElementById("nickSpan").textContent = capitalize(nick);
     document.getElementById("sexSpan").textContent = sexText;
     document.getElementById("lookingSpan").textContent = lookingText;
     document.getElementById("citySpan").textContent = cityText;
 
+    // Animazioni welcome
     setTimeout(() => {
       const step1 = document.getElementById("welcomeStep1");
       const step2 = document.getElementById("welcomeStep2");
@@ -167,18 +160,13 @@
       }, 1000);
     }, 7000);
 
-    // Invio automatico del form
-    setTimeout(() => {
-      document.getElementById("chatForm").submit();
-    }, 3000); // breve attesa prima del submit
-
     // Audio
     setTimeout(() => {
       const audio = document.getElementById("welcomeAudio");
       audio.play().catch(err => console.warn("Audio bloccato:", err));
     }, 8000);
 
-    // Banner superiore dopo 24s
+    // Banner top
     setTimeout(() => {
       const step2 = document.getElementById("welcomeStep2");
       step2.style.opacity = "0";
@@ -187,6 +175,17 @@
         document.getElementById("bannerTop").style.display = "flex";
       }, 1000);
     }, 24000);
+
+    // Caricamento iframe chat
+    const chatURL = `https://kiwi.simosnap.com/?nick=${encodeURIComponent(nick)}&channel=%23NebulaLounge&theme=basic`;
+    const iframe = document.getElementById("chatFrame");
+    const loading = document.getElementById("chatLoading");
+
+    iframe.src = chatURL;
+    iframe.onload = () => {
+      loading.style.display = "none";
+      iframe.style.display = "block";
+    };
   };
 </script>
 
