@@ -1,53 +1,106 @@
-<style>
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background: #0b132b;
-    font-family: "Segoe UI", sans-serif;
-    overflow: hidden;
-  }
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NebulaLounge – Connessione</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0b132b;
+      color: #f0e8de;
+    }
 
-  .main-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-  .banner-top,
-  .banner-bottom {
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #1c2541;
-    color: #fff;
-    font-size: 1.2em;
-    text-align: center;
-    transition: opacity 0.5s ease-in-out;
-  }
+    #welcomeStep1, #welcomeStep2 {
+      width: 100%;
+      padding: 16px;
+      text-align: center;
+      background: linear-gradient(to right, #001f3f, #142a4d, #001f3f);
+      box-shadow: inset 0 0 22px #ea5906aa;
+      transition: opacity 1s ease;
+    }
 
-  .banner-top.hidden,
-  .banner-bottom.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
+    #welcomeStep1 .welcomeTitle,
+    #welcomeStep2 .welcomeTitle {
+      font-size: 2rem;
+      font-weight: 700;
+    }
 
-  .chat-frame {
-    flex-grow: 1;
-    border: none;
-    width: 100%;
-  }
-</style>
+    #welcomeStep2 .welcomeDetails {
+      font-size: 1.1rem;
+      font-weight: 500;
+      display: none;
+      margin-top: 8px;
+    }
 
-<div class="main-container">
+    .frame-banner {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 90px;
+      width: 100%;
+      background: linear-gradient(to right, #001f3f, #0b132b, #001f3f);
+      box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
+    }
 
-  <!-- Banner superiore -->
-  <div id="bannerTop" class="banner-top">
-    <span id="bannerMessage">💬 Connessione in corso...</span>
+    iframe.chat {
+  border: none;
+  width: 100vw; /* larghezza totale della finestra */
+  height: calc(100vh - 180px); /* altezza piena meno banner sopra/sotto (90+90) */
+  display: block;
+}
+    .banner-bottom {
+      width: 100%;
+      height: 90px;
+      margin-top: 16px;
+      background: linear-gradient(to right, #001f3f, #0b132b, #001f3f);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
+    }
+
+    form { display: none; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Saluto 1 -->
+  <div id="welcomeStep1">
+    <div class="welcomeTitle">
+      🌌 Benvenuta/o – Connessione attiva. Inizia il viaggio su <strong>NebulaLounge</strong>!
+    </div>
   </div>
 
-  <!-- Form invisibile per invio automatico -->
+  <!-- Saluto 2 -->
+  <div id="welcomeStep2" style="display: none;">
+    <div class="welcomeTitle">🚀 Benvenuto nella <strong>NebulaLounge</strong>! Lasciati ispirare.</div>
+    <div class="welcomeDetails">
+      Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span> e stai cercando <span id="lookingSpan"></span> <span id="citySpan"></span>.
+    </div>
+  </div>
+
+  <!-- Banner superiore -->
+  <div class="frame-banner" id="bannerTop">
+    <iframe
+      src="https://rotator.tradetracker.net/?r=97208&t=iframe"
+      width="728" height="90"
+      style="border:0; margin:0; padding:0;"
+      frameborder="0" scrolling="no"
+      title="Banner pubblicitario">
+    </iframe>
+  </div>
+
+  <!-- Form invisibile -->
   <form id="chatForm" action="https://entrainchat-01.simosnap.com/login.php" method="post" target="chatFrame">
     <input type="hidden" name="nick" id="nickField" />
     <input type="hidden" name="password" id="passwordField" />
@@ -57,56 +110,85 @@
     <input type="hidden" name="gecos" value="NebulaLounge" />
   </form>
 
-  <!-- Chat -->
-  <iframe class="chat-frame" name="chatFrame" id="chatFrame" title="Chat NebulaLounge"></iframe>
-
-  <!-- Banner inferiore pubblicitario -->
-  <div id="bannerBottom" class="banner-bottom">
-    🔥 Dai un’occhiata ai nostri contenuti esclusivi su YouTube, Rumble e molto altro!
-  </div>
+  <!-- Chat iframe -->
+  <iframe class="chat" name="chatFrame" id="chatFrame" title="Chat NebulaLounge"></iframe>
 </div>
 
-<audio id="welcomeSound" src="https://indelibile.it/audio/nebula-enter.mp3" preload="auto"></audio>
+<!-- Banner inferiore -->
+<div class="banner-bottom">
+  <iframe
+    src="https://rotator.tradetracker.net/?r=97208&t=iframe"
+    width="728" height="90"
+    style="border:0; margin:0; padding:0;"
+    frameborder="0" scrolling="no"
+    title="Banner pubblicitario">
+  </iframe>
+</div>
+
+<!-- Audio -->
+<audio id="welcomeAudio" preload="auto" src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
 
 <script>
-  // Dati simulati per esempio
-  const nickname = "Attore_semi_professionist";
-  const gender = "👨‍💼 Uomo ♂️";
-  const search = "👩 Donna ♀️";
-  const city = "📍Vercelli";
+  function capitalize(str) {
+    return str
+      ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
+      : "";
+  }
 
-  document.getElementById("nickField").value = nickname;
-  document.getElementById("passwordField").value = "";
-  document.getElementById("sexField").value = "M";
-  document.getElementById("cityField").value = "Vercelli";
+  window.onload = function () {
+    const nick = localStorage.getItem("nick") || "Guest";
+    const sex = localStorage.getItem("sex") || "";
+    const looking = localStorage.getItem("looking") || "";
+    const city = localStorage.getItem("city") || "";
+    const password = localStorage.getItem("password") || "";
 
-  // Invia il form dopo 1 secondo
-  setTimeout(() => {
-    document.getElementById("chatForm").submit();
-  }, 1000);
+    document.getElementById("nickField").value = nick;
+    document.getElementById("sexField").value = sex;
+    document.getElementById("cityField").value = city;
+    document.getElementById("passwordField").value = password;
 
-  // Mostra messaggi dinamici e banner top
-  const bannerTop = document.getElementById("bannerTop");
-  const bannerMessage = document.getElementById("bannerMessage");
+    const sexText     = sex === "M" ? "un 👨‍💼 Uomo ♂️" : sex === "F" ? "una 👩 Donna ♀️" : "un* utente";
+    const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
+    const cityText    = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
 
-  // Fasi messaggi dinamici
-  setTimeout(() => {
-    bannerMessage.textContent = "🚀 Benvenuto nella NebulaLounge! Lasciati ispirare.";
-  }, 6000);
+    document.getElementById("nickSpan").textContent = capitalize(nick);
+    document.getElementById("sexSpan").textContent = sexText;
+    document.getElementById("lookingSpan").textContent = lookingText;
+    document.getElementById("citySpan").textContent = cityText;
 
-  setTimeout(() => {
-    bannerMessage.textContent = `Ciao ${nickname}, sei un ${gender} e stai cercando una ${search} dalla città di ${city}.`;
-  }, 10000);
+    setTimeout(() => {
+      const step1 = document.getElementById("welcomeStep1");
+      const step2 = document.getElementById("welcomeStep2");
+      step1.style.opacity = "0";
+      setTimeout(() => {
+        step1.style.display = "none";
+        step2.style.display = "block";
+        step2.querySelector(".welcomeDetails").style.display = "block";
+      }, 1000);
+    }, 7000);
 
-  // Banner superiore sparisce per lasciare posto al banner
-  setTimeout(() => {
-    bannerTop.classList.add("hidden");
-  }, 18000); // dopo 18 secondi
+    // Invio automatico del form
+    setTimeout(() => {
+      document.getElementById("chatForm").submit();
+    }, 3000); // breve attesa prima del submit
 
-  // Audio spostato a 14 secondi
-  setTimeout(() => {
-    document.getElementById("welcomeSound").play();
-  }, 14000);
+    // Audio
+    setTimeout(() => {
+      const audio = document.getElementById("welcomeAudio");
+      audio.play().catch(err => console.warn("Audio bloccato:", err));
+    }, 8000);
 
-  // Banner inferiore resta visibile (nessun margine)
+    // Banner superiore dopo 24s
+    setTimeout(() => {
+      const step2 = document.getElementById("welcomeStep2");
+      step2.style.opacity = "0";
+      setTimeout(() => {
+        step2.style.display = "none";
+        document.getElementById("bannerTop").style.display = "flex";
+      }, 1000);
+    }, 24000);
+  };
 </script>
+
+</body>
+</html>
