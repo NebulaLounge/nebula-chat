@@ -94,6 +94,31 @@
 </head>
 <body>
 
+<script>
+  window.kiwiConfig = function() {
+    const nick = localStorage.getItem("nick") || ("ospite_" + Math.floor(Math.random() * 1000));
+    const sex = localStorage.getItem("sex") || "U";
+    const looking = localStorage.getItem("looking") || "U";
+    const city = localStorage.getItem("city") || "";
+    const gecos = `${sex}/${looking} ${city}`;
+    const password = localStorage.getItem("password") || "";
+
+    return {
+      "startupOptions": {
+        "server": "irc.simosnap.org",
+        "port": 6697,
+        "tls": true,
+        "nick": nick,
+        "password": password || undefined,  // KiwiIRC userà NickServ, non SASL
+        "gecos": gecos,
+        "channel": "#NebulaLounge",
+        "autoConnect": true
+      }
+    };
+  };
+</script>
+
+  
 <div class="container">
   <!-- Saluto 1 -->
   <div id="welcomeStep1">
