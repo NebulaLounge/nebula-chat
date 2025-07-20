@@ -63,19 +63,33 @@
   <a class="back" href="entra.html">🔙 Torna alla chat</a>
 
   <script>
-    fetch("config.json")
-      .then(response => response.json())
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("/config.json")
+      .then(response => {
+        if (!response.ok) throw new Error("Errore HTTP: " + response.status);
+        return response.json();
+      })
       .then(config => {
         const rules = config.rules || [];
         const list = document.getElementById("rulesList");
 
-        rules.forEach(rule => {
-          const li = document.createElement("li");
-          li.textContent = rule;
-          list.appendChild(li);
-        });
+        if (rules.length === 0) {
+          list.innerHTML = `<li>⚠️ Nessuna regola trovata.</li>`;
+        } else {
+          rules.forEach(rule => {
+            const li = document.createElement("li");
+            li.textContent = rule;
+            list.appendChild(li);
+          });
+        }
+      })
+      .catch(error => {
+        const list = document.getElementById("rulesList");
+        list.innerHTML = `<li>❌ Errore nel caricamento delle regole.</li>`;
+        console.error("Errore nel fetch di config.json:", error);
       });
-  </script>
+  });
+</script>
 
 </body>
 </html>
