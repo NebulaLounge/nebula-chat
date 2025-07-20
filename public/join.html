@@ -20,16 +20,20 @@
     }
 
     #welcomeStep1, #welcomeStep2 {
-     width: 100%;
-  height: 90px; /* fissa lo spazio a 90px */
-  padding: 16px;
+  width: 100%;
+  height: 90px;        /* altezza fissa */
+  padding: 8px 16px;   /* meno padding verticale per star dentro i 90px */
   text-align: center;
   background: linear-gradient(to right, #001f3f, #142a4d, #001f3f);
   box-shadow: inset 0 0 22px #ea5906aa;
   transition: opacity 1s ease;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
+  font-size: 1.5rem;   /* leggermente ridotto per starci dentro */
+  font-weight: 700;
+  line-height: 1.2;
 }
 
     #welcomeStep1 .welcomeTitle,
@@ -39,13 +43,13 @@
     }
 
     #welcomeStep2 .welcomeDetails {
-      font-size: 1.1rem;
-      font-weight: 500;
-      display: none;
-      margin-top: 8px;
-    }
+  font-size: 0.9rem; /* testo descrittivo più piccolo */
+  font-weight: 500;
+  margin-top: 4px;
+  display: none;
+  }
 
-    .frame-banner {
+   .frame-banner {
   display: none;
   justify-content: center;
   align-items: center;
@@ -53,12 +57,12 @@
   width: 100%;
   background: linear-gradient(to right, #001f3f, #0b132b, #001f3f);
   box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
-  min-height: 90px; /* assicurati che non collassi */
 }
-    iframe.chat {
+
+iframe.chat {
   border: none;
   width: 100vw;
-  height: calc(100vh - 200px); /* AUMENTATA la parte visibile della chat */
+  height: calc(100vh - 180px + 40px); /* 180px è banner sopra+banner sotto, +40px per allungare */
   display: block;
 }
     .banner-bottom {
