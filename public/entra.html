@@ -343,8 +343,8 @@
       </div>
     </div>
   </div>
-
- window.addEventListener("DOMContentLoaded", () => {
+<script>
+window.addEventListener("DOMContentLoaded", () => {
   const nickInput = document.getElementById("nickinput");
   const passwordInput = document.getElementById("passwordinput");
   const infoBox = document.getElementById("infobox");
@@ -354,12 +354,10 @@
   let delayCheck;
   let validCities = [];
 
-  // ✅ Sanitizza solo al momento del submit
   function sanitizeNick(nick) {
     return nick.toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_]/g, "").slice(0, 25);
   }
 
-  // 🔍 Usa nickserv per verifica più affidabile
   async function isNickRegistered(nick) {
     try {
       const res = await fetch(`https://www.simosnap.org/rest/service.php/nickserv/${encodeURIComponent(nick)}`);
@@ -372,7 +370,6 @@
     }
   }
 
-  // 🔁 Listener sul nick (senza sanitizzazione precoce)
   nickInput.addEventListener("input", () => {
     clearTimeout(delayCheck);
     const rawNick = nickInput.value.trim();
@@ -403,7 +400,6 @@
     }, 400);
   });
 
-  // 🏙 Autocomplete città
   function setupAutocomplete(cities) {
     validCities = cities;
     const suggestionBox = document.createElement("div");
@@ -445,7 +441,6 @@
     return validCities.some(c => c.toLowerCase() === val);
   }
 
-  // 🚀 Invio dati
   window.vaiAllaVerifica = function () {
     const rawNick = nickInput.value.trim();
     const nick = sanitizeNick(rawNick);
@@ -484,7 +479,6 @@
     window.location.href = "join.html";
   };
 
-  // 🌐 Caricamento comuni
   fetch("https://nebula-chat-silk.vercel.app/comuni.json")
     .then(res => res.json())
     .then(data => {
@@ -493,6 +487,6 @@
     })
     .catch(err => console.error("Errore nel caricamento dei comuni:", err));
 });
-
+</script>
 </body>
 </html>
