@@ -385,7 +385,7 @@ window.addEventListener("DOMContentLoaded", () => {
           if (data.registered === "yes") {
             nickIsRegistered = true;
             passwordInput.style.display = "block";
-            passwordInput.focus();
+           /* passwordInput.focus(); */
             infoBox.innerHTML = `<span style="color:#b10303;"><b>🔐 Nick registrato.</b><br>Inserisci la password per autenticarti.</span>`;
           } else {
             nickIsRegistered = false;
