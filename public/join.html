@@ -6,47 +6,48 @@
   <title>NebulaLounge – Connessione</title>
   <style>
     body, html {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0b132b;
       color: #f0e8de;
       min-height: 100vh;
     }
-
     .container {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    #welcomeStep1, #welcomeStep2, #loadingMsg {
+    #messageContainer {
       width: 100%;
+      height: 90px; /* altezza fissa uguale al banner */
       padding: 16px;
+      box-sizing: border-box;
       text-align: center;
       background: linear-gradient(to right, #001f3f, #142a4d, #001f3f);
       box-shadow: inset 0 0 22px #ea5906aa;
+      color: #f0e8de;
+      font-weight: 700;
+      font-size: 1.7rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: opacity 1s ease;
+      overflow: hidden;
+    }
+    #userDetails {
+      font-weight: 500;
+      font-size: 1.1rem;
+      margin-top: 6px;
+      opacity: 0;
       transition: opacity 1s ease;
     }
 
-    #welcomeStep1 .welcomeTitle,
-    #welcomeStep2 .welcomeTitle,
-    #loadingMsg {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    #welcomeStep2 .welcomeDetails {
-      font-size: 1.1rem;
-      font-weight: 500;
-      display: none;
-      margin-top: 8px;
-    }
-
-    #loadingMsg {
-      margin-top: 10px;
-      color: #ea5906cc;
-      font-weight: 600;
+    iframe.chat {
+      border: none;
+      width: 100vw;
+      height: calc(100vh - 180px); /* altezza meno banner + messaggio (90+90) */
+      display: block;
     }
 
     .frame-banner {
@@ -57,13 +58,6 @@
       width: 100%;
       background: linear-gradient(to right, #001f3f, #0b132b, #001f3f);
       box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
-    }
-
-    iframe.chat {
-      border: none;
-      width: 100vw;
-      height: calc(100vh - 180px);
-      display: block;
     }
 
     .banner-bottom {
@@ -83,37 +77,13 @@
 <body>
 
 <div class="container" aria-live="polite">
-  <!-- Messaggio connessione -->
-  <div id="loadingMsg">💬 Connessione in corso...</div>
-
-  <!-- Saluto 1 -->
-  <div id="welcomeStep1" style="opacity: 1;">
-    <div class="welcomeTitle">
-      🌌 Benvenuta/o – Connessione attiva. Inizia il viaggio su <strong>NebulaLounge</strong>!
-    </div>
-  </div>
-
-  <!-- Saluto 2 -->
-  <div id="welcomeStep2" style="display: none; opacity: 1;">
-    <div class="welcomeTitle">🚀 Benvenuto nella <strong>NebulaLounge</strong>! Lasciati ispirare.</div>
-    <div class="welcomeDetails">
-      Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span> e stai cercando <span id="lookingSpan"></span> <span id="citySpan"></span>.
-    </div>
-  </div>
-
-  <!-- Banner superiore -->
-  <div class="frame-banner" id="bannerTop" aria-label="Banner pubblicitario superiore">
-    <iframe
-      src="https://rotator.tradetracker.net/?r=97208&t=iframe"
-      width="728" height="90"
-      style="border:0; margin:0; padding:0;"
-      frameborder="0" scrolling="no"
-      title="Banner pubblicitario superiore NebulaLounge">
-    </iframe>
+  <div id="messageContainer">
+    <div id="mainMessage">💬 Connessione in corso...</div>
+    <div id="userDetails"></div>
   </div>
 
   <!-- Form invisibile -->
-  <form id="chatForm" action="https://entrainchat-01.simosnap.com/login.php" method="post" target="chatFrame">
+  <form id="chatForm" action="https://entrainchat-01.simosnap.com/login.php" method="post" target="chatFrame" aria-hidden="true" tabindex="-1">
     <input type="hidden" name="nick" id="nickField" />
     <input type="hidden" name="password" id="passwordField" />
     <input type="hidden" name="channel" value="#NebulaLounge" />
@@ -134,6 +104,17 @@
     style="border:0; margin:0; padding:0;"
     frameborder="0" scrolling="no"
     title="Banner pubblicitario inferiore NebulaLounge">
+  </iframe>
+</div>
+
+<!-- Banner superiore (inizialmente nascosto) -->
+<div class="frame-banner" id="bannerTop" aria-label="Banner pubblicitario superiore" style="display:none;">
+  <iframe
+    src="https://rotator.tradetracker.net/?r=97208&t=iframe"
+    width="728" height="90"
+    style="border:0; margin:0; padding:0;"
+    frameborder="0" scrolling="no"
+    title="Banner pubblicitario superiore NebulaLounge">
   </iframe>
 </div>
 
@@ -163,63 +144,49 @@
     const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
     const cityText    = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
 
-    document.getElementById("nickSpan").textContent = capitalize(nick);
-    document.getElementById("sexSpan").textContent = sexText;
-    document.getElementById("lookingSpan").textContent = lookingText;
-    document.getElementById("citySpan").textContent = cityText;
+    const userDetails = `Ciao ${capitalize(nick)}, sei ${sexText} e stai cercando ${lookingText} ${cityText}.`;
 
-    // 1. Invio form dopo 2 secondi (più veloce)
+    // Prepara elementi DOM
+    const mainMessageEl = document.getElementById("mainMessage");
+    const userDetailsEl = document.getElementById("userDetails");
+    const bannerTop = document.getElementById("bannerTop");
+
+    // 1) Mostra subito "Connessione in corso..."
+    mainMessageEl.textContent = "💬 Connessione in corso...";
+    userDetailsEl.style.opacity = "0";
+
+    // 2) Dopo 5.5 secondi mostra messaggio di benvenuto con dettagli
+    setTimeout(() => {
+      mainMessageEl.textContent = "🚀 Benvenuto nella NebulaLounge! Lasciati ispirare.";
+      userDetailsEl.textContent = userDetails;
+      userDetailsEl.style.opacity = "1";
+    }, 5500);
+
+    // 3) Invia form per aprire la chat dopo 2 secondi (subito)
     setTimeout(() => {
       document.getElementById("chatForm").submit();
     }, 2000);
 
-    // 2. Passaggio messaggi con fade in/out usando transitionend
-
-    const step1 = document.getElementById("welcomeStep1");
-    const step2 = document.getElementById("welcomeStep2");
-    const loadingMsg = document.getElementById("loadingMsg");
-
-    // Dopo 4 secondi, fade out loadingMsg e step1
-    setTimeout(() => {
-      loadingMsg.style.opacity = "0";
-      step1.style.opacity = "0";
-
-      // Quando finisce la transizione, nascondi loadingMsg e step1 e mostra step2
-      let transitionCount = 0;
-      function onTransitionEnd() {
-        transitionCount++;
-        if(transitionCount === 2) {
-          loadingMsg.style.display = "none";
-          step1.style.display = "none";
-
-          step2.style.display = "block";
-          step2.querySelector(".welcomeDetails").style.display = "block";
-
-          // Fade in step2
-          step2.style.opacity = "1";
-
-          step1.removeEventListener("transitionend", onTransitionEnd);
-          loadingMsg.removeEventListener("transitionend", onTransitionEnd);
-        }
-      }
-      step1.addEventListener("transitionend", onTransitionEnd);
-      loadingMsg.addEventListener("transitionend", onTransitionEnd);
-    }, 4000);
-
-    // 3. Audio di benvenuto, play dopo 5 secondi
+    // 4) Riproduci audio a 11 secondi (circa)
     setTimeout(() => {
       const audio = document.getElementById("welcomeAudio");
       audio.play().catch(err => console.warn("Audio bloccato:", err));
-    }, 5000);
+    }, 11000);
 
-    // 4. Banner superiore dopo 24s
+    // 5) Dopo 60 secondi mostra banner superiore e nasconde messaggio
     setTimeout(() => {
-      step2.style.opacity = "0";
-      step2.addEventListener("transitionend", () => {
-        step2.style.display = "none";
-        document.getElementById("bannerTop").style.display = "flex";
-      }, { once: true });
-    }, 24000);
+      // Nascondi messaggio con fade out
+      mainMessageEl.style.opacity = "0";
+      userDetailsEl.style.opacity = "0";
+
+      setTimeout(() => {
+        mainMessageEl.style.display = "none";
+        userDetailsEl.style.display = "none";
+
+        // Mostra banner superiore
+        bannerTop.style.display = "flex";
+      }, 1000);
+    }, 60000);
   };
 </script>
 
