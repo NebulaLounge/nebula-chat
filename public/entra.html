@@ -355,52 +355,52 @@ window.addEventListener("DOMContentLoaded", () => {
   let validCities = [];
 
   function sanitizeNick(nick) {
-    return nick.toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_]/g, "").slice(0, 25);
+    return nick
+      .toLowerCase()
+      .replace(/\s+/g, "_")
+      .replace(/[^a-z0-9_]/g, "")
+      .slice(0, 25);
   }
-
-  async function isNickRegistered(nick) {
-  try {
-    const res = await fetch(`https://www.simosnap.org/rest/service.php/nickserv/${encodeURIComponent(nick)}`);
-    if (!res.ok) return false;
-    const data = await res.json();
-    console.log("Risposta API:", data);
-
-    // ✅ Considera registrato se "info" è presente e contiene "registered: yes"
-    return data.info?.registered === "yes";
-  } catch (err) {
-    console.error("Errore verifica nickname:", err);
-    return false;
-  }
-}
 
   nickInput.addEventListener("input", () => {
     clearTimeout(delayCheck);
     const rawNick = nickInput.value.trim();
-    const sanitizedNick = sanitizeNick(rawNick);
+    const nick = sanitizeNick(rawNick);
+    nickInput.value = nick;
 
-    if (sanitizedNick.length < 3) {
+    if (nick.length < 3) {
+      nickIsRegistered = false;
       passwordInput.style.display = "none";
       passwordInput.value = "";
       infoBox.textContent = "";
       return;
     }
 
-    infoBox.innerHTML = `<span style="color:#aaa;">🕵️ Verifica in corso...</span>`;
+    infoBox.innerHTML = `<span style="color:#999;">🕵️ Verifica in corso...</span>`;
 
-    delayCheck = setTimeout(async () => {
-      const isRegistered = await isNickRegistered(sanitizedNick);
-
-      if (isRegistered) {
-        nickIsRegistered = true;
-        passwordInput.style.display = "block";
-        passwordInput.focus();
-        infoBox.innerHTML = `<span style="color:#ea5906;"><b>🔐 Nick registrato.</b><br>Inserisci la password per autenticarti.</span>`;
-      } else {
-        nickIsRegistered = false;
-        passwordInput.style.display = "none";
-        passwordInput.value = "";
-        infoBox.textContent = "";
-      }
+    delayCheck = setTimeout(() => {
+      fetch(`https://www.simosnap.org/rest/service.php/checknick/${nick}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.registered === "yes") {
+            nickIsRegistered = true;
+            passwordInput.style.display = "block";
+            passwordInput.focus();
+            infoBox.innerHTML = `<span style="color:#b10303;"><b>🔐 Nick registrato.</b><br>Inserisci la password per autenticarti.</span>`;
+          } else {
+            nickIsRegistered = false;
+            passwordInput.style.display = "none";
+            passwordInput.value = "";
+            infoBox.textContent = "";
+          }
+        })
+        .catch(err => {
+          console.error("Errore nella verifica del nick:", err);
+          nickIsRegistered = false;
+          passwordInput.style.display = "none";
+          passwordInput.value = "";
+          infoBox.textContent = "";
+        });
     }, 400);
   });
 
@@ -436,6 +436,8 @@ window.addEventListener("DOMContentLoaded", () => {
           });
           suggestionBox.appendChild(item);
         });
+      } else {
+        suggestionBox.innerHTML = "";
       }
     });
   }
@@ -446,8 +448,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   window.vaiAllaVerifica = function () {
-    const rawNick = nickInput.value.trim();
-    const nick = sanitizeNick(rawNick);
+    const nick = sanitizeNick(nickInput.value.trim());
     const sex = document.getElementById("sexselect").value;
     const looking = document.getElementById("lookingselect").value;
     const city = cityInput.value.trim();
@@ -464,7 +465,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     if (nickIsRegistered && !password) {
-      alert("⚠️ Il nickname è registrato. Inserisci la password.");
+      alert("⚠️ Il nickname è registrato. Inserisci la password per continuare.");
       return;
     }
 
