@@ -5,23 +5,38 @@ window.addEventListener("DOMContentLoaded", () => {
   const passwordInput = document.getElementById('passwordinput');
   const infoBox = document.getElementById('infobox');
 
-  // 🔍 Funzione per verificare se il nick è registrato su Simosnap
-  async function isNickRegisteredOnSimosnap(nick) {
+  let useNickServVerification = true;
+
+  // 🔧 Carica config.json per determinare se usare NickServ
+  fetch('./config.json')
+    .then(res => res.json())
+    .then(config => {
+      useNickServVerification = config.useNickServVerification ?? true;
+    });
+
+  // 🔍 Verifica se il nick è registrato su Simosnap
+  async function isNickRegisteredOnSimosnap(nickOriginal) {
     try {
-      const response = await fetch(`https://www.simosnap.org/rest/service.php/nickserv/${encodeURIComponent(nick)}`);
+      const response = await fetch(`https://www.simosnap.org/rest/service.php/nickserv/${encodeURIComponent(nickOriginal)}`);
       if (!response.ok) return false;
       const data = await response.json();
-      return data.nickname?.toLowerCase() === nick.toLowerCase();
+      return data.nickname?.toLowerCase() === nickOriginal.toLowerCase();
     } catch (error) {
       console.error("Errore nella verifica del nick:", error);
       return false;
     }
   }
 
-  // 🔁 Listener sul campo nickname
+  // 🔁 Listener sul campo nick
   nickInput.addEventListener('input', async () => {
     const rawNick = nickInput.value;
-    const nickSanitized = sanitizeNick(rawNick);
+
+    if (!useNickServVerification || !rawNick.trim()) {
+      infoBox.textContent = "";
+      passwordInput.style.display = 'none';
+      passwordInput.value = "";
+      return;
+    }
 
     const isRegistered = await isNickRegisteredOnSimosnap(rawNick);
 
@@ -37,14 +52,14 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // ✅ Funzione di invio
   window.vaiAllaVerifica = function () {
-    const rawNick = nickInput.value;
+    const rawNick     = nickInput.value;
     const nickSanitized = sanitizeNick(rawNick);
-    const sex = document.getElementById('sexselect').value;
-    const looking = document.getElementById('lookingselect').value;
-    const city = document.getElementById('cityinput').value.trim();
-    const password = passwordInput.value;
+    const sex         = document.getElementById('sexselect').value;
+    const looking     = document.getElementById('lookingselect').value;
+    const city        = document.getElementById('cityinput').value.trim();
+    const password    = passwordInput.value;
 
-    if (!nickSanitized || !sex || !looking) {
+    if (!rawNick.trim() || !sex || !looking) {
       alert("Per favore compila tutti i campi obbligatori.");
       return;
     }
@@ -53,7 +68,12 @@ window.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("sex", sex);
     localStorage.setItem("looking", looking);
     localStorage.setItem("city", city);
-    if (password) localStorage.setItem("password", password);
+
+    if (password.trim()) {
+      localStorage.setItem("password", password.trim());
+    } else {
+      localStorage.removeItem("password");
+    }
 
     window.location.href = "join.html";
   };
