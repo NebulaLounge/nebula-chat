@@ -301,26 +301,6 @@
       .catch(err => console.error("Errore nel caricamento dei comuni:", err));
   </script>
 
-  window.addEventListener("message", function (event) {
-    const msg = event.data;
-    if (msg.type === "bot-message") {
-  const outputBox = document.createElement("div");
-  outputBox.innerHTML = `<strong style="color:#ea5906;">${msg.sender}</strong>: ${msg.text}`;
-  outputBox.style.cssText = `
-    background: linear-gradient(to right, #142a4d, #001f3f);
-    padding: 12px 20px;
-    margin: 16px auto;
-    font-size: 1.1rem;
-    color: #f0e8de;
-    max-width: 800px;
-    text-align: center;
-    border-left: 5px solid #ea5906;
-    box-shadow: 0 0 10px #ea5906aa;
-    border-radius: 6px;
-  `;
-  document.body.insertBefore(outputBox, document.body.firstChild);
-}
-  });
-</script>
+
 </body>
 </html>
