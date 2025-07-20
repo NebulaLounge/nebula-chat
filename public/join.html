@@ -1,116 +1,63 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NebulaLounge - Connessione</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: #000814;
-      font-family: 'Segoe UI', sans-serif;
-      color: white;
-      text-align: center;
-    }
+<script>
+  function capitalize(str) {
+    return str
+      ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
+      : "";
+  }
 
-    .top-banner {
-      height: 90px;
-      overflow: hidden;
-      position: relative;
-      background-color: #000814;
-    }
+  window.onload = function () {
+    const nick = localStorage.getItem("nick") || "Guest";
+    const sex = localStorage.getItem("sex") || "";
+    const looking = localStorage.getItem("looking") || "";
+    const city = localStorage.getItem("city") || "";
+    const password = localStorage.getItem("password") || "";
 
-    .top-text, .top-banner-image {
-      position: absolute;
-      width: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      transition: opacity 1s ease;
-    }
+    document.getElementById("nickField").value = nick;
+    document.getElementById("sexField").value = sex;
+    document.getElementById("cityField").value = city;
+    document.getElementById("passwordField").value = password;
 
-    .top-banner-image {
-      display: none;
-    }
+    const sexText     = sex === "M" ? "un 👨‍💼 Uomo ♂️" : sex === "F" ? "una 👩 Donna ♀️" : "un* utente";
+    const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
+    const cityText    = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
 
-    .iframe-container {
-      width: 100%;
-      height: 560px;
-      border: none;
-    }
+    document.getElementById("nickSpan").textContent = capitalize(nick);
+    document.getElementById("sexSpan").textContent = sexText;
+    document.getElementById("lookingSpan").textContent = lookingText;
+    document.getElementById("citySpan").textContent = cityText;
 
-    .bottom-banner {
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      background-color: #000814;
-      display: block;
-    }
-
-    .fade-out {
-      opacity: 0 !important;
-      transition: opacity 1s ease;
-    }
-
-    audio {
-      display: none;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Spazio superiore fisso 90px -->
-  <div class="top-banner">
-    <div id="text1" class="top-text">🌌 Benvenuta/o – Connessione attiva...</div>
-    <div id="text2" class="top-text" style="opacity: 0;">Stai per entrare nella NebulaLounge...</div>
-    <img id="topBannerImage" class="top-banner-image" src="https://www.indelibile.it/wp-content/uploads/banner-nebula.png" alt="Banner NebulaLounge" />
-  </div>
-
-  <!-- Form invisibile per accesso automatico -->
-  <form id="loginForm" method="POST" action="https://kw-rr.simosnap.com/login.php" target="chatFrame" style="display: none;">
-    <input type="hidden" name="nick" id="nickInput" />
-    <input type="hidden" name="channels" value="#NebulaLounge" />
-    <input type="hidden" name="server" value="irc.simosnap.com" />
-    <input type="hidden" name="autojoin" value="true" />
-  </form>
-
-  <!-- Iframe per la chat IRC -->
-  <iframe name="chatFrame" class="iframe-container" allow="clipboard-write" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
-
-  <!-- Banner inferiore -->
-  <img class="bottom-banner" src="https://www.indelibile.it/wp-content/uploads/banner-nebulalounge-bottom.png" alt="NebulaLounge banner" />
-
-  <!-- Suono benvenuto -->
-  <audio id="welcomeSound" preload="auto">
-    <source src="https://www.indelibile.it/wp-content/uploads/nebulalounge-welcome.mp3" type="audio/mpeg" />
-  </audio>
-
-  <!-- Script temporizzazioni -->
-  <script>
-    // Nickname casuale
-    document.getElementById('nickInput').value = 'guest' + Math.floor(Math.random() * 10000);
-
-    // Invia il form dopo 1 secondo
+    // Nascondi step 1 dopo 8s, mostra step 2
     setTimeout(() => {
-      document.getElementById('loginForm').submit();
-    }, 1000);
-
-    // Suono benvenuto dopo 11 secondi
-    setTimeout(() => {
-      document.getElementById('welcomeSound').play();
-    }, 11000);
-
-    // Primo testo scompare dopo 8 secondi, secondo appare
-    setTimeout(() => {
-      document.getElementById('text1').classList.add('fade-out');
-      document.getElementById('text2').style.opacity = 1;
+      const step1 = document.getElementById("welcomeStep1");
+      const step2 = document.getElementById("welcomeStep2");
+      step1.style.opacity = "0";
+      setTimeout(() => {
+        step1.style.display = "none";
+        step2.style.display = "block";
+        step2.style.opacity = "1";
+        step2.querySelector(".welcomeDetails").style.display = "block";
+      }, 1000);
     }, 8000);
 
-    // Secondo testo scompare dopo 45 secondi, appare immagine
+    // Invio automatico del form dopo 1 secondo
     setTimeout(() => {
-      document.getElementById('text2').classList.add('fade-out');
-      document.getElementById('topBannerImage').style.display = 'block';
-    }, 45000);
-  </script>
+      document.getElementById("chatForm").submit();
+    }, 1000);
 
-</body>
-</html>
+    // Audio dopo 11 secondi
+    setTimeout(() => {
+      const audio = document.getElementById("welcomeAudio");
+      audio.play().catch(err => console.warn("Audio bloccato:", err));
+    }, 11000);
+
+    // Nascondi step 2 e mostra banner top dopo 45s
+    setTimeout(() => {
+      const step2 = document.getElementById("welcomeStep2");
+      step2.style.opacity = "0";
+      setTimeout(() => {
+        step2.style.display = "none";
+        document.getElementById("bannerTop").style.display = "flex";
+      }, 1000);
+    }, 45000);
+  };
+</script>
