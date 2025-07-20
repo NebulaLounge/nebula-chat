@@ -2,193 +2,115 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NebulaLounge – Connessione</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NebulaLounge - Connessione</title>
   <style>
-    body, html {
+    body {
       margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0b132b;
-      color: #f0e8de;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    #welcomeStep1, #welcomeStep2 {
-      width: 100%;
-      padding: 16px;
+      background-color: #000814;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
       text-align: center;
-      background: linear-gradient(to right, #001f3f, #142a4d, #001f3f);
-      box-shadow: inset 0 0 22px #ea5906aa;
+    }
+
+    .top-banner {
+      height: 90px;
+      overflow: hidden;
+      position: relative;
+      background-color: #000814;
+    }
+
+    .top-text, .top-banner-image {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
       transition: opacity 1s ease;
     }
 
-    #welcomeStep1 .welcomeTitle,
-    #welcomeStep2 .welcomeTitle {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    #welcomeStep2 .welcomeDetails {
-      font-size: 1.1rem;
-      font-weight: 500;
+    .top-banner-image {
       display: none;
-      margin-top: 8px;
     }
 
-    .frame-banner {
+    .iframe-container {
+      width: 100%;
+      height: 560px;
+      border: none;
+    }
+
+    .bottom-banner {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #000814;
+      display: block;
+    }
+
+    .fade-out {
+      opacity: 0 !important;
+      transition: opacity 1s ease;
+    }
+
+    audio {
       display: none;
-      justify-content: center;
-      align-items: center;
-      height: 90px;
-      width: 100%;
-      background: linear-gradient(to right, #001f3f, #0b132b, #001f3f);
-      box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
     }
-
-    iframe.chat {
-  border: none;
-  width: 100vw; /* larghezza totale della finestra */
-  height: calc(100vh - 180px); /* altezza piena meno banner sopra/sotto (90+90) */
-  display: block;
-}
-    .banner-bottom {
-      width: 100%;
-      height: 90px;
-      margin-top: 16px;
-      background: linear-gradient(to right, #001f3f, #0b132b, #001f3f);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
-    }
-
-    form { display: none; }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <!-- Saluto 1 -->
-  <div id="welcomeStep1">
-    <div class="welcomeTitle">
-      🌌 Benvenuta/o – Connessione attiva. Inizia il viaggio su <strong>NebulaLounge</strong>!
-    </div>
+  <!-- Spazio superiore fisso 90px -->
+  <div class="top-banner">
+    <div id="text1" class="top-text">🌌 Benvenuta/o – Connessione attiva...</div>
+    <div id="text2" class="top-text" style="opacity: 0;">Stai per entrare nella NebulaLounge...</div>
+    <img id="topBannerImage" class="top-banner-image" src="https://www.indelibile.it/wp-content/uploads/banner-nebula.png" alt="Banner NebulaLounge" />
   </div>
 
-  <!-- Saluto 2 -->
-  <div id="welcomeStep2" style="display: none;">
-    <div class="welcomeTitle">🚀 Benvenuto nella <strong>NebulaLounge</strong>! Lasciati ispirare.</div>
-    <div class="welcomeDetails">
-      Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span> e stai cercando <span id="lookingSpan"></span> <span id="citySpan"></span>.
-    </div>
-  </div>
-
-  <!-- Banner superiore -->
-  <div class="frame-banner" id="bannerTop">
-    <iframe
-      src="https://rotator.tradetracker.net/?r=97208&t=iframe"
-      width="728" height="90"
-      style="border:0; margin:0; padding:0;"
-      frameborder="0" scrolling="no"
-      title="Banner pubblicitario">
-    </iframe>
-  </div>
-
-  <!-- Form invisibile -->
-  <form id="chatForm" action="https://entrainchat-01.simosnap.com/login.php" method="post" target="chatFrame">
-    <input type="hidden" name="nick" id="nickField" />
-    <input type="hidden" name="password" id="passwordField" />
-    <input type="hidden" name="channel" value="#NebulaLounge" />
-    <input type="hidden" name="sex" id="sexField" />
-    <input type="hidden" name="location" id="cityField" />
-    <input type="hidden" name="gecos" value="NebulaLounge" />
+  <!-- Form invisibile per accesso automatico -->
+  <form id="loginForm" method="POST" action="https://kw-rr.simosnap.com/login.php" target="chatFrame" style="display: none;">
+    <input type="hidden" name="nick" id="nickInput" />
+    <input type="hidden" name="channels" value="#NebulaLounge" />
+    <input type="hidden" name="server" value="irc.simosnap.com" />
+    <input type="hidden" name="autojoin" value="true" />
   </form>
 
-  <!-- Chat iframe -->
-  <iframe class="chat" name="chatFrame" id="chatFrame" title="Chat NebulaLounge"></iframe>
-</div>
+  <!-- Iframe per la chat IRC -->
+  <iframe name="chatFrame" class="iframe-container" allow="clipboard-write" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
 
-<!-- BANNER INFERIORE (senza margine sopra) -->
-<div class="banner-bottom" style="margin-top: 0;">
-  <iframe
-    src="https://rotator.tradetracker.net/?r=97208&t=iframe"
-    width="728" height="90"
-    style="border:0; margin:0; padding:0; display: block;"
-    frameborder="0" scrolling="no"
-    title="Banner pubblicitario">
-  </iframe>
-</div>
+  <!-- Banner inferiore -->
+  <img class="bottom-banner" src="https://www.indelibile.it/wp-content/uploads/banner-nebulalounge-bottom.png" alt="NebulaLounge banner" />
 
-<!-- Audio -->
-<audio id="welcomeAudio" preload="auto" src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
+  <!-- Suono benvenuto -->
+  <audio id="welcomeSound" preload="auto">
+    <source src="https://www.indelibile.it/wp-content/uploads/nebulalounge-welcome.mp3" type="audio/mpeg" />
+  </audio>
 
-<script>
-  function capitalize(str) {
-    return str
-      ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
-      : "";
-  }
+  <!-- Script temporizzazioni -->
+  <script>
+    // Nickname casuale
+    document.getElementById('nickInput').value = 'guest' + Math.floor(Math.random() * 10000);
 
-  window.onload = function () {
-    const nick = localStorage.getItem("nick") || "Guest";
-    const sex = localStorage.getItem("sex") || "";
-    const looking = localStorage.getItem("looking") || "";
-    const city = localStorage.getItem("city") || "";
-    const password = localStorage.getItem("password") || "";
-
-    document.getElementById("nickField").value = nick;
-    document.getElementById("sexField").value = sex;
-    document.getElementById("cityField").value = city;
-    document.getElementById("passwordField").value = password;
-
-    const sexText     = sex === "M" ? "un 👨‍💼 Uomo ♂️" : sex === "F" ? "una 👩 Donna ♀️" : "un* utente";
-    const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
-    const cityText    = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
-
-    document.getElementById("nickSpan").textContent = capitalize(nick);
-    document.getElementById("sexSpan").textContent = sexText;
-    document.getElementById("lookingSpan").textContent = lookingText;
-    document.getElementById("citySpan").textContent = cityText;
-
+    // Invia il form dopo 1 secondo
     setTimeout(() => {
-      const step1 = document.getElementById("welcomeStep1");
-      const step2 = document.getElementById("welcomeStep2");
-      step1.style.opacity = "0";
-      setTimeout(() => {
-        step1.style.display = "none";
-        step2.style.display = "block";
-        step2.querySelector(".welcomeDetails").style.display = "block";
-      }, 1000);
-    }, 7000);
+      document.getElementById('loginForm').submit();
+    }, 1000);
 
-    // Invio automatico del form
+    // Suono benvenuto dopo 11 secondi
     setTimeout(() => {
-      document.getElementById("chatForm").submit();
-    }, 3000); // breve attesa prima del submit
+      document.getElementById('welcomeSound').play();
+    }, 11000);
 
-    // Audio
+    // Primo testo scompare dopo 8 secondi, secondo appare
     setTimeout(() => {
-      const audio = document.getElementById("welcomeAudio");
-      audio.play().catch(err => console.warn("Audio bloccato:", err));
+      document.getElementById('text1').classList.add('fade-out');
+      document.getElementById('text2').style.opacity = 1;
     }, 8000);
 
-    // Banner superiore dopo 24s
+    // Secondo testo scompare dopo 45 secondi, appare immagine
     setTimeout(() => {
-      const step2 = document.getElementById("welcomeStep2");
-      step2.style.opacity = "0";
-      setTimeout(() => {
-        step2.style.display = "none";
-        document.getElementById("bannerTop").style.display = "flex";
-      }, 1000);
-    }, 24000);
-  };
-</script>
+      document.getElementById('text2').classList.add('fade-out');
+      document.getElementById('topBannerImage').style.display = 'block';
+    }, 45000);
+  </script>
 
 </body>
 </html>
