@@ -100,19 +100,20 @@
     const sex = localStorage.getItem("sex") || "U";
     const looking = localStorage.getItem("looking") || "U";
     const city = localStorage.getItem("city") || "";
-    const gecos = `${sex}/${looking} ${city}`;
     const password = localStorage.getItem("password") || "";
 
+    const gecos = `${sex}/${looking} ${city}`; // Info utente visibile nell'elenco
+
     return {
-      "startupOptions": {
-        "server": "irc.simosnap.org",
-        "port": 6697,
-        "tls": true,
-        "nick": nick,
-        "password": password || undefined,  // KiwiIRC userà NickServ, non SASL
-        "gecos": gecos,
-        "channel": "#NebulaLounge",
-        "autoConnect": true
+      startupOptions: {
+        server: "irc.simosnap.org",
+        port: 6697,
+        tls: true,
+        nick: nick,
+        password: password || undefined, // 🔐 Se c'è, viene usata da NickServ
+        gecos: gecos,
+        channel: "#NebulaLounge",
+        autoConnect: true
       }
     };
   };
