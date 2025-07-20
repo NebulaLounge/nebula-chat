@@ -306,5 +306,16 @@
   const nick = localStorage.getItem("nick") || "Guest";
   greetUser(nick);
 </script>
+  <script>
+  window.addEventListener("message", function (event) {
+    const msg = event.data;
+    if (msg.type === "bot-message") {
+      const outputBox = document.createElement("div");
+      outputBox.textContent = `🤖 ${msg.sender}: ${msg.text}`;
+      outputBox.style.cssText = "background:#142a4d; padding:8px 12px; margin:12px auto; font-size:1rem; color:#f0e8de; max-width:800px; border-left:4px solid #ea5906;";
+      document.body.appendChild(outputBox);
+    }
+  });
+</script>
 </body>
 </html>
