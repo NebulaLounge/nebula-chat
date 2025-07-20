@@ -8,89 +8,134 @@
     body, html {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0b132b;
       color: #f0e8de;
     }
 
-    .welcome {
-      text-align: center;
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #welcomeStep1, #welcomeStep2 {
+      width: 100%;
       padding: 16px;
+      text-align: center;
       background: linear-gradient(to right, #001f3f, #142a4d, #001f3f);
       box-shadow: inset 0 0 22px #ea5906aa;
+      transition: opacity 1s ease;
     }
 
-    .welcome h1 {
+    #welcomeStep1 .welcomeTitle,
+    #welcomeStep2 .welcomeTitle {
       font-size: 2rem;
-      margin: 0;
+      font-weight: 700;
     }
 
-    .welcome p {
+    #welcomeStep2 .welcomeDetails {
       font-size: 1.1rem;
-      margin: 8px 0 0 0;
+      font-weight: 500;
+      display: none;
+      margin-top: 8px;
     }
 
-    .banner {
+    #app {
+      width: 100%;
+      max-width: 1080px;
+      height: 700px;
+      margin-top: 16px;
+      box-shadow: 0 0 14px rgba(0,0,0,0.4);
+    }
+
+    .banner-bottom {
       width: 100%;
       height: 90px;
+      margin: 16px 0 0 0;
       background: linear-gradient(to right, #001f3f, #0b132b, #001f3f);
       display: flex;
       justify-content: center;
       align-items: center;
       box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
-      margin-top: 16px;
-    }
-
-    #app {
-      width: 100%;
-      height: 700px;
-      max-width: 1080px;
-      margin: 0 auto;
-      box-shadow: 0 0 14px rgba(0,0,0,0.4);
     }
   </style>
+
+  <!-- KiwiIRC scripts -->
+  <script src="https://entrainchat-01.simosnap.com/static/js/chunk-vendors.bccfcc30.js" defer></script>
+  <script src="https://entrainchat-01.simosnap.com/static/js/app.00480481.js" defer></script>
 </head>
 <body>
 
-  <!-- 🌌 Benvenuto personalizzato -->
-  <div class="welcome">
-    <h1>🌌 Connessione attiva su <strong>NebulaLounge</strong></h1>
-    <p id="welcomeText"></p>
+  <div class="container">
+    <!-- 🌌 Step 1 -->
+    <div id="welcomeStep1">
+      <div class="welcomeTitle">🌌 Benvenuta/o – Connessione attiva. Inizia il viaggio su <strong>NebulaLounge</strong>!</div>
+    </div>
+
+    <!-- 🚀 Step 2 -->
+    <div id="welcomeStep2" style="display: none;">
+      <div class="welcomeTitle">🚀 Benvenuto nella <strong>NebulaLounge</strong>! Lasciati ispirare.</div>
+      <div class="welcomeDetails" id="detailsArea"></div>
+    </div>
+
+    <!-- Chat -->
+    <div id="app"></div>
   </div>
 
-  <!-- Chat container -->
-  <div id="app"></div>
-
   <!-- Banner inferiore -->
-  <div class="banner">
+  <div class="banner-bottom">
     <iframe
       src="https://rotator.tradetracker.net/?r=97208&amp;t=iframe"
       width="728" height="90"
       style="border:0; margin:0; padding:0;"
       frameborder="0" scrolling="no"
-      title="Banner pubblicitario">
-    </iframe>
+      title="Banner pubblicitario"></iframe>
   </div>
 
-  <!-- Chat loader -->
- <script defer src="https://entrainchat-01.simosnap.com/static/js/chunk-vendors.bccfcc30.js"></script>
-<script defer src="https://entrainchat-01.simosnap.com/static/js/app.00480481.js"></script>
+  <!-- Audio -->
+  <audio id="welcomeAudio" preload="auto" src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
 
-  <!-- Configurazione dinamica -->
   <script>
-    const nick = localStorage.getItem("nick") || "Guest";
-    const sex = localStorage.getItem("sex") === "M" ? "un 👨‍💼 Uomo ♂️" : "una 👩 Donna ♀️";
-    const looking = localStorage.getItem("looking") === "F" ? "una 👩 Donna ♀️" : "un 👨‍💼 Uomo ♂️";
-    const city = localStorage.getItem("city") || "una località sconosciuta 🕵️";
+    function capitalize(str) {
+      return str
+        ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
+        : "";
+    }
 
-    document.getElementById("welcomeText").textContent = `🚀 Ciao ${nick}, sei ${sex} e stai cercando ${looking} dalla città di 📍${city}.`;
+    const nick     = localStorage.getItem("nick") || "Guest";
+    const sex      = localStorage.getItem("sex") === "M" ? "un 👨‍💼 Uomo ♂️" : "una 👩 Donna ♀️";
+    const looking  = localStorage.getItem("looking") === "F" ? "una 👩 Donna ♀️" : "un 👨‍💼 Uomo ♂️";
+    const city     = localStorage.getItem("city") || "una località sconosciuta 🕵️";
 
+    // Messaggio personalizzato
+    document.getElementById("detailsArea").textContent =
+      `Ciao ${capitalize(nick)}, sei ${sex} e stai cercando ${looking} dalla città di 📍${capitalize(city)}.`;
+
+    // Saluto visivo
+    setTimeout(() => {
+      document.getElementById("welcomeStep1").style.opacity = "0";
+      setTimeout(() => {
+        document.getElementById("welcomeStep1").style.display = "none";
+        document.getElementById("welcomeStep2").style.display = "block";
+        document.querySelector(".welcomeDetails").style.display = "block";
+      }, 1000);
+    }, 7000);
+
+    // Audio
+    setTimeout(() => {
+      document.getElementById("welcomeAudio").play().catch(err => {
+        console.warn("Audio bloccato:", err);
+      });
+    }, 8000);
+
+    // Configurazione KiwiIRC
     window.kiwiConfig = function () {
       return {
         windowTitle: "NebulaLounge – Webchat",
         kiwiServer: "https://kiwiirc.simosnap.com/webirc/kiwiirc/",
-        channel: "#NebulaLounge",
         nick: nick,
+        channel: "#NebulaLounge",
         gecos: `Webchat – ${nick} da ${city}`,
         theme: "5Chat",
         plugins: [
