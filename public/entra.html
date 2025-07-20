@@ -359,17 +359,19 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   async function isNickRegistered(nick) {
-    try {
-      const res = await fetch(`https://www.simosnap.org/rest/service.php/nickserv/${encodeURIComponent(nick)}`);
-      if (!res.ok) return false;
-      const data = await res.json();
-      console.log("🔍 Risposta da NickServ:", data);
-      return data.nickname?.toLowerCase() === nick.toLowerCase();
-    } catch (err) {
-      console.error("❌ Errore nella verifica del nickname:", err);
-      return false;
-    }
+  try {
+    const res = await fetch(`https://www.simosnap.org/rest/service.php/nickserv/${encodeURIComponent(nick)}`);
+    if (!res.ok) return false;
+    const data = await res.json();
+    console.log("Risposta API:", data);
+
+    // ✅ Considera registrato se "info" è presente e contiene "registered: yes"
+    return data.info?.registered === "yes";
+  } catch (err) {
+    console.error("Errore verifica nickname:", err);
+    return false;
   }
+}
 
   nickInput.addEventListener("input", () => {
     clearTimeout(delayCheck);
