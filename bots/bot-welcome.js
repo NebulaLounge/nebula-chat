@@ -1,12 +1,9 @@
 export function greetUser(nick) {
-  const welcomeText = `👋 Benvenuto ${nick}! Inizia la tua avventura su 🌌 NebulaLounge`;
+  const welcomeText = `👋 Benvenuto ${nick}! Ti aspetta l'universo di NebulaLounge 🚀`;
 
-  const chatFrame = document.getElementById("chatFrame");
-  if (chatFrame && chatFrame.contentWindow) {
-    chatFrame.contentWindow.postMessage({
-      type: "bot-message",
-      sender: "BotNebula",
-      text: welcomeText
-    }, "*");
-  }
+  window.postMessage({
+    type: "bot-message",
+    sender: "BotNebula",
+    text: welcomeText
+  }, "*");
 }
