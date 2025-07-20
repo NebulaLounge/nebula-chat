@@ -180,28 +180,49 @@
       : "";
   }
 
+  function validateBeforeSubmit() {
+    const nick = document.getElementById("nickField").value;
+    const sex  = document.getElementById("sexField").value;
+    const city = document.getElementById("cityField").value;
+    const password = document.getElementById("passwordField").value;
+
+    // Controlli base
+    if (!nick || nick.trim().length < 3) return false;
+    if (!sex || sex.trim().length !== 1) return false;
+
+    // Se il nickname è registrato, password deve esserci
+    if (password === null) return false;
+
+    return true;
+  }
+
   window.onload = function () {
-    const nick = localStorage.getItem("nick") || "Guest";
-    const sex = localStorage.getItem("sex") || "";
-    const looking = localStorage.getItem("looking") || "";
-    const city = localStorage.getItem("city") || "";
+    const nick     = localStorage.getItem("nick") || "Guest";
+    const sex      = localStorage.getItem("sex") || "";
+    const looking  = localStorage.getItem("looking") || "";
+    const city     = localStorage.getItem("city") || "";
     const password = localStorage.getItem("password") || "";
 
-    document.getElementById("nickField").value = nick;
-    document.getElementById("sexField").value = sex;
-    document.getElementById("cityField").value = city;
+    document.getElementById("nickField").value     = nick;
+    document.getElementById("sexField").value      = sex;
+    document.getElementById("cityField").value     = city;
     document.getElementById("passwordField").value = password;
 
+    // Imposta anche gecos dinamicamente
+    const gecos = `${sex}/${looking} ${city}`;
+    document.querySelector('[name="gecos"]').value = gecos;
+
+    // Mostra saluto personalizzato
     const sexText     = sex === "M" ? "un 👨‍💼 Uomo ♂️" : sex === "F" ? "una 👩 Donna ♀️" : "un* utente";
     const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
     const cityText    = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
 
-    document.getElementById("nickSpan").textContent = capitalize(nick);
-    document.getElementById("sexSpan").textContent = sexText;
+    document.getElementById("nickSpan").textContent    = capitalize(nick);
+    document.getElementById("sexSpan").textContent     = sexText;
     document.getElementById("lookingSpan").textContent = lookingText;
-    document.getElementById("citySpan").textContent = cityText;
+    document.getElementById("citySpan").textContent    = cityText;
 
-    // Nascondi step 1 dopo 8s, mostra step 2
+    // Saluto animato
     setTimeout(() => {
       const step1 = document.getElementById("welcomeStep1");
       const step2 = document.getElementById("welcomeStep2");
@@ -214,18 +235,23 @@
       }, 1000);
     }, 8000);
 
-    // Invio automatico del form dopo 1 secondo
+    // 🔐 Invio form solo se valido
     setTimeout(() => {
-      document.getElementById("chatForm").submit();
+      if (validateBeforeSubmit()) {
+        document.getElementById("chatForm").submit();
+      } else {
+        console.warn("⚠️ Dati incompleti, il form non viene inviato.");
+        alert("⚠️ Impossibile accedere: alcuni dati obbligatori sono mancanti.");
+      }
     }, 5000);
 
-    // Audio dopo 11 secondi
+    // Audio di benvenuto
     setTimeout(() => {
       const audio = document.getElementById("welcomeAudio");
       audio.play().catch(err => console.warn("Audio bloccato:", err));
     }, 11000);
 
-    // Nascondi step 2 e mostra banner top dopo 45s
+    // Banner top dopo 45s
     setTimeout(() => {
       const step2 = document.getElementById("welcomeStep2");
       step2.style.opacity = "0";
