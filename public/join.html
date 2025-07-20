@@ -52,15 +52,11 @@
     }
 
     iframe.chat {
-      border: none;
-      width: 100%;
-      max-width: 1080px;
-      height: 700px;
-      background: #000;
-      margin-top: 12px;
-      box-shadow: 0 0 14px rgba(0,0,0,0.4);
-    }
-
+  border: none;
+  width: 100vw; /* larghezza totale della finestra */
+  height: calc(100vh - 180px); /* altezza piena meno banner sopra/sotto (90+90) */
+  display: block;
+}
     .banner-bottom {
       width: 100%;
       height: 90px;
