@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const rawNick = nickInput.value;
     const nickSanitized = sanitizeNick(rawNick);
 
-    const isRegistered = await isNickRegisteredOnSimosnap(nickSanitized);
+    const isRegistered = await isNickRegisteredOnSimosnap(rawNick);
 
     if (isRegistered) {
       passwordInput.style.display = 'block';
