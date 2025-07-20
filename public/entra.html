@@ -363,9 +363,10 @@ window.addEventListener("DOMContentLoaded", () => {
       const res = await fetch(`https://www.simosnap.org/rest/service.php/nickserv/${encodeURIComponent(nick)}`);
       if (!res.ok) return false;
       const data = await res.json();
+      console.log("🔍 Risposta da NickServ:", data);
       return data.nickname?.toLowerCase() === nick.toLowerCase();
     } catch (err) {
-      console.error("❌ Errore verifica nick:", err);
+      console.error("❌ Errore nella verifica del nickname:", err);
       return false;
     }
   }
@@ -373,8 +374,9 @@ window.addEventListener("DOMContentLoaded", () => {
   nickInput.addEventListener("input", () => {
     clearTimeout(delayCheck);
     const rawNick = nickInput.value.trim();
+    const sanitizedNick = sanitizeNick(rawNick);
 
-    if (rawNick.length < 3) {
+    if (sanitizedNick.length < 3) {
       passwordInput.style.display = "none";
       passwordInput.value = "";
       infoBox.textContent = "";
@@ -384,7 +386,7 @@ window.addEventListener("DOMContentLoaded", () => {
     infoBox.innerHTML = `<span style="color:#aaa;">🕵️ Verifica in corso...</span>`;
 
     delayCheck = setTimeout(async () => {
-      const isRegistered = await isNickRegistered(rawNick);
+      const isRegistered = await isNickRegistered(sanitizedNick);
 
       if (isRegistered) {
         nickIsRegistered = true;
