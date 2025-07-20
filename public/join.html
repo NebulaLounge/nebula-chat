@@ -8,157 +8,61 @@
     body, html {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background-color: #0b132b;
-      color: #eee;
+      color: #f0e8de;
     }
 
-    .container {
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-    }
-
-    #welcomeStep1, #welcomeStep2 {
-      width: 100%;
-      height: 90px;
-      background: linear-gradient(to right, #001f3f 0%, #142a4d 40%, #142a4d 60%, #001f3f 100%);
-      padding: 0 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    .welcome {
       text-align: center;
-      color: #f0e8de;
+      padding: 16px;
+      background: linear-gradient(to right, #001f3f, #142a4d, #001f3f);
       box-shadow: inset 0 0 22px #ea5906aa;
-      margin: 0;
-      transition: opacity 1s ease;
-      overflow: hidden;
-      box-sizing: border-box;
     }
 
-    #welcomeStep1 .welcomeTitle,
-    #welcomeStep2 .welcomeTitle {
+    .welcome h1 {
       font-size: 2rem;
-      font-weight: 700;
-      color: #f0e8de;
-      line-height: 1.2;
-      margin-bottom: 4px;
+      margin: 0;
     }
 
-    #welcomeStep2 .welcomeDetails {
+    .welcome p {
       font-size: 1.1rem;
-      font-weight: 500;
-      color: #f0e8de;
-      line-height: 1.2;
-      display: none;
+      margin: 8px 0 0 0;
     }
 
-    .frame-banner {
+    .banner {
       width: 100%;
       height: 90px;
-      margin: 0;
-      background: linear-gradient(to right, #001f3f 0%, #0b132b 40%, #0b132b 60%, #001f3f 100%);
-      display: none;
+      background: linear-gradient(to right, #001f3f, #0b132b, #001f3f);
+      display: flex;
       justify-content: center;
       align-items: center;
       box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
+      margin-top: 16px;
     }
 
-    iframe.chat {
-      border: none;
+    #app {
       width: 100%;
-      max-width: 1080px;
       height: 700px;
-      background: #000;
+      max-width: 1080px;
+      margin: 0 auto;
       box-shadow: 0 0 14px rgba(0,0,0,0.4);
     }
-
-    .banner-bottom {
-      width: 100%;
-      height: 90px;
-      margin: 0;
-      background: linear-gradient(to right, #001f3f 0%, #0b132b 40%, #0b132b 60%, #001f3f 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
-    }
-
-    form { display: none; }
-
-   @media (max-width: 768px) {
-  #welcomeStep1 .welcomeTitle,
-  #welcomeStep2 .welcomeTitle {
-    font-size: 1.2rem;
-    padding: 0 12px;
-  }
-
-  #welcomeStep2 .welcomeDetails {
-    font-size: 0.95rem;
-  }
-
-  #welcomeStep1, #welcomeStep2 {
-    height: auto;
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
-}
   </style>
 </head>
 <body>
 
-  <div class="container">
-
-    <!-- Step 1 -->
-    <div id="welcomeStep1">
-      <div class="welcomeTitle">
-        🌌 Benvenuta/o – Connessione attiva. Inizia il viaggio su <strong>NebulaLounge</strong>!
-      </div>
-    </div>
-
-    <!-- Step 2 -->
-    <div id="welcomeStep2" style="display: none;">
-      <div class="welcomeTitle">
-        🚀 Benvenuto nella <strong>NebulaLounge</strong>! Lasciati ispirare.
-      </div>
-      <div class="welcomeDetails">
-        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span> e stai cercando <span id="lookingSpan"></span> <span id="citySpan"></span>.
-      </div>
-    </div>
-
-    <!-- Banner superiore -->
-    <div class="frame-banner" id="bannerTop">
-      <iframe
-        src="https://rotator.tradetracker.net/?r=97208&amp;t=iframe"
-        width="728" height="90"
-        style="border:0; margin:0; padding:0;"
-        frameborder="0" scrolling="no"
-        title="Banner pubblicitario">
-      </iframe>
-    </div>
-
-    <!-- Form nascosto -->
-    <form id="chatForm" action="https://kw-rr.simosnap.com/login.php" method="post" target="chatFrame">
-      <input type="hidden" name="nick" id="nickField" />
-      <input type="hidden" name="sex" id="sexField" />
-      <input type="hidden" name="looking" id="lookingField" />
-      <input type="hidden" name="location" id="cityField" />
-      <input type="hidden" name="password" id="passwordField" />
-      <input type="hidden" name="channel" value="#NebulaLounge" />
-    </form>
-
-    <!-- Chat frame -->
-    <iframe class="chat" name="chatFrame" id="chatFrame" title="Chat NebulaLounge"></iframe>
-
+  <!-- 🌌 Benvenuto personalizzato -->
+  <div class="welcome">
+    <h1>🌌 Connessione attiva su <strong>NebulaLounge</strong></h1>
+    <p id="welcomeText"></p>
   </div>
 
+  <!-- Chat container -->
+  <div id="app"></div>
+
   <!-- Banner inferiore -->
-  <div class="banner-bottom">
+  <div class="banner">
     <iframe
       src="https://rotator.tradetracker.net/?r=97208&amp;t=iframe"
       width="728" height="90"
@@ -168,139 +72,35 @@
     </iframe>
   </div>
 
-  <!-- Audio benvenuto -->
-  <audio id="welcomeAudio" preload="auto" src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
+  <!-- Chat loader -->
+  <script defer src="static/js/chunk-vendors.bccfcc30.js"></script>
+  <script defer src="static/js/app.00480481.js"></script>
 
+  <!-- Configurazione dinamica -->
   <script>
-  function capitalize(str) {
-    return str
-      ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
-      : "";
-  }
-
-  window.onload = function () {
     const nick = localStorage.getItem("nick") || "Guest";
-    const sex = localStorage.getItem("sex") || "";
-    const looking = localStorage.getItem("looking") || "";
-    const city = localStorage.getItem("city") || "";
-    const password = localStorage.getItem("password") || "";
+    const sex = localStorage.getItem("sex") === "M" ? "un 👨‍💼 Uomo ♂️" : "una 👩 Donna ♀️";
+    const looking = localStorage.getItem("looking") === "F" ? "una 👩 Donna ♀️" : "un 👨‍💼 Uomo ♂️";
+    const city = localStorage.getItem("city") || "una località sconosciuta 🕵️";
 
-    document.getElementById("nickField").value = nick;
-    document.getElementById("sexField").value = sex;
-    document.getElementById("lookingField").value = looking;
-    document.getElementById("cityField").value = city;
-    document.getElementById("passwordField").value = password;
+    document.getElementById("welcomeText").textContent = `🚀 Ciao ${nick}, sei ${sex} e stai cercando ${looking} dalla città di 📍${city}.`;
 
-    const sexText = sex === "M" ? "un 👨‍💼 Uomo ♂️" : sex === "F" ? "una 👩 Donna ♀️" : "un* utente";
-    const lookingText = looking === "M" ? "un 👨‍💼 Uomo ♂️" : looking === "F" ? "una 👩 Donna ♀️" : "qualcuno";
-    const cityText = city ? `dalla città di 📍${capitalize(city)}` : "da una località sconosciuta 🕵️";
-
-    document.getElementById("nickSpan").textContent = capitalize(nick);
-    document.getElementById("sexSpan").textContent = sexText;
-    document.getElementById("lookingSpan").textContent = lookingText;
-    document.getElementById("citySpan").textContent = cityText;
-
-    setTimeout(() => {
-      const step1 = document.getElementById("welcomeStep1");
-      const step2 = document.getElementById("welcomeStep2");
-
-      step1.style.opacity = "0";
-
-      setTimeout(() => {
-        step1.style.display = "none";
-        step2.style.display = "flex";
-        step2.querySelector(".welcomeDetails").style.display = "block";
-      }, 1000);
-    }, 7000);
-
-    fetch("config.json")
-      .then(response => response.json())
-      .then(config => {
-        document.querySelector('input[name="channel"]').value = config.channel || "#NebulaLounge";
-
-        if (config.welcomeMessage) {
-          const extraMessage = document.createElement("div");
-          extraMessage.id = "extraWelcome";
-          extraMessage.innerHTML = `<em>${config.welcomeMessage}</em>`;
-                   extraMessage.style.cssText = "margin-top:12px; font-size:1rem; color:#ea5906;";
-          document.body.appendChild(extraMessage);
-        }
-      })
-      .catch(err => console.warn("Errore nel caricamento di config.json:", err));
-
-    // Invia il form per caricare la chat
-    document.getElementById("chatForm").submit();
-
-    // Audio dopo 8s con log
-    setTimeout(() => {
-      const audio = document.getElementById("welcomeAudio");
-      audio.play().then(() => {
-        console.log("Audio riprodotto.");
-      }).catch(err => {
-        console.warn("Audio bloccato:", err);
-      });
-    }, 8000);
-
-    // Dopo 24s sostituisci il secondo step con il banner
-    setTimeout(() => {
-      const step2 = document.getElementById("welcomeStep2");
-      step2.style.opacity = "0";
-
-      setTimeout(() => {
-        step2.style.display = "none";
-        document.getElementById("bannerTop").style.display = "flex";
-      }, 1000);
-    }, 24000);
-  };
+    window.kiwiConfig = function () {
+      return {
+        windowTitle: "NebulaLounge – Webchat",
+        kiwiServer: "https://kiwiirc.simosnap.com/webirc/kiwiirc/",
+        channel: "#NebulaLounge",
+        nick: nick,
+        gecos: `Webchat – ${nick} da ${city}`,
+        theme: "5Chat",
+        plugins: [
+          { name: "nickserv", url: "/plugins/plugin-nickserv.js" },
+          { name: "emoji", url: "/plugins/plugin-emoji-prelim.min.js" },
+          { name: "asl", url: "/plugins/plugin-asl.js" }
+        ]
+      };
+    };
   </script>
-
-  <!-- Autocompletamento città -->
-  <script>
-    function setupAutocomplete(cities) {
-      const input = document.getElementById("cityField");
-      const suggestionBox = document.createElement("div");
-      suggestionBox.style.cssText = "position:absolute; background:#fff; color:#000; border:1px solid #ccc; z-index:1000; max-height:200px; overflow-y:auto; font-size:0.95rem;";
-      suggestionBox.id = "citySuggestions";
-      document.body.appendChild(suggestionBox);
-
-      input.addEventListener("input", () => {
-        const val = input.value.toLowerCase();
-        const matches = cities.filter(c => c.toLowerCase().startsWith(val)).slice(0, 10);
-
-        suggestionBox.innerHTML = "";
-        if (val && matches.length) {
-          const rect = input.getBoundingClientRect();
-          suggestionBox.style.top = rect.bottom + window.scrollY + "px";
-          suggestionBox.style.left = rect.left + window.scrollX + "px";
-          suggestionBox.style.width = rect.width + "px";
-
-          matches.forEach(city => {
-            const item = document.createElement("div");
-            item.textContent = city;
-            item.style.padding = "6px";
-            item.style.cursor = "pointer";
-            item.addEventListener("click", () => {
-              input.value = city;
-              suggestionBox.innerHTML = "";
-              localStorage.setItem("city", city);
-            });
-            suggestionBox.appendChild(item);
-          });
-        } else {
-          suggestionBox.innerHTML = "";
-        }
-      });
-    }
-
-    fetch("https://nebula-chat-silk.vercel.app/comuni.json")
-      .then(res => res.json())
-      .then(data => {
-        const cities = data.map(c => c.nome);
-        setupAutocomplete(cities);
-      })
-      .catch(err => console.error("Errore nel caricamento dei comuni:", err));
-  </script>
-
 
 </body>
 </html>
