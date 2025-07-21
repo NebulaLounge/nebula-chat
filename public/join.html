@@ -136,8 +136,8 @@
     document.getElementById("passwordField").value = password;
 
     document.getElementById("nickSpan").textContent    = capitalize(nick);
-    document.getElementById("sexSpan").textContent     = sex === "M" ? "secondo un 👨‍💼 Uomo" : sex === "F" ? "una 👩 Donna in cerca di nuove connessioni" : "un* utente";
-    document.getElementById("lookingSpan").textContent = looking === "M" ? "primo con un 👨‍💼 Uomo" : looking === "F" ? "con una 👩 Donna..." : "qualcuno";
+    document.getElementById("sexSpan").textContent     = sex === "M" ? "un 👨‍💼 Uomo in cerca di nuove connessioni" : sex === "F" ? "una 👩 Donna in cerca di nuove connessioni" : "un* utente";
+    document.getElementById("lookingSpan").textContent = looking === "M" ? "con un 👨‍💼 Uomo" : looking === "F" ? "con una 👩 Donna..." : "qualcuno";
     document.getElementById("citySpan").textContent    = city ? `localizzazione 📍${capitalize(city)}` : "da luogo sconosciuto 🕵️";
 
     setTimeout(() => {
