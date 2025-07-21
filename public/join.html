@@ -121,57 +121,37 @@
       return str ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
     }
 
-   window.onload = function () {
-  // Recupero sicuro con pulizia spazi e fallback
-  const nick     = (localStorage.getItem("nick") || "Guest").trim();
-  const sex      = (localStorage.getItem("sex") || "").trim();
-  const looking  = (localStorage.getItem("looking") || "").trim();
-  const city     = (localStorage.getItem("city") || "").trim();
-  const password = (localStorage.getItem("password") || "").trim();
+    window.onload = function () {
+      const nick     = localStorage.getItem("nick") || "Guest";
+      const sex      = localStorage.getItem("sex") || "";
+      const looking  = localStorage.getItem("looking") || "";
+      const city     = localStorage.getItem("city") || "";
+      const password = localStorage.getItem("password") || "";
 
-  // Form invisibile → valori
-  if (document.getElementById("nickField"))     document.getElementById("nickField").value = nick;
-  if (document.getElementById("sexField"))      document.getElementById("sexField").value = sex;
-  if (document.getElementById("lookingField"))  document.getElementById("lookingField").value = looking;
-  if (document.getElementById("cityField"))     document.getElementById("cityField").value = city;
-  if (document.getElementById("passwordField")) document.getElementById("passwordField").value = password;
+      document.getElementById("nickField").value     = nick;
+      document.getElementById("sexField").value      = sex;
+      document.getElementById("lookingField").value  = looking;
+      document.getElementById("cityField").value     = city;
+      document.getElementById("passwordField").value = password;
 
-  // Saluto dinamico con protezione
-  if (document.getElementById("welcomePrefix")) {
-    const benvenuto = sex === "F" ? "Benvenuta" : "Benvenuto";
-    document.getElementById("welcomePrefix").textContent = `🚀 ${benvenuto}`;
-  }
+      // Benvenuto/a dinamico
+      document.getElementById("welcomePrefix").textContent = sex === "F" ? "Benvenuta" : "Benvenuto";
 
-  // Nickname
-  if (document.getElementById("nickSpan")) {
-    document.getElementById("nickSpan").textContent = capitalize(nick);
-  }
+      document.getElementById("nickSpan").textContent = capitalize(nick);
 
-  // Frase sul sesso
-  if (document.getElementById("sexSpan")) {
-    document.getElementById("sexSpan").textContent =
-      sex === "M" ? "👱🏽‍♂️ un uomo in cerca di nuove connessioni" :
-      sex === "F" ? "👩 una donna in cerca di nuove connessioni" :
-      "un* utente in cerca di nuove connessioni";
-  }
+      document.getElementById("sexSpan").textContent =
+        sex === "M" ? "👱🏽‍♂️ un uomo in cerca di nuove connessioni" :
+        sex === "F" ? "👩 una donna in cerca di nuove connessioni" :
+        "un* utente in cerca di nuove connessioni";
 
-  // Frase sul looking
-  if (document.getElementById("lookingSpan")) {
-    document.getElementById("lookingSpan").textContent =
-      looking === "M" ? "👨 un uomo" :
-      looking === "F" ? "👩 una donna" :
-      "qualcuno";
-  }
+      document.getElementById("lookingSpan").textContent =
+        looking === "M" ? "👨 un uomo" :
+        looking === "F" ? "👩 una donna" :
+        "qualcuno";
 
-  // Localizzazione
-  if (document.getElementById("citySpan")) {
-    document.getElementById("citySpan").textContent = city
-      ? `📍 ${capitalize(city)}`
-      : "una località ignota 🪐";
-  }
-
-  console.log("✅ Dati impostati correttamente:", { nick, sex, looking, city });
-};
+      document.getElementById("citySpan").textContent = city
+        ? `📍 ${capitalize(city)}`
+        : "una località ignota 🪐";
 
       setTimeout(() => {
         document.getElementById("welcomeStep1").style.opacity = "0";
