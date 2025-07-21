@@ -1,1 +1,39 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0f0f1a;
+  color: #e0e0e0;
+  margin: 2em;
+  line-height: 1.6;
+}
 
+h1 {
+  color: #00c8ff;
+  border-bottom: 1px solid #444;
+  padding-bottom: 0.3em;
+}
+
+h2 {
+  color: #ffd700;
+  margin-top: 1.5em;
+}
+
+a {
+  color: #00c8ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+nav {
+  margin-bottom: 2em;
+  font-size: 0.9em;
+}
+
+footer {
+  margin-top: 3em;
+  font-size: 0.8em;
+  color: #aaa;
+  text-align: center;
+}
