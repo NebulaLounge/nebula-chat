@@ -379,7 +379,7 @@ window.addEventListener("DOMContentLoaded", () => {
     infoBox.innerHTML = `<span style="color:#999;">🕵️ Verifica in corso...</span>`;
 
     delayCheck = setTimeout(() => {
-      fetch(`https://entrainchat-01.simosnap.com/checknick/${nick}`)
+      fetch(`https://www.simosnap.org/rest/service.php/checknick/${nick}`)
         .then(res => res.json())
         .then(data => {
           if (data.registered === "yes") {
