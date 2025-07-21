@@ -1,0 +1,358 @@
+
+.features-abc img {
+    width: 15px;
+    margin-right: 5px;
+    height: 15px;
+}
+
+.features-abc p {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.privacybee_content input#submit:hover {
+    background-color: #feb625;
+    color: #ffff;
+}
+
+.privacybee_content h2,
+.Privacybee-main h2 {
+    font-size: 2.5em !important;
+}
+
+.privacybee_content h4,
+.Privacybee-main h4 {
+    font-size: 1.5em !important;
+}
+
+/* .container {
+    max-width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    
+} */
+.dashboard-btn button {
+    cursor: pointer;
+}
+
+.logo img {
+    max-width: 150px;
+}
+
+.features {
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.features p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.features p::before {
+    content: "✔️";
+    color: #1a73e8;
+    margin-right: 10px;
+}
+
+.api-key-input input[type='checkbox'] {
+    width: 10px;
+}
+
+.form-group.form-checkbox {
+    margin-top: 10px;
+    width: 150px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.api-key-input {
+    margin-top: 20px;
+}
+
+.api-key-input input {
+    width: 30%;
+    padding: 5px 10px 5px 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.api-key-input input[type='submit'] {
+    padding: 10px 20px;
+    background-color: #ffb03b;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 120px;
+}
+
+.api-key-input input[type='submit']:hover {
+    background-color: #e6a531;
+}
+
+.error-message {
+    color: #e64a19;
+    font-size: 14px;
+    line-height: 130%;
+    font-weight: 400;
+    font-family: sans-serif;
+    margin: 8px 0;
+
+}
+
+.logo {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+}
+
+.privacybee-st {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    border-bottom: 1px solid #d0cece;
+    padding-bottom: 10px;
+}
+
+.privacybee-st h1,
+.logo h1 {
+    margin: 0;
+}
+
+.privacybee-sec,
+.privacybee_content {
+    padding: 25px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0), 0 0 5px rgba(1, 0, 0, 0.2);
+    margin-bottom: 20px;
+    background-color: #fff;
+    margin: 20px 20px 20px 0;
+}
+
+.PrivacyBee-symbol-sec {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    margin-left: 5px;
+}
+
+.right-symbol img {
+    width: 15px;
+    height: 15px;
+}
+
+.privacy-logo-img img {
+    width: 100%;
+}
+
+.privacybee_content input#submit {
+    padding: 8px;
+    border: 2px solid #feb625;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #feb625;
+    font-size: 14px;
+    line-height: 145%;
+    font-weight: 400;
+    font-family: sans-serif;
+    transition: 0.3s;
+}
+
+.Privacybee-main p,
+.Privacybee-main a,
+.privacybee_content p,
+.privacybee_sec p,
+.privacybee_content a {
+    font-size: 14px;
+    line-height: 130%;
+    font-weight: 400;
+    font-family: sans-serif;
+    color: #6b7075;
+    margin: 8px 0;
+
+}
+
+
+
+.privacybee_content h1,
+.privacybee-sec h1,
+.privacybee_content h2,
+.privacybee-sec h2,
+.privacybee_content h3,
+.privacybee-sec h3,
+.privacybee_content h4,
+.privacybee-sec h4 {
+    line-height: 130%;
+    font-weight: 400;
+    font-family: sans-serif;
+    color: #000;
+}
+
+
+.PrivacyBee-section h4 {
+    margin: 10px 0px;
+    font-weight: 600;
+}
+
+
+.add-api-sec {
+    margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+}
+
+.PrivacyBee-section h2,
+.privacybee_content h2 {
+    margin: 8px 0;
+}
+
+.PrivacyBee-symbol-sec p {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.features-abc p {
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+li#toplevel_page_privacybee-settings ul.wp-submenu.wp-submenu-wrap li:nth-child(2) {
+    display: none !important;
+}
+.get-api-btn button a {
+    text-decoration: none;
+    color: #feb625 !important;
+}
+.get-api-btn button a:hover {    
+    color: #ffff !important;
+}
+.add-api-sec button,
+.dashboard-btn button,
+.get-api-btn button {
+    padding: 8px;
+    border: 2px solid #feb625;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #feb625;
+    font-size: 14px;
+    line-height: 145%;
+    font-weight: 400;
+    font-family: sans-serif;
+    transition: 0.3s;
+    cursor: pointer;
+
+}
+
+.add-api-sec button:hover,
+.dashboard-btn button:hover,
+.get-api-btn button:hover {
+    background-color: #feb625;
+    color: #ffff !important;
+}
+
+
+.add-api-sec input[type="text"],
+.drop-sec select,
+.drop-sec input[type="text"] {
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid #e6e8ec;
+    width: 22%;
+}
+
+
+.drop-sec {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+    margin: 15px 0;
+}
+
+
+.dashboard-btn {
+    margin-left: auto;
+}
+
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+/*
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 150px;
+    background-color: #efefef;
+    color: #000;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0), 0 0 5px rgba(1, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 45%;
+    left: 145%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: 400;
+    line-height: 130%;
+}
+
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    border-width: 9px;
+    border-style: solid;
+    border-color: transparent #efefef transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip img {
+    width: 20px;
+    height: 20px;
+}
+*/
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    width: 100%;
+}
+
+
+

@@ -1,0 +1,214 @@
+# Copyright (C) 2024 PrivacyBee - Privacy Policy
+# This file is distributed under the same license as the PrivacyBee - Privacy Policy package.
+msgid ""
+msgstr ""
+"Project-Id-Version: PrivacyBee - Privacy Policy 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/privacybee-privacy-policy\n"
+"POT-Creation-Date: 2024-10-11 11:26:20+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/class-privacybee-elementor-widget.php:12
+#: includes/class-privacybee-settings.php:115
+#: includes/class-privacybee-widget.php:111
+#: templates/privacybee-admin-setting.php:15
+#: templates/privacybee-admin-setting.php:69
+msgid "PrivacyBee"
+msgstr ""
+
+#: includes/class-privacybee-elementor-widget.php:27
+#: includes/class-privacybee-widget.php:113
+msgid "Content"
+msgstr ""
+
+#: includes/class-privacybee-elementor-widget.php:34
+#: includes/class-privacybee-widget.php:118
+msgid "Legal basis"
+msgstr ""
+
+#: includes/class-privacybee-elementor-widget.php:38
+#: includes/class-privacybee-widget.php:121
+msgid "GDPR"
+msgstr ""
+
+#: includes/class-privacybee-elementor-widget.php:39
+#: includes/class-privacybee-widget.php:122
+msgid "Swiss"
+msgstr ""
+
+#: includes/class-privacybee-elementor-widget.php:47
+#: includes/class-privacybee-widget.php:129
+msgid "Language"
+msgstr ""
+
+#: includes/class-privacybee-elementor-widget.php:50
+#: includes/class-privacybee-widget.php:132
+msgid "English"
+msgstr ""
+
+#: includes/class-privacybee-elementor-widget.php:51
+#: includes/class-privacybee-widget.php:133
+msgid "German"
+msgstr ""
+
+#: includes/class-privacybee-elementor-widget.php:52
+#: includes/class-privacybee-widget.php:134
+msgid "French"
+msgstr ""
+
+#: includes/class-privacybee-elementor-widget.php:53
+#: includes/class-privacybee-widget.php:135
+msgid "Italian"
+msgstr ""
+
+#: includes/class-privacybee-elementor-widget.php:62
+#: includes/class-privacybee-widget.php:142
+msgid "Show Header"
+msgstr ""
+
+#: includes/class-privacybee-elementor-widget.php:66
+#: includes/class-privacybee-widget.php:145
+msgid "Default"
+msgstr ""
+
+#: includes/class-privacybee-elementor-widget.php:67
+#: includes/class-privacybee-widget.php:146
+msgid "Hidden"
+msgstr ""
+
+#: includes/class-privacybee-elementor-widget.php:70
+#: includes/class-privacybee-widget.php:148
+msgid "Choose whether to display the title."
+msgstr ""
+
+#: includes/class-privacybee-settings.php:114
+msgid "PrivacyBee Settings"
+msgstr ""
+
+#: includes/class-privacybee-settings.php:125
+#: includes/class-privacybee-settings.php:126
+msgid "Privacy Policy"
+msgstr ""
+
+#: includes/class-privacybee-widget.php:73
+msgid "Both Website ID and Type are required."
+msgstr ""
+
+#: includes/class-privacybee-widget.php:125
+msgid "Select the Legal basis (required)."
+msgstr ""
+
+#: includes/class-privacybee-widget.php:138
+msgid "Select the language."
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:18
+msgid "Welcome to PrivacyBee"
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:19
+msgid "The simplest and most comprehensive privacy policy for Germany, Austria, and Switzerland. Designed to work with WordPress and keep you legally compliant."
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:20
+msgid "Please open an account or enter your website ID from the dashboard to integrate the privacy policy into your website."
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:23
+msgid "Compliant with EU GDPR and Swiss nDSG laws."
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:24
+msgid "Once setup, forever compliant. Thanks to the automated scanning and our lawyers."
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:25
+msgid "FREE trial without credit card."
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:28
+msgid "Sign up & get API key"
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:32
+msgid "Already have a PrivacyBee account? Enter your API key below."
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:37
+msgid "Enter your API key"
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:39
+msgid "Add API key"
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:46
+msgid "Please provide an API key for an active subscription."
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:49
+msgid "Login to PrivacyBee dashboard to find your API key."
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:50
+msgid "Learn more."
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:72
+msgid "To the dashboard"
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:78
+msgid "PrivacyBee - Privacy Policy"
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:79
+msgid "You have successfully connected you PrivacyBee account. You can access your PrivacyBee dashboard any time to manage your account and customize your privacy policy."
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:80
+msgid "Disable script blocking"
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:81
+msgid "PrivacyBee scans your website regulary for new, data protection-relevant scripts. Sometimes the consent banner is blocking these scans. If this is the case, try to solve the issue by enabling this functionality."
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:85
+msgid "Enabled"
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:86
+msgid "Disabled"
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:88
+msgid "Learn more about script blocking"
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:90
+msgid "API Key"
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:91
+msgid "Insert your API key to integrate PrivacyBee into this website"
+msgstr ""
+
+#: templates/privacybee-admin-setting.php:94
+msgid "Disconnect account"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "PrivacyBee - Privacy Policy"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "PrivacyBee is a service designed to automatically generate and update privacy policies for websites. It helps you to stay compliant with privacy policy laws in EU and Switzerland. Fully compatible with Elementor, Oxygen Builder and Gutenberg, PrivacyBee integrates seamlessly into your page builder's directory, allowing you to easily add a privacy policy section anywhere on your website."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "privacybee"
+msgstr ""

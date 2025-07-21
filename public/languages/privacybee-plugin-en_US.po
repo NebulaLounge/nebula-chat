@@ -1,0 +1,70 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PrivacyBee Plugin\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.4\n"
+
+msgid "PrivacyBee"
+msgstr "PrivacyBee"
+
+msgid "Welcome to PrivacyBee"
+msgstr "Welcome to PrivacyBee"
+
+msgid "The Simplest and most comprehensive privacy policy of Germany, Austria, and Switzerland. Designed to work with WordPress and keep you legally compliant. Please open an account or enter your website ID from the dashboard to integrate the Privacy Policy into your website."
+msgstr "The Simplest and most comprehensive privacy policy of Germany, Austria, and Switzerland. Designed to work with WordPress and keep you legally compliant. Please open an account or enter your website ID from the dashboard to integrate the Privacy Policy into your website."
+
+msgid "Compliant with EU GDPR and Swiss nDSG laws."
+msgstr "Compliant with EU GDPR and Swiss nDSG laws."
+
+msgid "Once setup, forever compliant. Thanks to the automated scanning and our lawyers."
+msgstr "Once setup, forever compliant. Thanks to the automated scanning and our lawyers."
+
+msgid "FREE trial without credit card"
+msgstr "FREE trial without credit card"
+
+msgid "Sign up & get API key"
+msgstr "Sign up & get API key"
+
+msgid "Already have a PrivacyBee account? Enter your API key below."
+msgstr "Already have a PrivacyBee account? Enter your API key below."
+
+msgid "Please provide an API key for an active subscription."
+msgstr "Please provide an API key for an active subscription."
+
+msgid "Login to PrivacyBee dashboard to find your API key."
+msgstr "Login to PrivacyBee dashboard to find your API key."
+
+msgid "Learn more"
+msgstr "Learn more"
+
+msgid "To the dashboard"
+msgstr "To the dashboard"
+
+msgid "You have successfully connected your PrivacyBee account. You can access your PrivacyBee dashboard any time to manage your account and customize your privacy policy."
+msgstr "You have successfully connected your PrivacyBee account. You can access your PrivacyBee dashboard any time to manage your account and customize your privacy policy."
+
+msgid "Disable script blocking"
+msgstr "Disable script blocking"
+
+msgid "PrivacyBee scans your website for new, data protection-relevant scripts approximately every eight weeks. In order for this scan to be carried out optimally, PrivacyBee needs to know which consent management platform you are using."
+msgstr "PrivacyBee scans your website for new, data protection-relevant scripts approximately every eight weeks. In order for this scan to be carried out optimally, PrivacyBee needs to know which consent management platform you are using."
+
+msgid "Learn more about script blocking"
+msgstr "Learn more about script blocking"
+
+msgid "API Key"
+msgstr "API Key"
+
+msgid "Insert your API key to integrate PrivacyBee into this website."
+msgstr "Insert your API key to integrate PrivacyBee into this website."
+
+msgid "Disconnect account"
+msgstr "Disconnect account"
