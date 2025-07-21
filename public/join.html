@@ -80,7 +80,7 @@
     <div id="welcomeStep2" style="display: none;">
       <div class="welcomeTitle">🚀 <span id="welcomePrefix"></span> nella <strong>NebulaLounge</strong>! Lasciati ispirare.</div>
       <div class="welcomeDetails">
-        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span>, con <span id="lookingSpan"></span> da <span id="citySpan"></span>.
+        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span>, con <span id="lookingSpan"></span> che <span id="citySpan"></span>.
       </div>
     </div>
 
@@ -150,7 +150,7 @@
         "qualcuno";
 
       document.getElementById("citySpan").textContent = city
-        ? `Che trasmette vibrazioni da 📍 ${capitalize(city)}`
+        ? `trasmette vibrazioni da 📍 ${capitalize(city)}`
         : "una località ignota 🪐  tra le stelle.";
 
       setTimeout(() => {
