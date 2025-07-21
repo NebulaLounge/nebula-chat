@@ -80,7 +80,7 @@
     <div id="welcomeStep2" style="display: none;">
       <div class="welcomeTitle">🚀 <span id="welcomePrefix"></span> nella <strong>NebulaLounge</strong>! Lasciati ispirare.</div>
       <div class="welcomeDetails">
-        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span>, con <span id="lookingSpan"></span> che <span id="citySpan"></span>.
+        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span>, con <span id="lookingSpan"></span>, <span id="citySpan"></span>.
       </div>
     </div>
 
@@ -153,17 +153,17 @@
 fetch("https://ipapi.co/json/")
   .then(res => res.json())
   .then(data => {
-    const ip = data.ip;
-    const city = data.city;
+    const ip     = data.ip;
+    const city   = data.city;
     const region = data.region;
-
-    const message = `trasmetti vibrazioni da 📍 ${city} in ${region} — IP: ${ip}`;
-    const ipSpan = document.getElementById("ipSpan");
-    if (ipSpan) ipSpan.textContent = message;
+    const message = `trasmetti vibrazioni da 📍 ${capitalize(city)} in ${capitalize(region)} — IP: ${ip}`;
+    
+    const citySpan = document.getElementById("citySpan");
+    if (citySpan) citySpan.textContent = message;
   })
   .catch(() => {
-    const ipSpan = document.getElementById("ipSpan");
-    if (ipSpan) ipSpan.textContent = "📡 Connessione rilevata — IP non disponibile.";
+    const citySpan = document.getElementById("citySpan");
+    if (citySpan) citySpan.textContent = "🌌 Vibrazione rilevata — località ignota 🔒";
   });
 
       setTimeout(() => {
