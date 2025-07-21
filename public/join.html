@@ -138,7 +138,7 @@
     document.getElementById("nickSpan").textContent    = capitalize(nick);
     document.getElementById("sexSpan").textContent     = sex === "M" ? "un 👨‍💼 Uomo" : sex === "F" ? "una 👩 Donna" : "un* utente";
     document.getElementById("lookingSpan").textContent = looking === "M" ? "un 👨‍💼 Uomo" : looking === "F" ? "una 👩 Donna" : "qualcuno";
-    document.getElementById("citySpan").textContent    = city ? `digiti da 📍${capitalize(city)}` : "da luogo sconosciuto 🕵️";
+    document.getElementById("citySpan").textContent    = city ? `localizzazione 📍${capitalize(city)}` : "da luogo sconosciuto 🕵️";
 
     setTimeout(() => {
       document.getElementById("welcomeStep1").style.opacity = "0";
