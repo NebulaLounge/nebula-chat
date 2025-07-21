@@ -78,9 +78,9 @@
 
     <!-- Step 2 -->
     <div id="welcomeStep2" style="display: none;">
-      <div class="welcomeTitle">🚀 Benvenuto nella <strong>NebulaLounge</strong>! Lasciati ispirare.</div>
+      <div class="welcomeTitle">🚀 <span id="welcomePrefix"></span> nella <strong>NebulaLounge</strong>! Lasciati ispirare.</div>
       <div class="welcomeDetails">
-        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span>,  <span id="lookingSpan"> </span><span id="citySpan"></span>.
+        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span>, in cerca di <span id="lookingSpan"></span> da <span id="citySpan"></span>.
       </div>
     </div>
 
@@ -115,54 +115,69 @@
   <!-- Audio -->
   <audio id="welcomeAudio" preload="auto"
     src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
+
   <script>
-  function capitalize(str) {
-    return str ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
-  }
+    function capitalize(str) {
+      return str ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
+    }
 
-  window.onload = function () {
-    const nick     = localStorage.getItem("nick") || "Guest";
-    const sex      = localStorage.getItem("sex") || "";
-    const looking  = localStorage.getItem("looking") || "";
-    const city     = localStorage.getItem("city") || "";
-    const password = localStorage.getItem("password") || "";
+    window.onload = function () {
+      const nick     = localStorage.getItem("nick") || "Guest";
+      const sex      = localStorage.getItem("sex") || "";
+      const looking  = localStorage.getItem("looking") || "";
+      const city     = localStorage.getItem("city") || "";
+      const password = localStorage.getItem("password") || "";
 
-    document.getElementById("nickField").value     = nick;
-    document.getElementById("sexField").value      = sex;
-    document.getElementById("lookingField").value  = looking;
-    document.getElementById("cityField").value     = city;
-    document.getElementById("passwordField").value = password;
+      document.getElementById("nickField").value     = nick;
+      document.getElementById("sexField").value      = sex;
+      document.getElementById("lookingField").value  = looking;
+      document.getElementById("cityField").value     = city;
+      document.getElementById("passwordField").value = password;
 
-    document.getElementById("nickSpan").textContent    = capitalize(nick);
-    document.getElementById("sexSpan").textContent     = sex === "M" ? "un 👱🏽‍♂️ Uomo in cerca di nuove connessioni" : sex === "F" ? "una 👩 Donna in cerca di nuove connessioni" : "un* utente";
-    document.getElementById("lookingSpan").textContent = looking === "M" ? "con un 👨 Uomo" : looking === "F" ? "con una 👱🏽‍♀️ Donna..." : "qualcuno";
-    document.getElementById("citySpan").textContent    = city ? ` 📍 localizzazione da: ${capitalize(city)}` : " da una località ignota 🪐 tra le stelle.";
+      // Benvenuto/a dinamico
+      document.getElementById("welcomePrefix").textContent = sex === "F" ? "Benvenuta" : "Benvenuto";
 
-    setTimeout(() => {
-      document.getElementById("welcomeStep1").style.opacity = "0";
+      document.getElementById("nickSpan").textContent = capitalize(nick);
+
+      document.getElementById("sexSpan").textContent =
+        sex === "M" ? "👱🏽‍♂️ un uomo in cerca di nuove connessioni" :
+        sex === "F" ? "👩 una donna in cerca di nuove connessioni" :
+        "un* utente in cerca di nuove connessioni";
+
+      document.getElementById("lookingSpan").textContent =
+        looking === "M" ? "👨 un uomo" :
+        looking === "F" ? "👩 una donna" :
+        "qualcuno";
+
+      document.getElementById("citySpan").textContent = city
+        ? `📍 ${capitalize(city)}`
+        : "una località ignota 🪐";
+
       setTimeout(() => {
-        document.getElementById("welcomeStep1").style.display = "none";
-        document.getElementById("welcomeStep2").style.display = "flex";
-        document.querySelector("#welcomeStep2 .welcomeDetails").style.display = "block";
-      }, 1000);
-    }, 12000);
+        document.getElementById("welcomeStep1").style.opacity = "0";
+        setTimeout(() => {
+          document.getElementById("welcomeStep1").style.display = "none";
+          document.getElementById("welcomeStep2").style.display = "flex";
+          document.querySelector("#welcomeStep2 .welcomeDetails").style.display = "block";
+        }, 1000);
+      }, 12000);
 
-    setTimeout(() => {
-      document.getElementById("chatForm").submit();
-    }, 4500);
-
-    setTimeout(() => {
-      document.getElementById("welcomeAudio").play().catch(err => console.warn("Audio bloccato:", err));
-    }, 13000);
-
-    setTimeout(() => {
-      document.getElementById("welcomeStep2").style.opacity = "0";
       setTimeout(() => {
-        document.getElementById("welcomeStep2").style.display = "none";
-        document.getElementById("bannerTop").style.display = "flex";
-      }, 1000);
-    }, 48000);
-  };
-</script>
-</body>  
+        document.getElementById("chatForm").submit();
+      }, 4500);
+
+      setTimeout(() => {
+        document.getElementById("welcomeAudio").play().catch(err => console.warn("Audio bloccato:", err));
+      }, 13000);
+
+      setTimeout(() => {
+        document.getElementById("welcomeStep2").style.opacity = "0";
+        setTimeout(() => {
+          document.getElementById("welcomeStep2").style.display = "none";
+          document.getElementById("bannerTop").style.display = "flex";
+        }, 1000);
+      }, 48000);
+    };
+  </script>
+</body>
 </html>
