@@ -448,41 +448,48 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   window.vaiAllaVerifica = function () {
-    const nick = sanitizeNick(nickInput.value.trim());
-    const sex = document.getElementById("sexselect").value;
-    const looking = document.getElementById("lookingselect").value;
-    const city = cityInput.value.trim();
-    const password = passwordInput.value;
+  const nick = sanitizeNick(nickInput.value.trim());
+  const sex = document.getElementById("sexselect").value;
+  const looking = document.getElementById("lookingselect").value;
+  const city = cityInput.value.trim();
+  const password = passwordInput.value;
 
-    if (!nick || nick.length < 3) {
-      alert("⚠️ Inserisci un nickname valido (minimo 3 caratteri).");
-      return;
-    }
+  if (!nick || nick.length < 3) {
+    alert("⚠️ Inserisci un nickname valido (minimo 3 caratteri).");
+    return;
+  }
 
-    if (!sex || !looking) {
-      alert("⚠️ Seleziona sesso e preferenza.");
-      return;
-    }
+  if (!sex || !looking) {
+    alert("⚠️ Seleziona il tuo sesso e cosa cerchi.");
+    return;
+  }
 
-    if (nickIsRegistered && !password) {
-      alert("⚠️ Il nickname è registrato. Inserisci la password per continuare.");
-      return;
-    }
+  if (nickIsRegistered && password === "") {
+    alert("🔐 Il nickname è registrato. Inserisci la password per procedere.");
+    passwordInput.focus();
+    return;
+  }
 
-    if (city && !validateCity(city)) {
-      alert("⚠️ Inserisci una città valida.");
-      return;
-    }
+  if (city && !validateCity(city)) {
+    alert("⚠️ Inserisci una città valida.");
+    return;
+  }
 
-    localStorage.setItem("nick", nick);
-    localStorage.setItem("sex", sex);
-    localStorage.setItem("looking", looking);
-    localStorage.setItem("city", city);
-    if (password) localStorage.setItem("password", password);
-    else localStorage.removeItem("password");
+  // Tutto ok: salvataggio
+  localStorage.setItem("nick", nick);
+  localStorage.setItem("sex", sex);
+  localStorage.setItem("looking", looking);
+  localStorage.setItem("city", city);
 
-    window.location.href = "join.html";
-  };
+  // Salva la password solo se presente
+  if (nickIsRegistered && password) {
+    localStorage.setItem("password", password);
+  } else {
+    localStorage.removeItem("password");
+  }
+
+  window.location.href = "join.html";
+};
 
   fetch("https://nebula-chat-silk.vercel.app/comuni.json")
     .then(res => res.json())
