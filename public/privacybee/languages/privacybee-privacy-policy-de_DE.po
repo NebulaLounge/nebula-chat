@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PrivacyBee Plugin\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.4\n"
+
+msgid "PrivacyBee"
+msgstr "PrivacyBee"
+
+msgid "Welcome to PrivacyBee"
+msgstr "Willkommen bei PrivacyBee"
+
+msgid "PrivacyBee - Privacy Policy"
+msgstr "PrivacyBee - Datenschutzerklärung"
+
+msgid "The Simplest and most comprehensive privacy policy of Germany, Austria, and Switzerland. Designed to work with WordPress and keep you legally compliant. Please open an account or enter your website ID from the dashboard to integrate the Privacy Policy into your website."
+msgstr "Die einfachste und umfassendste Datenschutzerklärung für Deutschland, Österreich und die Schweiz. Entwickelt für WordPress, um Sie rechtlich konform zu halten. Bitte eröffnen Sie ein Konto oder geben Sie Ihre Website-ID aus dem Dashboard ein, um die Datenschutzerklärung in Ihre Website zu integrieren."
+
+msgid "Compliant with EU GDPR and Swiss nDSG laws."
+msgstr "Konform mit der EU-DSGVO und den Schweizer nDSG-Gesetzen."
+
+msgid "Once setup, forever compliant. Thanks to the automated scanning and our lawyers."
+msgstr "Einmal eingerichtet, immer konform. Dank des automatisierten Scannens und unserer Anwälte."
+
+msgid "FREE trial without credit card"
+msgstr "KOSTENLOSE Probe ohne Kreditkarte"
+
+msgid "Sign up & get API key"
+msgstr "Anmelden & API-Schlüssel erhalten"
+
+msgid "Already have a PrivacyBee account? Enter your API key below."
+msgstr "Haben Sie bereits ein PrivacyBee-Konto? Geben Sie unten Ihren API-Schlüssel ein."
+
+msgid "Enter your API key"
+msgstr "Geben Sie Ihren API-Schlüssel ein."
+
+msgid "Please provide an API key for an active subscription."
+msgstr "Bitte geben Sie einen API-Schlüssel für ein aktives Abonnement ein."
+
+msgid "Login to PrivacyBee dashboard to find your API key."
+msgstr "Melden Sie sich im PrivacyBee-Dashboard an, um Ihren API-Schlüssel zu finden."
+
+msgid "Learn more"
+msgstr "Mehr erfahren"
+
+msgid "To the dashboard"
+msgstr "Zum Dashboard"
+
+msgid "Add API key"
+msgstr "API-Schlüssel hinzufügen"
+
+
+msgid "Enabled"
+msgstr "Aktiviert"
+
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+msgid "FREE trial without credit card."
+msgstr "KOSTENLOSE Testversion ohne Kreditkarte."
+
+msgid "Insert your API key to integrate PrivacyBee into this website"
+msgstr "Geben Sie Ihren API-Schlüssel ein, um PrivacyBee in diese Website zu integrieren"
+
+
+msgid "PrivacyBee scans your website regulary for new, data protection-relevant scripts. Sometimes the consent banner is blocking these scans. If this is the case, try to solve the issue by enabling this functionality."
+msgstr "PrivacyBee scannt Ihre Website regelmäßig auf neue, datenschutzrelevante Skripte. Manchmal blockiert das Einwilligungsbanner diese Scans. Versuchen Sie in diesem Fall, das Problem zu lösen, indem Sie diese Funktion aktivieren."
+
+
+msgid "Disable script blocking"
+msgstr "Skriptblockierung deaktivieren"
+
+#, fuzzy
+msgid "PrivacyBee scans your website for new, data protection-relevant scripts approximately every eight weeks. In order for this scan to be carried out optimally, PrivacyBee needs to know which consent management platform you are using."
+msgstr "PrivacyBee scannt Ihre Website etwa alle acht Wochen nach neuen, datenschutzrelevanten Skripten. Damit dieser Scan optimal durchgeführt werden kann, muss PrivacyBee wissen, welche Consent Management Plattform Sie verwenden."
+
+msgid "Learn more about script blocking"
+msgstr "Erfahren Sie mehr über die Skriptblockierung"
+
+msgid "API Key"
+msgstr "API-Schlüssel"
+
+msgid "Insert your API key to integrate PrivacyBee into this website."
+msgstr "Geben Sie Ihren API-Schlüssel ein, um PrivacyBee in diese Website zu integrieren."
+
+msgid "Disconnect account"
+msgstr "Konto trennen"
+
+
+msgid "The simplest and most comprehensive privacy policy for Germany, Austria, and Switzerland. Designed to work with WordPress and keep you legally compliant."
+msgstr "Die einfachste und umfassendste Datenschutzrichtlinie für Deutschland, Österreich und die Schweiz. Entwickelt für die Zusammenarbeit mit WordPress und zur Einhaltung gesetzlicher Vorschriften."
+
+
+msgid "Please open an account or enter your website ID from the dashboard to integrate the privacy policy into your website."
+msgstr "Bitte eröffnen Sie ein Konto oder geben Sie Ihre Website-ID aus dem Dashboard ein, um die Datenschutzrichtlinie in Ihre Website zu integrieren."
+
+
+msgid "Learn more."
+msgstr "Erfahren Sie mehr."
+
+
+msgid "You have successfully connected you PrivacyBee account. You can access your PrivacyBee dashboard any time to manage your account and customize your privacy policy."
+msgstr "Sie haben Ihr PrivacyBee-Konto erfolgreich verbunden. Sie können jederzeit auf Ihr PrivacyBee-Dashboard zugreifen, um Ihr Konto zu verwalten und Ihre Datenschutzrichtlinie anzupassen."
+
