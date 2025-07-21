@@ -149,9 +149,22 @@
         looking === "F" ? "👩 una donna" :
         "qualcuno";
 
-      document.getElementById("citySpan").textContent = city
-        ? `trasmette vibrazioni da 📍 ${capitalize(city)}`
-        : "una località ignota 🪐  tra le stelle.";
+      // codice JS per mostrare IP e località automatica
+fetch("https://ipapi.co/json/")
+  .then(res => res.json())
+  .then(data => {
+    const ip = data.ip;
+    const city = data.city;
+    const region = data.region;
+
+    const message = `trasmetti vibrazioni da 📍 ${city} in ${region} — IP: ${ip}`;
+    const ipSpan = document.getElementById("ipSpan");
+    if (ipSpan) ipSpan.textContent = message;
+  })
+  .catch(() => {
+    const ipSpan = document.getElementById("ipSpan");
+    if (ipSpan) ipSpan.textContent = "📡 Connessione rilevata — IP non disponibile.";
+  });
 
       setTimeout(() => {
         document.getElementById("welcomeStep1").style.opacity = "0";
