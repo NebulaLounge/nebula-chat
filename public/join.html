@@ -130,18 +130,17 @@
     </div>
 
     <!-- Form nascosto -->
-    <form id="chatForm" action="https://entrainchat-01.simosnap.com/loading.php" method="post" target="chatFrame">
-      <input type="hidden" name="nick" id="nickField" />
-      <input type="hidden" name="sex" id="sexField" />
-      <input type="hidden" name="looking" id="lookingField" />
-      <input type="hidden" name="location" id="cityField" />
-      <input type="hidden" name="password" id="passwordField" />
-      <input type="hidden" name="channel" value="#NebulaLounge" />
-    </form>
+   <form id="chatForm" action="https://entrainchat-01.simosnap.com/login.php" method="post" target="chatFrame">
+    <input type="hidden" name="nick" id="nickField" />
+    <input type="hidden" name="password" id="passwordField" />
+    <input type="hidden" name="channel" value="#NebulaLounge" />
+    <input type="hidden" name="sex" id="sexField" />
+    <input type="hidden" name="location" id="cityField" />
+    <input type="hidden" name="gecos" value="NebulaLounge" />
+  </form>
 
-    <!-- Chat frame -->
-    <iframe class="chat" name="chatFrame" id="chatFrame" title="Chat NebulaLounge"></iframe>
-
+  <!-- Chat iframe -->
+  <iframe class="chat" name="chatFrame" id="chatFrame" title="Chat NebulaLounge"></iframe>
   </div>
 
   <!-- Banner inferiore -->
