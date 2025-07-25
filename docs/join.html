@@ -10,35 +10,59 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0b132b; color: #eee;
     }
+
     .container {
-      width: 100%; display: flex; flex-direction: column; align-items: center;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
     }
+
     #welcomeStep1, #welcomeStep2 {
       width: 100%; height: 90px;
       background: linear-gradient(to right, #001f3f, #142a4d, #001f3f);
-      padding: 0 16px; display: flex; flex-direction: column; justify-content: center; align-items: center;
-      text-align: center; color: #f0e8de; box-shadow: inset 0 0 22px #ea5906aa;
+      padding: 0 16px;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center; color: #f0e8de;
+      box-shadow: inset 0 0 22px #ea5906aa;
       transition: opacity 1s ease;
     }
-    .welcomeTitle {
-      font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 690; margin: 0;
+
+    #welcomeStep1 .welcomeTitle, #welcomeStep2 .welcomeTitle {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 690;
+      margin: 0;
+      overflow: hidden;
     }
-    .welcomeDetails {
-      font-size: clamp(0.95rem, 2vw, 1.15rem); font-weight: 500; margin-top: 6px;
+
+    #welcomeStep2 .welcomeDetails {
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      font-weight: 500;
+      margin-top: 6px;
       display: none;
     }
+
     .frame-banner, .banner-bottom {
       height: 90px; width: 100%;
       background: linear-gradient(to right, #001f3f, #0b132b, #001f3f);
       display: flex; justify-content: center; align-items: center;
       box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
     }
+
     .frame-banner { display: none; }
+
     iframe.chat {
-      border: none; width: 100%; max-width: 1080px;
-      height: 750px; background: #000; box-shadow: 0 0 14px rgba(0,0,0,0.4);
+      border: none; width: 100%;
+      max-width: 1080px;
+      height: 750px;   <!-- altezza frame chat simons -->
+      background: #000;
+      box-shadow: 0 0 14px rgba(0,0,0,0.4);
     }
+
     form { display: none; }
+
     @media (max-width: 768px) {
       #welcomeStep1, #welcomeStep2 { padding: 0 8px; }
       iframe.chat { height: 540px; }
@@ -47,19 +71,27 @@
 </head>
 <body>
   <div class="container">
+    <!-- Step 1 -->
     <div id="welcomeStep1">
       <div class="welcomeTitle">🌌 Connessione in corso... Preparati a immergerti in <strong>NebulaLounge</strong>!</div>
     </div>
+
+    <!-- Step 2 -->
     <div id="welcomeStep2" style="display: none;">
       <div class="welcomeTitle">🚀 <span id="welcomePrefix"></span> nella <strong>NebulaLounge</strong>! Lasciati ispirare.</div>
       <div class="welcomeDetails">
-        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span>, con <span id="lookingSpan"></span>, <span id="citySpan">📍 In attesa localizzazione IP...</span> — <span id="gpsSpan">📡 In attesa posizione GPS...</span>.
+        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span>, con <span id="lookingSpan"></span>, <span id="citySpan"></span>.
       </div>
     </div>
+
+    <!-- Banner superiore -->
     <div class="frame-banner" id="bannerTop">
-      <iframe src="https://rotator.tradetracker.net/?r=97208&t=iframe" width="728" height="90" frameborder="0"></iframe>
+      <iframe src="https://rotator.tradetracker.net/?r=97208&t=iframe"
+        width="728" height="90" frameborder="0" scrolling="no"
+        style="border:0; margin:0; padding:0;" title="Banner pubblicitario"></iframe>
     </div>
 
+    <!-- Form invisibile -->
     <form id="chatForm" action="https://entrainchat-01.simosnap.com/login.php" method="post" target="chatFrame">
       <input type="hidden" name="nick" id="nickField" />
       <input type="hidden" name="sex" id="sexField" />
@@ -69,116 +101,96 @@
       <input type="hidden" name="channel" value="#NebulaLounge" />
     </form>
 
+    <!-- Chat frame -->
     <iframe class="chat" name="chatFrame" id="chatFrame" title="Chat NebulaLounge"></iframe>
   </div>
 
+  <!-- Banner inferiore -->
   <div class="banner-bottom">
-    <iframe src="https://rotator.tradetracker.net/?r=97208&t=iframe" width="728" height="90" frameborder="0"></iframe>
+    <iframe src="https://rotator.tradetracker.net/?r=97208&t=iframe"
+      width="728" height="90" frameborder="0" scrolling="no"
+      style="border:0; margin:0; padding:0;" title="Banner pubblicitario"></iframe>
   </div>
 
-  <audio id="welcomeAudio" preload="auto" src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
+  <!-- Audio -->
+  <audio id="welcomeAudio" preload="auto"
+    src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
 
   <script>
-function capitalize(str) {
-  return str ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
-}
-
-window.onload = function () {
-  const nick     = localStorage.getItem("nick")     || "Guest";
-  const sex      = localStorage.getItem("sex")      || "";
-  const looking  = localStorage.getItem("looking")  || "";
-  const password = localStorage.getItem("password") || "";
-
-  // Assegna valori al form
-  document.getElementById("nickField").value     = nick;
-  document.getElementById("sexField").value      = sex;
-  document.getElementById("lookingField").value  = looking;
-  document.getElementById("passwordField").value = password;
-
-  document.getElementById("welcomePrefix").textContent = sex === "F" ? "Benvenuta" : "Benvenuto";
-  document.getElementById("nickSpan").textContent = capitalize(nick);
-
-  document.getElementById("sexSpan").textContent =
-    sex === "M" ? "👱🏽‍♂️ un uomo in cerca di nuove connessioni" :
-    sex === "F" ? "👩 una donna in cerca di nuove connessioni" :
-    "un* utente in cerca di nuove connessioni";
-
-  document.getElementById("lookingSpan").textContent =
-    looking === "M" ? "👨 un uomo" :
-    looking === "F" ? "👩 una donna" :
-    "qualcuno";
-
-  // 🌐 IP pubblico
-  fetch("https://api.ipify.org?format=json")
-    .then(res => res.json())
-    .then(ipData => {
-      const ip = ipData.ip;
-      const ipSpan = document.getElementById("citySpan");
-      if (ipSpan) ipSpan.textContent = `🌐 IP pubblico: ${ip}`;
-    })
-    .catch(() => {
-      const ipSpan = document.getElementById("citySpan");
-      if (ipSpan) ipSpan.textContent = "🌌 IP non disponibile.";
-    });
-
-  // 📡 GPS + città precisa
-  if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(pos => {
-      const lat = pos.coords.latitude;
-      const lon = pos.coords.longitude;
-
-      fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
-        .then(response => response.json())
-        .then(data => {
-          const cityName = data.address.city || data.address.town || data.address.village || "Località sconosciuta";
-          const gpsSpan = document.getElementById("gpsSpan");
-          if (gpsSpan) gpsSpan.textContent = `📡 Sei realmente a ${capitalize(cityName)}`;
-
-          // Salva città GPS nel campo form
-          document.getElementById("cityField").value = capitalize(cityName);
-        })
-        .catch(() => {
-          const gpsSpan = document.getElementById("gpsSpan");
-          if (gpsSpan) gpsSpan.textContent = "🌌 Impossibile rilevare la città GPS.";
-        });
-    }, () => {
-      const gpsSpan = document.getElementById("gpsSpan");
-      if (gpsSpan) gpsSpan.textContent = "🚫 GPS negato o non disponibile.";
-    });
-  }
-
-  // 🎬 Welcome transitions
-  setTimeout(() => {
-    const step1 = document.getElementById("welcomeStep1");
-    const step2 = document.getElementById("welcomeStep2");
-    if (step1 && step2) {
-      step1.style.opacity = "0";
-      setTimeout(() => {
-        step1.style.display = "none";
-        step2.style.display = "flex";
-        const details = step2.querySelector(".welcomeDetails");
-        if (details) details.style.display = "block";
-      }, 1000);
+    function capitalize(str) {
+      return str ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
     }
-  }, 12000);
 
-  setTimeout(() => {
-    document.getElementById("chatForm").submit();
-  }, 4500);
+    window.onload = function () {
+      const nick     = localStorage.getItem("nick") || "Guest";
+      const sex      = localStorage.getItem("sex") || "";
+      const looking  = localStorage.getItem("looking") || "";
+      const city     = localStorage.getItem("city") || "";
+      const password = localStorage.getItem("password") || "";
 
-  setTimeout(() => {
-    document.getElementById("welcomeAudio").play().catch(err => console.warn("Audio bloccato:", err));
-  }, 13000);
+      document.getElementById("nickField").value     = nick;
+      document.getElementById("sexField").value      = sex;
+      document.getElementById("lookingField").value  = looking;
+      document.getElementById("cityField").value     = city;
+      document.getElementById("passwordField").value = password;
 
-  setTimeout(() => {
-    document.getElementById("welcomeStep2").style.opacity = "0";
-    setTimeout(() => {
-      document.getElementById("welcomeStep2").style.display = "none";
-      document.getElementById("bannerTop").style.display = "flex";
-    }, 1000);
-  }, 48000);
-};
+      // Benvenuto/a dinamico
+      document.getElementById("welcomePrefix").textContent = sex === "F" ? "Benvenuta" : "Benvenuto";
 
+      document.getElementById("nickSpan").textContent = capitalize(nick);
+
+      document.getElementById("sexSpan").textContent =
+        sex === "M" ? "👱🏽‍♂️ un uomo in cerca di nuove connessioni" :
+        sex === "F" ? "👩 una donna in cerca di nuove connessioni" :
+        "un* utente in cerca di nuove connessioni";
+
+      document.getElementById("lookingSpan").textContent =
+        looking === "M" ? "👨 un uomo" :
+        looking === "F" ? "👩 una donna" :
+        "qualcuno";
+
+      // codice JS per mostrare IP e località automatica
+fetch("https://ipapi.co/json/")
+  .then(res => res.json())
+  .then(data => {
+    const ip     = data.ip;
+    const city   = data.city;
+    const region = data.region;
+    const message = `trasmetti vibrazioni da 📍 ${capitalize(city)} in ${capitalize(region)} — IP: ${ip}`;
+    
+    const citySpan = document.getElementById("citySpan");
+    if (citySpan) citySpan.textContent = message;
+  })
+  .catch(() => {
+    const citySpan = document.getElementById("citySpan");
+    if (citySpan) citySpan.textContent = "🌌 Vibrazione rilevata — località ignota 🔒";
+  });
+
+      setTimeout(() => {
+        document.getElementById("welcomeStep1").style.opacity = "0";
+        setTimeout(() => {
+          document.getElementById("welcomeStep1").style.display = "none";
+          document.getElementById("welcomeStep2").style.display = "flex";
+          document.querySelector("#welcomeStep2 .welcomeDetails").style.display = "block";
+        }, 1000);
+      }, 12000);
+
+      setTimeout(() => {
+        document.getElementById("chatForm").submit();
+      }, 4500);
+
+      setTimeout(() => {
+        document.getElementById("welcomeAudio").play().catch(err => console.warn("Audio bloccato:", err));
+      }, 13000);
+
+      setTimeout(() => {
+        document.getElementById("welcomeStep2").style.opacity = "0";
+        setTimeout(() => {
+          document.getElementById("welcomeStep2").style.display = "none";
+          document.getElementById("bannerTop").style.display = "flex";
+        }, 1000);
+      }, 48000);
+    };
   </script>
     <!-- FOOTER -->
  <footer style="text-align:center; padding:1em; font-size:0.9em; color:#aaa;">
