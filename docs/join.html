@@ -160,30 +160,7 @@ window.onload = function () {
     });
 
   // 📡 GPS + città precisa
-  if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(pos => {
-      const lat = pos.coords.latitude;
-      const lon = pos.coords.longitude;
-
-      fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
-        .then(response => response.json())
-        .then(data => {
-          const cityName = data.address.city || data.address.town || data.address.village || "Località sconosciuta";
-          const gpsSpan = document.getElementById("gpsSpan");
-          if (gpsSpan) gpsSpan.textContent = `📡 Sei realmente a ${capitalize(cityName)}`;
-
-          // Salva città GPS nel campo form
-          document.getElementById("cityField").value = capitalize(cityName);
-        })
-        .catch(() => {
-          const gpsSpan = document.getElementById("gpsSpan");
-          if (gpsSpan) gpsSpan.textContent = "🌌 Impossibile rilevare la città GPS.";
-        });
-    }, () => {
-      const gpsSpan = document.getElementById("gpsSpan");
-      if (gpsSpan) gpsSpan.textContent = "🚫 GPS negato o non disponibile.";
-    });
-  }
+  https://nebulalounge.github.io/nebula-chat/
 
   // 🎬 Welcome transitions
   setTimeout(() => {
