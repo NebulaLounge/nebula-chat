@@ -10,7 +10,6 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0b132b; color: #eee;
     }
-
     .container {
       width: 100%;
       display: flex;
@@ -18,7 +17,6 @@
       align-items: center;
       gap: 0;
     }
-
     #welcomeStep1, #welcomeStep2 {
       width: 100%; height: 90px;
       background: linear-gradient(to right, #001f3f, #142a4d, #001f3f);
@@ -29,40 +27,33 @@
       box-shadow: inset 0 0 22px #ea5906aa;
       transition: opacity 1s ease;
     }
-
     #welcomeStep1 .welcomeTitle, #welcomeStep2 .welcomeTitle {
       font-size: clamp(1.8rem, 4vw, 2.4rem);
       font-weight: 690;
       margin: 0;
       overflow: hidden;
     }
-
     #welcomeStep2 .welcomeDetails {
       font-size: clamp(0.95rem, 2vw, 1.15rem);
       font-weight: 500;
       margin-top: 6px;
       display: none;
     }
-
     .frame-banner, .banner-bottom {
       height: 90px; width: 100%;
       background: linear-gradient(to right, #001f3f, #0b132b, #001f3f);
       display: flex; justify-content: center; align-items: center;
       box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
     }
-
     .frame-banner { display: none; }
-
     iframe.chat {
       border: none; width: 100%;
       max-width: 1080px;
-      height: 750px;   <!-- altezza frame chat simons -->
+      height: 750px;
       background: #000;
       box-shadow: 0 0 14px rgba(0,0,0,0.4);
     }
-
     form { display: none; }
-
     @media (max-width: 768px) {
       #welcomeStep1, #welcomeStep2 { padding: 0 8px; }
       iframe.chat { height: 540px; }
@@ -80,7 +71,7 @@
     <div id="welcomeStep2" style="display: none;">
       <div class="welcomeTitle">🚀 <span id="welcomePrefix"></span> nella <strong>NebulaLounge</strong>! Lasciati ispirare.</div>
       <div class="welcomeDetails">
-        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span>, con <span id="lookingSpan"></span>, <span id="citySpan"></span>.
+        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span>, con <span id="lookingSpan"></span>, <span id="citySpan">📍 Località in rilevamento...</span> — <span id="gpsSpan">📡 GPS in rilevamento...</span>.
       </div>
     </div>
 
@@ -118,92 +109,84 @@
 
   <script>
     function capitalize(str) {
-  return str ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
-}
-
-window.onload = function () {
-  const nick     = localStorage.getItem("nick")     || "Guest";
-  const sex      = localStorage.getItem("sex")      || "";
-  const looking  = localStorage.getItem("looking")  || "";
-  const password = localStorage.getItem("password") || "";
-
-  // Assegna valori al form
-  document.getElementById("nickField").value     = nick;
-  document.getElementById("sexField").value      = sex;
-  document.getElementById("lookingField").value  = looking;
-  document.getElementById("passwordField").value = password;
-
-  document.getElementById("welcomePrefix").textContent = sex === "F" ? "Benvenuta" : "Benvenuto";
-  document.getElementById("nickSpan").textContent = capitalize(nick);
-
-  document.getElementById("sexSpan").textContent =
-    sex === "M" ? "👱🏽‍♂️ un uomo in cerca di nuove connessioni" :
-    sex === "F" ? "👩 una donna in cerca di nuove connessioni" :
-    "un* utente in cerca di nuove connessioni";
-
-  document.getElementById("lookingSpan").textContent =
-    looking === "M" ? "👨 un uomo" :
-    looking === "F" ? "👩 una donna" :
-    "qualcuno";
-
-  // 🌐 IP pubblico
-  fetch("https://api.ipify.org?format=json")
-    .then(res => res.json())
-    .then(ipData => {
-      const ip = ipData.ip;
-      const ipSpan = document.getElementById("citySpan");
-      if (ipSpan) ipSpan.textContent = `🌐 IP pubblico: ${ip}`;
-    })
-    .catch(() => {
-      const ipSpan = document.getElementById("citySpan");
-      if (ipSpan) ipSpan.textContent = "🌌 IP non disponibile.";
-    });
-
-  // 📡 GPS + città precisa
-  https://nebulalounge.github.io/nebula-chat/
-
-  // 🎬 Welcome transitions
-  setTimeout(() => {
-    const step1 = document.getElementById("welcomeStep1");
-    const step2 = document.getElementById("welcomeStep2");
-    if (step1 && step2) {
-      step1.style.opacity = "0";
-      setTimeout(() => {
-        step1.style.display = "none";
-        step2.style.display = "flex";
-        const details = step2.querySelector(".welcomeDetails");
-        if (details) details.style.display = "block";
-      }, 1000);
+      return str ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
     }
-  }, 12000);
 
-  setTimeout(() => {
-    document.getElementById("chatForm").submit();
-  }, 4500);
+    window.onload = function () {
+      const nick     = localStorage.getItem("nick") || "Guest";
+      const sex      = localStorage.getItem("sex") || "";
+      const looking  = localStorage.getItem("looking") || "";
+      const password = localStorage.getItem("password") || "";
 
-  setTimeout(() => {
-    document.getElementById("welcomeAudio").play().catch(err => console.warn("Audio bloccato:", err));
-  }, 13000);
+      document.getElementById("nickField").value     = nick;
+      document.getElementById("sexField").value      = sex;
+      document.getElementById("lookingField").value  = looking;
+      document.getElementById("passwordField").value = password;
 
-  setTimeout(() => {
-    document.getElementById("welcomeStep2").style.opacity = "0";
-    setTimeout(() => {
-      document.getElementById("welcomeStep2").style.display = "none";
-      document.getElementById("bannerTop").style.display = "flex";
-    }, 1000);
-  }, 48000);
-};
+      document.getElementById("welcomePrefix").textContent = sex === "F" ? "Benvenuta" : "Benvenuto";
+      document.getElementById("nickSpan").textContent = capitalize(nick);
 
+      document.getElementById("sexSpan").textContent =
+        sex === "M" ? "👱🏽‍♂️ un uomo in cerca di nuove connessioni" :
+        sex === "F" ? "👩 una donna in cerca di nuove connessioni" :
+        "un* utente in cerca di nuove connessioni";
+
+      document.getElementById("lookingSpan").textContent =
+        looking === "M" ? "👨 un uomo" :
+        looking === "F" ? "👩 una donna" :
+        "qualcuno";
+
+      // 🌐 IP pubblico
+      fetch("https://api.ipify.org?format=json")
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("citySpan").textContent = `🌐 IP pubblico: ${data.ip}`;
+        })
+        .catch(() => {
+          document.getElementById("citySpan").textContent = "🌐 IP non disponibile.";
+        });
+
+      // 📡 GPS + città reale
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+
+          fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
+            .then(res => res.json())
+            .then(data => {
+              const city = data.address.city || data.address.town || data.address.village || "Località sconosciuta";
+              document.getElementById("gpsSpan").textContent = `📡 GPS localizzato: ${capitalize(city)}`;
+              document.getElementById("cityField").value = capitalize(city);
+            })
+            .catch(() => {
+              document.getElementById("gpsSpan").textContent = "📡 GPS rilevato ma città non trovata.";
+            });
+        }, () => {
+          document.getElementById("gpsSpan").textContent = "🚫 GPS negato o non disponibile.";
+        });
+      } else {
+        document.getElementById("gpsSpan").textContent = "📡 Geolocalizzazione non supportata dal browser.";
+      }
+
+      setTimeout(() => {
+        document.getElementById("welcomeStep1").style.opacity = "0";
+        setTimeout(() => {
+          document.getElementById("welcomeStep1").style.display = "none";
+          document.getElementById("welcomeStep2").style.display = "flex";
+        }, 1000);
+      }, 48000);
+    };
   </script>
-    <!-- FOOTER -->
- <footer style="text-align:center; padding:1em; font-size:0.9em; color:#aaa;">
-  <a href="legal/privacy.html">Privacy</a> |
-  <a href="legal/regolamento.html">Regolamento</a> |
-  <a href="legal/termini.html">Termini e Condizioni</a> |
-  <a href="legal/responsabilita.html">Responsabilità</a><br>
-  Chat ospitata su <a href="https://indelibile.it" target="_blank">indelibile.it</a><br>
-  Copyright © NebulaLounge, tutti i diritti sono riservati.
-</footer>
+  <!-- FOOTER -->
+  <footer style="text-align:center; padding:1em; font-size:0.9em; color:#aaa;">
+    <a href="legal/privacy.html">Privacy</a> |
+    <a href="legal/regolamento.html">Regolamento</a> |
+    <a href="legal/termini.html">Termini e Condizioni</a> |
+    <a href="legal/responsabilita.html">Responsabilità</a><br>
+    Chat ospitata su <a href="https://indelibile.it" target="_blank">indelibile.it</a><br>
+    Copyright © NebulaLounge, tutti i diritti sono riservati.
+  </footer>
 
 </body>
 </html>
