@@ -161,21 +161,7 @@ fetch("https://ipapi.co/json/")
     const citySpan = document.getElementById("citySpan");
     if (citySpan) citySpan.textContent = message;
   })
-  fetch("https://ipapi.co/json/")
-  .then(res => res.json())
-  .then(data => {
-    const ip     = data.ip;
-    const city   = data.city;
-    const region = data.region;
-    const message = `trasmetti vibrazioni da 📍 ${capitalize(city)} in ${capitalize(region)} — IP: ${ip}`;
-    
-    const citySpan = document.getElementById("citySpan");
-    if (citySpan) citySpan.textContent = message;
-  })
-  .catch(() => {
-    const citySpan = document.getElementById("citySpan");
-    if (citySpan) citySpan.textContent = "🌌 Vibrazione rilevata — località ignota 🔒";
-  });
+  
 
 // 🔽 Aggiungi il blocco GPS qui, DOPO il fetch
 if ("geolocation" in navigator) {
