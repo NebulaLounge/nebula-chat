@@ -79,98 +79,106 @@
   <audio id="welcomeAudio" preload="auto" src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
 
   <script>
-    function capitalize(str) {
-      return str ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
-    }
+function capitalize(str) {
+  return str ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
+}
 
-    window.onload = function () {
-      const nick     = localStorage.getItem("nick")     || "Guest";
-      const sex      = localStorage.getItem("sex")      || "";
-      const looking  = localStorage.getItem("looking")  || "";
-      const city     = localStorage.getItem("city")     || "";
-      const password = localStorage.getItem("password") || "";
+window.onload = function () {
+  const nick     = localStorage.getItem("nick")     || "Guest";
+  const sex      = localStorage.getItem("sex")      || "";
+  const looking  = localStorage.getItem("looking")  || "";
+  const password = localStorage.getItem("password") || "";
 
-      document.getElementById("nickField").value     = nick;
-      document.getElementById("sexField").value      = sex;
-      document.getElementById("lookingField").value  = looking;
-      document.getElementById("cityField").value     = city;
-      document.getElementById("passwordField").value = password;
+  // Assegna valori al form
+  document.getElementById("nickField").value     = nick;
+  document.getElementById("sexField").value      = sex;
+  document.getElementById("lookingField").value  = looking;
+  document.getElementById("passwordField").value = password;
 
-      document.getElementById("welcomePrefix").textContent = sex === "F" ? "Benvenuta" : "Benvenuto";
-      document.getElementById("nickSpan").textContent = capitalize(nick);
+  document.getElementById("welcomePrefix").textContent = sex === "F" ? "Benvenuta" : "Benvenuto";
+  document.getElementById("nickSpan").textContent = capitalize(nick);
 
-      document.getElementById("sexSpan").textContent =
-        sex === "M" ? "👱🏽‍♂️ un uomo in cerca di nuove connessioni" :
-        sex === "F" ? "👩 una donna in cerca di nuove connessioni" :
-        "un* utente in cerca di nuove connessioni";
+  document.getElementById("sexSpan").textContent =
+    sex === "M" ? "👱🏽‍♂️ un uomo in cerca di nuove connessioni" :
+    sex === "F" ? "👩 una donna in cerca di nuove connessioni" :
+    "un* utente in cerca di nuove connessioni";
 
-      document.getElementById("lookingSpan").textContent =
-        looking === "M" ? "👨 un uomo" :
-        looking === "F" ? "👩 una donna" :
-        "qualcuno";
+  document.getElementById("lookingSpan").textContent =
+    looking === "M" ? "👨 un uomo" :
+    looking === "F" ? "👩 una donna" :
+    "qualcuno";
 
-      // 🌐 IP localizzazione
-      fetch("https://ipapi.co/json/")
-        .then(res => res.json())
+  // 🌐 IP pubblico
+  fetch("https://api.ipify.org?format=json")
+    .then(res => res.json())
+    .then(ipData => {
+      const ip = ipData.ip;
+      const ipSpan = document.getElementById("citySpan");
+      if (ipSpan) ipSpan.textContent = `🌐 IP pubblico: ${ip}`;
+    })
+    .catch(() => {
+      const ipSpan = document.getElementById("citySpan");
+      if (ipSpan) ipSpan.textContent = "🌌 IP non disponibile.";
+    });
+
+  // 📡 GPS + città precisa
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(pos => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
+        .then(response => response.json())
         .then(data => {
-          const ip     = data.ip;
-          const city   = capitalize(data.city);
-          const region = capitalize(data.region);
-          const country = capitalize(data.country_name);
+          const cityName = data.address.city || data.address.town || data.address.village || "Località sconosciuta";
+          const gpsSpan = document.getElementById("gpsSpan");
+          if (gpsSpan) gpsSpan.textContent = `📡 Sei realmente a ${capitalize(cityName)}`;
 
-          const ipMessage = `📍 IP localizzato: ${city}, ${region} (${country}) — IP: ${ip}`;
-          const citySpan = document.getElementById("citySpan");
-          if (citySpan) citySpan.textContent = ipMessage;
+          // Salva città GPS nel campo form
+          document.getElementById("cityField").value = capitalize(cityName);
         })
         .catch(() => {
-          const citySpan = document.getElementById("citySpan");
-          if (citySpan) citySpan.textContent = "🌌 Localizzazione IP non disponibile.";
-        });
-
-      // 📡 GPS, se disponibile
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          const lat = pos.coords.latitude.toFixed(5);
-          const lon = pos.coords.longitude.toFixed(5);
           const gpsSpan = document.getElementById("gpsSpan");
-          if (gpsSpan) gpsSpan.textContent = `📡 GPS rilevato: Lat ${lat}, Lon ${lon}`;
-        }, err => {
-          const gpsSpan = document.getElementById("gpsSpan");
-          if (gpsSpan) gpsSpan.textContent = "🚫 GPS negato o non disponibile.";
+          if (gpsSpan) gpsSpan.textContent = "🌌 Impossibile rilevare la città GPS.";
         });
-      }
+    }, () => {
+      const gpsSpan = document.getElementById("gpsSpan");
+      if (gpsSpan) gpsSpan.textContent = "🚫 GPS negato o non disponibile.";
+    });
+  }
 
-      // 🎬 Step transitions
+  // 🎬 Welcome transitions
+  setTimeout(() => {
+    const step1 = document.getElementById("welcomeStep1");
+    const step2 = document.getElementById("welcomeStep2");
+    if (step1 && step2) {
+      step1.style.opacity = "0";
       setTimeout(() => {
-        const step1 = document.getElementById("welcomeStep1");
-        const step2 = document.getElementById("welcomeStep2");
-        if (step1 && step2) {
-          step1.style.opacity = "0";
-          setTimeout(() => {
-            step1.style.display = "none";
-            step2.style.display = "flex";
-            const details = step2.querySelector(".welcomeDetails");
-            if (details) details.style.display = "block";
-          }, 1000);
-        }
-      }, 12000);
+        step1.style.display = "none";
+        step2.style.display = "flex";
+        const details = step2.querySelector(".welcomeDetails");
+        if (details) details.style.display = "block";
+      }, 1000);
+    }
+  }, 12000);
 
-      setTimeout(() => {
-        document.getElementById("chatForm").submit();
-      }, 4500);
+  setTimeout(() => {
+    document.getElementById("chatForm").submit();
+  }, 4500);
 
-     setTimeout(() => {
-        document.getElementById("welcomeAudio").play().catch(err => console.warn("Audio bloccato:", err));
-      }, 13000);
+  setTimeout(() => {
+    document.getElementById("welcomeAudio").play().catch(err => console.warn("Audio bloccato:", err));
+  }, 13000);
 
-      setTimeout(() => {
-        document.getElementById("welcomeStep2").style.opacity = "0";
-        setTimeout(() => {
-          document.getElementById("welcomeStep2").style.display = "none";
-          document.getElementById("bannerTop").style.display = "flex";
-        }, 1000);
-      }, 48000);
-    };
+  setTimeout(() => {
+    document.getElementById("welcomeStep2").style.opacity = "0";
+    setTimeout(() => {
+      document.getElementById("welcomeStep2").style.display = "none";
+      document.getElementById("bannerTop").style.display = "flex";
+    }, 1000);
+  }, 48000);
+};
+
   </script>
     <!-- FOOTER -->
  <footer style="text-align:center; padding:1em; font-size:0.9em; color:#aaa;">
