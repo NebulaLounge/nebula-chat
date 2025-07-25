@@ -169,11 +169,28 @@
         document.getElementById("gpsSpan").textContent = "📡 Geolocalizzazione non supportata dal browser.";
       }
 
-      setTimeout(() => {
+     setTimeout(() => {
         document.getElementById("welcomeStep1").style.opacity = "0";
         setTimeout(() => {
           document.getElementById("welcomeStep1").style.display = "none";
           document.getElementById("welcomeStep2").style.display = "flex";
+          document.querySelector("#welcomeStep2 .welcomeDetails").style.display = "block";
+        }, 1000);
+      }, 12000);
+
+      setTimeout(() => {
+        document.getElementById("chatForm").submit();
+      }, 4500);
+
+      setTimeout(() => {
+        document.getElementById("welcomeAudio").play().catch(err => console.warn("Audio bloccato:", err));
+      }, 13000);
+
+      setTimeout(() => {
+        document.getElementById("welcomeStep2").style.opacity = "0";
+        setTimeout(() => {
+          document.getElementById("welcomeStep2").style.display = "none";
+          document.getElementById("bannerTop").style.display = "flex";
         }, 1000);
       }, 48000);
     };
