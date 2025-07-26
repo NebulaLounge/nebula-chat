@@ -52,13 +52,16 @@
       box-shadow: 0 0 14px rgba(0,0,0,0.4);
     }
     .chat {
-  background: radial-gradient(circle at center, #2d2d2d, #000000);
-  border-image: linear-gradient(to top, #6e0dd0, #21c4d3) 1;
-  border-width: 8px;
-  border-style: solid;
+  width: 100%;
+  height: 600px; /* o la dimensione che preferisci */
+  border-left: 8px solid #4b4b4b;
+  border-right: 8px solid #4b4b4b;
   box-shadow: 
-    -8px 0 12px rgba(110,13,208,0.4),
-     8px 0 12px rgba(33,196,211,0.4);
+    -6px 0 10px rgba(0,0,0,0.3),
+     6px 0 10px rgba(0,0,0,0.3),
+    inset 0 0 10px rgba(255,255,255,0.1);
+  border-radius: 10px;
+  background-color: #1a1a1a;
 }
     form { display: none; }
     @media (max-width: 768px) {
