@@ -3,65 +3,204 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NebulaLounge Chat — Profilo Accesso</title>
+  <title>NebulaLounge – Connessione</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #1e1e2f, #2a2a3c);
-      color: #f0f0f0;
+    body, html {
+      margin: 0; padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0b132b; color: #eee;
+    }
+
+    .container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    #welcomeStep1, #welcomeStep2 {
+      width: 100%; height: 90px;
+      background: linear-gradient(to right, #001f3f, #142a4d, #001f3f);
+      padding: 0 16px;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center; color: #f0e8de;
+      box-shadow: inset 0 0 22px #ea5906aa;
+      transition: opacity 1s ease;
+    }
+
+    #welcomeStep1 .welcomeTitle, #welcomeStep2 .welcomeTitle {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 690;
       margin: 0;
-      padding: 20px;
-      text-align: center;
+      overflow: hidden;
     }
-    .profile-box {
-      background-color: rgba(255,255,255,0.08);
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 400px;
-      margin: 40px auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+
+    #welcomeStep2 .welcomeDetails {
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      font-weight: 500;
+      margin-top: 6px;
+      display: none;
     }
-    h1 {
-      font-size: 1.8em;
-      color: #ea5906;
-      margin-bottom: 10px;
+
+    .frame-banner, .banner-bottom {
+      height: 90px; width: 100%;
+      background: linear-gradient(to right, #001f3f, #0b132b, #001f3f);
+      display: flex; justify-content: center; align-items: center;
+      box-shadow: inset 0 0 22px rgba(234, 89, 6, 0.4);
     }
-    .info {
-      font-size: 1.1em;
-      margin: 6px 0;
+
+    .frame-banner { display: none; }
+
+    iframe.chat {
+      border: none; width: 100%;
+      max-width: 1080px;
+      height: 750px;   <!-- altezza frame chat simons -->
+      background: #000;
+      box-shadow: 0 0 14px rgba(0,0,0,0.4);
     }
-    .tag {
-      font-weight: bold;
-      color: #95c5ff;
+
+    form { display: none; }
+
+    @media (max-width: 768px) {
+      #welcomeStep1, #welcomeStep2 { padding: 0 8px; }
+      iframe.chat { height: 540px; }
     }
   </style>
 </head>
 <body>
-  <div class="profile-box">
-    <h1>✅ Accesso completato</h1>
-    <div class="info"><span class="tag">Nick:</span> <span id="nickOut">—</span></div>
-    <div class="info"><span class="tag">Sesso:</span> <span id="sexOut">—</span></div>
-    <div class="info"><span class="tag">Cerco:</span> <span id="lookingOut">—</span></div>
-    <div class="info"><span class="tag">Località:</span> <span id="cityOut">—</span></div>
-    <div class="info" id="ipLine" style="display:none;"><span class="tag">IP:</span> <span id="ipOut">—</span></div>
+  <div class="container">
+    <!-- Step 1 -->
+    <div id="welcomeStep1">
+      <div class="welcomeTitle">🌌 Connessione in corso... Preparati a immergerti in <strong>NebulaLounge</strong>!</div>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="welcomeStep2" style="display: none;">
+      <div class="welcomeTitle">🚀 <span id="welcomePrefix"></span> nella <strong>NebulaLounge</strong>! Lasciati ispirare.</div>
+      <div class="welcomeDetails">
+        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span>, con <span id="lookingSpan"></span>, <span id="citySpan"></span>.
+      </div>
+    </div>
+
+    <!-- Banner superiore -->
+    <div class="frame-banner" id="bannerTop">
+      <iframe src="https://rotator.tradetracker.net/?r=97208&t=iframe"
+        width="728" height="90" frameborder="0" scrolling="no"
+        style="border:0; margin:0; padding:0;" title="Banner pubblicitario"></iframe>
+    </div>
+
+    <!-- Form invisibile -->
+    <form id="chatForm" action="https://entrainchat-01.simosnap.com/login.php" method="post" target="chatFrame">
+      <input type="hidden" name="nick" id="nickField" />
+      <input type="hidden" name="sex" id="sexField" />
+      <input type="hidden" name="looking" id="lookingField" />
+      <input type="hidden" name="location" id="cityField" />
+      <input type="hidden" name="password" id="passwordField" />
+      <input type="hidden" name="channel" value="#NebulaLounge" />
+    </form>
+
+    <!-- Chat frame -->
+    <iframe class="chat" name="chatFrame" id="chatFrame" title="Chat NebulaLounge"></iframe>
   </div>
 
+  <!-- Banner inferiore -->
+  <div class="banner-bottom">
+    <iframe src="https://rotator.tradetracker.net/?r=97208&t=iframe"
+      width="728" height="90" frameborder="0" scrolling="no"
+      style="border:0; margin:0; padding:0;" title="Banner pubblicitario"></iframe>
+  </div>
+
+  <!-- Audio -->
+  <audio id="welcomeAudio" preload="auto"
+    src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
+
   <script>
-    const nick = localStorage.getItem("nick") || "—";
-    const sex = localStorage.getItem("sex") || "—";
-    const looking = localStorage.getItem("looking") || "—";
-    const city = localStorage.getItem("city") || "—";
-    const ip = localStorage.getItem("ip"); // opzionale
-
-    document.getElementById("nickOut").textContent = nick;
-    document.getElementById("sexOut").textContent = sex === "M" ? "Uomo ♂️" : sex === "F" ? "Donna ♀️" : "—";
-    document.getElementById("lookingOut").textContent = looking === "M" ? "Uomo ♂️" : looking === "F" ? "Donna ♀️" : "—";
-    document.getElementById("cityOut").textContent = city;
-
-    if (ip) {
-      document.getElementById("ipOut").textContent = ip;
-      document.getElementById("ipLine").style.display = "block";
+    function capitalize(str) {
+      return str ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
     }
+
+    window.onload = function () {
+      const nick     = localStorage.getItem("nick") || "Guest";
+      const sex      = localStorage.getItem("sex") || "";
+      const looking  = localStorage.getItem("looking") || "";
+      const city     = localStorage.getItem("city") || "";
+      const password = localStorage.getItem("password") || "";
+
+      document.getElementById("nickField").value     = nick;
+      document.getElementById("sexField").value      = sex;
+      document.getElementById("lookingField").value  = looking;
+      document.getElementById("cityField").value     = city;
+      document.getElementById("passwordField").value = password;
+
+      // Benvenuto/a dinamico
+      document.getElementById("welcomePrefix").textContent = sex === "F" ? "Benvenuta" : "Benvenuto";
+
+      document.getElementById("nickSpan").textContent = capitalize(nick);
+
+      document.getElementById("sexSpan").textContent =
+        sex === "M" ? "👱🏽‍♂️ un uomo in cerca di nuove connessioni" :
+        sex === "F" ? "👩 una donna in cerca di nuove connessioni" :
+        "un* utente in cerca di nuove connessioni";
+
+      document.getElementById("lookingSpan").textContent =
+        looking === "M" ? "👨 un uomo" :
+        looking === "F" ? "👩 una donna" :
+        "qualcuno";
+
+      // codice JS per mostrare IP e località automatica
+fetch("https://ipapi.co/json/")
+  .then(res => res.json())
+  .then(data => {
+    const ip     = data.ip;
+    const city   = data.city;
+    const region = data.region;
+    const message = `trasmetti vibrazioni da 📍 ${capitalize(city)} in ${capitalize(region)} — IP: ${ip}`;
+    
+    const citySpan = document.getElementById("citySpan");
+    if (citySpan) citySpan.textContent = message;
+  })
+  .catch(() => {
+    const citySpan = document.getElementById("citySpan");
+    if (citySpan) citySpan.textContent = "🌌 Vibrazione rilevata — località ignota 🔒";
+  });
+
+      setTimeout(() => {
+        document.getElementById("welcomeStep1").style.opacity = "0";
+        setTimeout(() => {
+          document.getElementById("welcomeStep1").style.display = "none";
+          document.getElementById("welcomeStep2").style.display = "flex";
+          document.querySelector("#welcomeStep2 .welcomeDetails").style.display = "block";
+        }, 1000);
+      }, 12000);
+
+      setTimeout(() => {
+        document.getElementById("chatForm").submit();
+      }, 4500);
+
+      setTimeout(() => {
+        document.getElementById("welcomeAudio").play().catch(err => console.warn("Audio bloccato:", err));
+      }, 13000);
+
+      setTimeout(() => {
+        document.getElementById("welcomeStep2").style.opacity = "0";
+        setTimeout(() => {
+          document.getElementById("welcomeStep2").style.display = "none";
+          document.getElementById("bannerTop").style.display = "flex";
+        }, 1000);
+      }, 48000);
+    };
   </script>
+    <!-- FOOTER -->
+ <footer style="text-align:center; padding:1em; font-size:0.9em; color:#aaa;">
+  <a href="legal/privacy.html">Privacy</a> |
+  <a href="legal/regolamento.html">Regolamento</a> |
+  <a href="legal/termini.html">Termini e Condizioni</a> |
+  <a href="legal/responsabilita.html">Responsabilità</a><br>
+  Chat ospitata su <a href="https://indelibile.it" target="_blank">indelibile.it</a><br>
+  Copyright © NebulaLounge, tutti i diritti sono riservati.
+</footer>
+
 </body>
 </html>
