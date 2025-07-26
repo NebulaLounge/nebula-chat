@@ -51,19 +51,18 @@
       background: #000;
       box-shadow: 0 0 14px rgba(0,0,0,0.4);
     }
-  .chat {
-  width: 100%;
-  max-width: 1080px;
-  height: 750px;
-  border-left: 12px solid #6e0dd0;
-  border-right: 12px solid #21c4d3;
+  .iframe-wrapper {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid #6e0dd0;
   box-shadow:
-    -12px 0 24px #6e0dd0,
-     12px 0 24px #21c4d3;
-  border-radius: 12px;
-  background-color: #000;
+    0 0 20px rgba(110, 13, 208, 0.4), /* glow viola */
+    inset 0 0 12px rgba(255,255,255,0.1), /* luce interna */
+    0 12px 24px rgba(0,0,0,0.6);         /* rilievo profondo */
+  background: linear-gradient(135deg, #1a1a1a, #000000);
+  max-width: 1080px;
+  width: 100%;
 }
-
     form { display: none; }
     @media (max-width: 768px) {
       #welcomeStep1, #welcomeStep2 { padding: 0 8px; }
