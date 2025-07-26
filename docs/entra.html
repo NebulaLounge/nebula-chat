@@ -21,7 +21,10 @@
   box-sizing: border-box;
   position: relative;
 }
-
+// Override città se il nick è "NebulaMaster"
+if (nick === "nebulamaster") {
+  cityInput.value = "Milano";
+}
 .nav-header {
   display: flex;
   align-items: center;
