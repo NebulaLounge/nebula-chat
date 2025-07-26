@@ -59,6 +59,19 @@
       iframe.chat { height: 540px; }
     }
   </style>
+  <script>
+window.onload = function () {
+  const nick = localStorage.getItem("nick");
+  const cityInput = document.getElementById("cityInput");
+
+  if (nick && nick.toLowerCase() === "nebula") {
+    if (cityInput) {
+      cityInput.value = "Milano";
+      console.log("Città impostata automaticamente su Milano per Nebula.");
+    }
+  }
+};
+</script>
 </head>
 <body>
   <div class="container">
