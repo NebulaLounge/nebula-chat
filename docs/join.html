@@ -125,18 +125,14 @@
       const nick     = localStorage.getItem("nick") || "Guest";
       const sex      = localStorage.getItem("sex") || "";
       const looking  = localStorage.getItem("looking") || "";
-      const city     = localStorage.getItem("city") || "";
       const password = localStorage.getItem("password") || "";
 
       document.getElementById("nickField").value     = nick;
       document.getElementById("sexField").value      = sex;
       document.getElementById("lookingField").value  = looking;
-      document.getElementById("cityField").value     = city;
       document.getElementById("passwordField").value = password;
 
-      // Benvenuto/a dinamico
       document.getElementById("welcomePrefix").textContent = sex === "F" ? "Benvenuta" : "Benvenuto";
-
       document.getElementById("nickSpan").textContent = capitalize(nick);
 
       document.getElementById("sexSpan").textContent =
@@ -149,22 +145,38 @@
         looking === "F" ? "👩 una donna" :
         "qualcuno";
 
-      // codice JS per mostrare IP e località automatica
-fetch("https://ipapi.co/json/")
-  .then(res => res.json())
-  .then(data => {
-    const ip     = data.ip;
-    const city   = data.city;
-    const region = data.region;
-    const message = `trasmetti vibrazioni da 📍 ${capitalize(city)} in ${capitalize(region)} — IP: ${ip}`;
-    
-    const citySpan = document.getElementById("citySpan");
-    if (citySpan) citySpan.textContent = message;
-  })
-  .catch(() => {
-    const citySpan = document.getElementById("citySpan");
-    if (citySpan) citySpan.textContent = "🌌 Vibrazione rilevata — località ignota 🔒";
-  });
+      // 🌐 IP pubblico
+      fetch("https://api.ipify.org?format=json")
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("citySpan").textContent = `🌐 IP pubblico: ${data.ip}`;
+        })
+        .catch(() => {
+          document.getElementById("citySpan").textContent = "🌐 IP non disponibile.";
+        });
+
+      // 📡 GPS + città reale
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+
+          fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
+            .then(res => res.json())
+            .then(data => {
+              const city = data.address.city || data.address.town || data.address.village || "Località sconosciuta";
+              document.getElementById("gpsSpan").textContent = `📡 GPS localizzato: ${capitalize(city)}`;
+              document.getElementById("cityField").value = capitalize(city);
+            })
+            .catch(() => {
+              document.getElementById("gpsSpan").textContent = "📡 GPS rilevato ma città non trovata.";
+            });
+        }, () => {
+          document.getElementById("gpsSpan").textContent = "🚫 GPS negato o non disponibile.";
+        });
+      } else {
+        document.getElementById("gpsSpan").textContent = "📡 Geolocalizzazione non supportata dal browser.";
+      }
 
       setTimeout(() => {
         document.getElementById("welcomeStep1").style.opacity = "0";
