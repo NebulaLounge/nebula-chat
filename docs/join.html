@@ -15,7 +15,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0;
     }
     #welcomeStep1, #welcomeStep2 {
       width: 100%; height: 90px;
@@ -27,13 +26,12 @@
       box-shadow: inset 0 0 22px #ea5906aa;
       transition: opacity 1s ease;
     }
-    #welcomeStep1 .welcomeTitle, #welcomeStep2 .welcomeTitle {
+    .welcomeTitle {
       font-size: clamp(1.8rem, 4vw, 2.4rem);
       font-weight: 690;
       margin: 0;
-      overflow: hidden;
     }
-    #welcomeStep2 .welcomeDetails {
+    .welcomeDetails {
       font-size: clamp(0.95rem, 2vw, 1.15rem);
       font-weight: 500;
       margin-top: 6px;
@@ -59,69 +57,43 @@
       iframe.chat { height: 540px; }
     }
   </style>
-  <script>
-window.onload = function () {
-  const nick = localStorage.getItem("nick");
-  const cityInput = document.getElementById("cityInput");
 
-  if (nick && nick.toLowerCase() === "nebula") {
-    if (cityInput) {
-      cityInput.value = "Milano";
-      console.log("Città impostata automaticamente su Milano per Nebula.");
-    }
-  }
-};
-</script>
-</head>
-<body>
-  <div class="container">
-    <!-- Step 1 -->
-    <div id="welcomeStep1">
-      <div class="welcomeTitle">🌌 Connessione in corso... Preparati a immergerti in <strong>NebulaLounge</strong>!</div>
-    </div>
-
-    <!-- Step 2 -->
-    <div id="welcomeStep2" style="display: none;">
-      <div class="welcomeTitle">🚀 <span id="welcomePrefix"></span> nella <strong>NebulaLounge</strong>! Lasciati ispirare.</div>
-      <div class="welcomeDetails">
-        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span>, con <span id="lookingSpan"></span>, <span id="citySpan">📍 Località in rilevamento...</span> — <span id="gpsSpan">📡 GPS in rilevamento...</span>.
-      </div>
-    </div>
-
-    <!-- Banner superiore -->
-    <div class="frame-banner" id="bannerTop">
-      <iframe src="https://rotator.tradetracker.net/?r=97208&t=iframe"
-        width="728" height="90" frameborder="0" scrolling="no"
-        style="border:0; margin:0; padding:0;" title="Banner pubblicitario"></iframe>
-    </div>
-
-    <!-- Form invisibile -->
-    <form id="chatForm" action="https://entrainchat-01.simosnap.com/login.php" method="post" target="chatFrame">
-      <input type="hidden" name="nick" id="nickField" />
-      <input type="hidden" name="sex" id="sexField" />
-      <input type="hidden" name="looking" id="lookingField" />
-      <input type="hidden" name="location" id="cityField" />
-      <input type="hidden" name="password" id="passwordField" />
-      <input type="hidden" name="channel" value="#NebulaLounge" />
-    </form>
-
-    <!-- Chat frame -->
-    <iframe class="chat" name="chatFrame" id="chatFrame" title="Chat NebulaLounge"></iframe>
-  </div>
-
-  <!-- Banner inferiore -->
-  <div class="banner-bottom">
-    <iframe src="https://rotator.tradetracker.net/?r=97208&t=iframe"
-      width="728" height="90" frameborder="0" scrolling="no"
-      style="border:0; margin:0; padding:0;" title="Banner pubblicitario"></iframe>
-  </div>
-
-  <!-- Audio -->
-  <audio id="welcomeAudio" preload="auto"
-    src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
   <script>
     function capitalize(str) {
       return str ? str.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
+    }
+
+    function rilevaPosizione() {
+      fetch("https://api.ipify.org?format=json")
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("citySpan").textContent = `🌐 IP pubblico: ${data.ip}`;
+        })
+        .catch(() => {
+          document.getElementById("citySpan").textContent = "🌐 IP non disponibile.";
+        });
+
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+
+          fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
+            .then(res => res.json())
+            .then(data => {
+              const city = data.address.city || data.address.town || data.address.village || "Località sconosciuta";
+              document.getElementById("gpsSpan").textContent = `📡 GPS localizzato: ${capitalize(city)}`;
+              document.getElementById("cityField").value = capitalize(city);
+            })
+            .catch(() => {
+              document.getElementById("gpsSpan").textContent = "📡 GPS rilevato ma città non trovata.";
+            });
+        }, () => {
+          document.getElementById("gpsSpan").textContent = "🚫 GPS negato o non disponibile.";
+        });
+      } else {
+        document.getElementById("gpsSpan").textContent = "📡 Geolocalizzazione non supportata dal browser.";
+      }
     }
 
     window.onload = function () {
@@ -148,45 +120,16 @@ window.onload = function () {
         looking === "F" ? "👩 una donna" :
         "qualcuno";
 
-      // 🌐 IP pubblico
-      fetch("https://api.ipify.org?format=json")
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("citySpan").textContent = `🌐 IP pubblico: ${data.ip}`;
-        })
-        .catch(() => {
-          document.getElementById("citySpan").textContent = "🌐 IP non disponibile.";
-        });
-
-      // 📡 GPS + città reale
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          const lat = pos.coords.latitude;
-          const lon = pos.coords.longitude;
-
-          fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
-            .then(res => res.json())
-            .then(data => {
-              const city = data.address.city || data.address.town || data.address.village || "Località sconosciuta";
-              document.getElementById("gpsSpan").textContent = `📡 GPS localizzato: ${capitalize(city)}`;
-              document.getElementById("cityField").value = capitalize(city);
-            })
-            .catch(() => {
-              document.getElementById("gpsSpan").textContent = "📡 GPS rilevato ma città non trovata.";
-            });
-        }, () => {
-          document.getElementById("gpsSpan").textContent = "🚫 GPS negato o non disponibile.";
-        });
-      } else {
-        document.getElementById("gpsSpan").textContent = "📡 Geolocalizzazione non supportata dal browser.";
-      }
-
+      // ⏱️ Mostra step 2 dopo 12s, ed esegue rilevamento
       setTimeout(() => {
         document.getElementById("welcomeStep1").style.opacity = "0";
         setTimeout(() => {
           document.getElementById("welcomeStep1").style.display = "none";
           document.getElementById("welcomeStep2").style.display = "flex";
           document.querySelector("#welcomeStep2 .welcomeDetails").style.display = "block";
+
+          // 🔍 Esegui IP e GPS SOLO qui
+          rilevaPosizione();
         }, 1000);
       }, 12000);
 
@@ -207,15 +150,56 @@ window.onload = function () {
       }, 48000);
     };
   </script>
-    <!-- FOOTER -->
- <footer style="text-align:center; padding:1em; font-size:0.9em; color:#aaa;">
-  <a href="legal/privacy.html">Privacy</a> |
-  <a href="legal/regolamento.html">Regolamento</a> |
-  <a href="legal/termini.html">Termini e Condizioni</a> |
-  <a href="legal/responsabilita.html">Responsabilità</a><br>
-  Chat ospitata su <a href="https://indelibile.it" target="_blank">indelibile.it</a><br>
-  Copyright © NebulaLounge, tutti i diritti sono riservati.
-</footer>
+</head>
+<body>
+  <div class="container">
+    <div id="welcomeStep1">
+      <div class="welcomeTitle">🌌 Connessione in corso... Preparati a immergerti in <strong>NebulaLounge</strong>!</div>
+    </div>
+    <div id="welcomeStep2" style="display: none;">
+      <div class="welcomeTitle">🚀 <span id="welcomePrefix"></span> nella <strong>NebulaLounge</strong>! Lasciati ispirare.</div>
+      <div class="welcomeDetails">
+        Ciao <span id="nickSpan"></span>, sei <span id="sexSpan"></span>, con <span id="lookingSpan"></span>, <span id="citySpan">📍 Località in rilevamento...</span> — <span id="gpsSpan">📡 GPS in rilevamento...</span>.
+      </div>
+    </div>
 
+    <div class="frame-banner" id="bannerTop">
+      <iframe src="https://rotator.tradetracker.net/?r=97208&t=iframe"
+        width="728" height="90" frameborder="0" scrolling="no"
+        style="border:0;" title="Banner pubblicitario"></iframe>
+    </div>
+
+    <form id="chatForm" action="https://entrainchat-01.simosnap.com/login.php" method="post" target="chatFrame">
+      <input type="hidden" name="nick" id="nickField" />
+      <input type="hidden" name="sex" id="sexField" />
+      <input type="hidden" name="looking" id="lookingField" />
+      <input type="hidden" name="location" id="cityField" />
+      <input type="hidden" name="password" id="passwordField" />
+      <input type="hidden" name="channel" value="#NebulaLounge" />
+    </form>
+
+    <iframe class="chat" name="chatFrame" id="chatFrame" title="Chat NebulaLounge"></iframe>
+  </div>
+
+  <!-- Banner inferiore -->
+  <div class="banner-bottom">
+    <iframe src="https://rotator.tradetracker.net/?r=97208&t=iframe"
+      width="728" height="90" frameborder="0" scrolling="no"
+      style="border:0; margin:0; padding:0;" title="Banner pubblicitario"></iframe>
+  </div>
+
+  <!-- Audio di benvenuto -->
+  <audio id="welcomeAudio" preload="auto"
+    src="https://www.indelibile.it/wp-content/uploads/2025/07/simple-notification-152054.mp3"></audio>
+
+  <!-- Footer -->
+  <footer style="text-align:center; padding:1em; font-size:0.9em; color:#aaa;">
+    <a href="legal/privacy.html">Privacy</a> |
+    <a href="legal/regolamento.html">Regolamento</a> |
+    <a href="legal/termini.html">Termini e Condizioni</a> |
+    <a href="legal/responsabilita.html">Responsabilità</a><br>
+    Chat ospitata su <a href="https://indelibile.it" target="_blank">indelibile.it</a><br>
+    Copyright © NebulaLounge, tutti i diritti sono riservati.
+  </footer>
 </body>
 </html>
