@@ -453,10 +453,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const looking = document.getElementById("lookingselect").value;
   const city = cityInput.value.trim();
   const password = passwordInput.value;
-// Override città se il nick è "Nebula"
-if (nick === "nebula") {
-  cityInput.value = "Milano";
-}
+    
   if (!nick || nick.length < 3) {
     alert("⚠️ Inserisci un nickname valido (minimo 3 caratteri).");
     return;
