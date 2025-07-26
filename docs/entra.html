@@ -451,16 +451,9 @@ window.addEventListener("DOMContentLoaded", () => {
   const nick = sanitizeNick(nickInput.value.trim());
   const sex = document.getElementById("sexselect").value;
   const looking = document.getElementById("lookingselect").value;
-  const password = passwordInput.value;
-
-  // Override città se il nick è "Nebula"
-  if (nick === "nebula") {
-    cityInput.value = "Milano";
-  }
-
-  // Ora recupera il valore aggiornato
   const city = cityInput.value.trim();
-
+  const password = passwordInput.value;
+    
   if (!nick || nick.length < 3) {
     alert("⚠️ Inserisci un nickname valido (minimo 3 caratteri).");
     return;
@@ -471,19 +464,32 @@ window.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  if (nickIsRegistered && password === "") {
+    alert("🔐 Il nickname è registrato. Inserisci la password per procedere.");
+    passwordInput.focus();
+    return;
+  }
+
   if (city && !validateCity(city)) {
     alert("⚠️ Inserisci una città valida.");
     return;
   }
 
-  // Salvataggio su localStorage
+  // Tutto ok: salvataggio
   localStorage.setItem("nick", nick);
   localStorage.setItem("sex", sex);
   localStorage.setItem("looking", looking);
   localStorage.setItem("city", city);
-  if (password) localStorage.setItem("password", password);
+
+  // Salva la password solo se presente
+  if (nickIsRegistered && password) {
+    localStorage.setItem("password", password);
+  } else {
+    localStorage.removeItem("password");
+  }
 
   window.location.href = "join.html";
+};
 
   fetch("https://nebula-chat-silk.vercel.app/comuni.json")
     .then(res => res.json())
