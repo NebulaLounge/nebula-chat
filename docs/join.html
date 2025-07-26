@@ -106,7 +106,11 @@
       document.getElementById("sexField").value      = sex;
       document.getElementById("lookingField").value  = looking;
       document.getElementById("passwordField").value = password;
-
+      const cityManual = localStorage.getItem("city");
+if (cityManual) {
+  document.getElementById("cityField").value = capitalize(cityManual);
+}
+     
       document.getElementById("welcomePrefix").textContent = sex === "F" ? "Benvenuta" : "Benvenuto";
       document.getElementById("nickSpan").textContent = capitalize(nick);
 
